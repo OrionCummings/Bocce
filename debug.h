@@ -84,41 +84,4 @@ inline void __info__(const char* message, const char* func, const uint64_t line,
 #endif
 }
 
-inline void __test__(const char* file, const char* func, const uint64_t line) {
-#ifdef __ENABLE_TESTS
-	printf("[TEST] Testing '%s' on line %" PRIu64 " of %s\n", func, line, file);
-#endif
-}
-
-inline void __header__(const char* title) {
-#ifdef __ENABLE_TESTS
-
-	/**
-	* NOTE: The following code includes magic numbers. These number are the ASCII
-	* character codes for a variety of special formatting characters. In my
-	* opinion, defining variables to hold these character codes would not 
-	* significantly enhance the readability and scalability of this code.
-	* The __header__ function is not something to be altered or even looked
-	* at often, so I find it acceptable to use some less-than-ideal programming
-	* practices.
-	*/
-	if (title == NULL) {
-		ERROR("Title pointer was NULL!");
-	}
-	else {
-		size_t len = strlen(title);
-		printf("%c", 201);
-		for (uint16_t i = 0; i < len + 2; i++) {
-			printf("%c", 205);
-		}
-		printf("%c\n%c %s %c\n%c", 187, 186, title, 186, 200);
-		for (uint16_t i = 0; i < len + 2; i++) {
-			printf("%c", 205);
-		}
-		printf("%c\n", 188);
-	}
-
-#endif
-}
-
 #endif
