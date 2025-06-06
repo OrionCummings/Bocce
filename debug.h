@@ -16,17 +16,17 @@
 
 #define MESSAGE_BUFFER_SIZE 512
 
-#define INFO(X, ...) \
+#define B_INFO(X, ...) \
 	 __info__(X, __func__, __LINE__ __VA_OPT__(,) __VA_ARGS__)
 
-#define WARNING(X, ...) \
+#define B_WARNING(X, ...) \
 	 __warning__(X, __func__, __LINE__ __VA_OPT__(,) __VA_ARGS__)
 
-#define ERROR(X, ...) \
+#define B_ERROR(X, ...) \
 	 __error__(X, __func__, __LINE__ __VA_OPT__(,) __VA_ARGS__)
 
 inline void __error__(const char* message, const char* func, const uint64_t line, ...) {
-#if defined __ENABLE_ERROR
+#ifdef __ENABLE_ERROR
 	va_list args;
 	va_start(args, line);
 
@@ -47,7 +47,7 @@ inline void __error__(const char* message, const char* func, const uint64_t line
 }
 
 inline void __warning__(const char* message, const char* func, const uint64_t line, ...) {
-#if defined __ENABLE_WARNING
+#ifdef __ENABLE_WARNING
 	va_list args;
 	va_start(args, line);
 
@@ -66,7 +66,7 @@ inline void __warning__(const char* message, const char* func, const uint64_t li
 }
 
 inline void __info__(const char* message, const char* func, const uint64_t line, ...) {
-#if defined __ENABLE_INFO && !defined __ENABLE_TESTS
+#ifdef __ENABLE_INFO
 	va_list args;
 	va_start(args, line);
 
