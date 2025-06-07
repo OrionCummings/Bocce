@@ -10,3 +10,15 @@ add_executable(Bocce
     # cli.c
     )
 
+target_include_directories(Bocce PUBLIC ../inc)
+
+target_compile_options(Bocce PRIVATE
+    -pedantic 
+    -Wall 
+    -Wextra 
+    -Wconversion 
+    -Wundef 
+    -Werror  
+    -Wno-unused-parameter
+    -Wno-unused-variable
+)

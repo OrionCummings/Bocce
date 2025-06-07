@@ -1,5 +1,5 @@
-# Bocci
-Multiplayer Bocci Game
+# Bocce
+Multiplayer Bocce Game
 
 # Goals
 

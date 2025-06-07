@@ -8,12 +8,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
-
 #include "debug.h"
 
 int main(int argc, char** argv) {
 
-	B_INFO("Information from main()");
+	B_INFO("C Version: %d", __STDC_VERSION__);
 
 	return 0;
 }
