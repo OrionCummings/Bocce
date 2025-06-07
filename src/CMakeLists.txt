@@ -22,3 +22,4 @@ target_compile_options(Bocce PRIVATE
     -Wno-unused-parameter
     -Wno-unused-variable
 )
+target_link_libraries(Bocce PRIVATE raylib)
