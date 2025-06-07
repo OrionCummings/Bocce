@@ -1,6 +1,8 @@
 add_executable(Bocce
     main.c
+    init.c
     debug.c
+    drawing.c
     # networking.c
     # graphics.c
     # physics.c
