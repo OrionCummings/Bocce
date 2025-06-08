@@ -64,7 +64,6 @@ int main(int argc, char** argv) {
     }
 
     B_INFO("Exiting program");
-    printf("\nGoodbye!\n");
 
     return 0;
 }
