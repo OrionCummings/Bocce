@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     if (ec_init) {
         B_ERROR("Failed to initialize!");
         B_ERROR("Exiting program!");
-        exit(EC_INIT_FAILURE);
+        return ec_init;
     }
 
     // If we have not told the window to close, keep going!
@@ -64,6 +64,7 @@ int main(int argc, char** argv) {
     ErrorCode ec_uinit = uninit();
     if (ec_uinit) {
         B_ERROR("Failed to uninitialize!");
+        return ec_uinit;
     }
 
     B_INFO("Exiting program");

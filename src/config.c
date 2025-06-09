@@ -1,6 +1,7 @@
 #include "config.h"
 
 // TODO: Make this function accept a path (from cwalk!)
+// TODO: Make this function/subfunctions work properly with small integer types! As is, integers are used in places where small integer types would be more accurate (make invalid types unrepresentable!)
 ErrorCode parse_config(ApplicationSettings* application_settings) {
 
     // Load the config.toml
@@ -77,6 +78,7 @@ ErrorCode parse_config_window(ApplicationSettings* settings, TomlTable* table) {
             }
         } else if (is_known_key(keyval, "window_title")) {
             if (is_type(*keyval, TOML_STRING)){
+                memset(settings->window_settings.window_title, 0, 256);
                 memcpy_s(settings->window_settings.window_title, 256, keyval->value->value.string->str, strlen(keyval->value->value.string->str));
             } else {
                 B_WARNING("Key-value-pair 'window_title' in table '%s' does not have value type 'string'", table_name);
@@ -124,6 +126,7 @@ ErrorCode parse_config_client(ApplicationSettings* settings, TomlTable* table) {
             }
         } else if (is_known_key(keyval, "server_ip")) {
             if (is_type(*keyval, TOML_STRING)){
+                memset(settings->client_settings.server_ip, 0, 16);
                 memcpy_s(settings->client_settings.server_ip, 16, keyval->value->value.string->str, strlen(keyval->value->value.string->str));
             } else {
                 B_WARNING("Key-value-pair 'server_ip' in table '%s' does not have value type 'string'", table_name);

@@ -25,4 +25,5 @@ target_compile_options(Bocce PRIVATE
     -Werror  
     -Wno-unused-parameter
     -Wno-unused-variable
+    -g
 )
