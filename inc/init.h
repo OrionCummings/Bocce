@@ -3,9 +3,13 @@
 
 #include "types.h"
 #include "debug.h"
+#include "config.h"
+#include "raylib.h"
+#include "stdbool.h"
 
 ErrorCode init(ApplicationSettings*);
 ErrorCode uninit(void);
-WindowSettings populate_window_application_settings(void);
+
+ErrorCode apply_default_config(ApplicationSettings*);
 
 #endif

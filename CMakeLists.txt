@@ -5,8 +5,6 @@ set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-add_subdirectory(src)
-
 include(FetchContent)
 set(FETCHCONTENT_QUIET FALSE)
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
@@ -34,8 +32,16 @@ FetchContent_Declare(
     GIT_REPOSITORY "https://github.com/likle/cwalk.git"
     GIT_TAG "master"
     GIT_PROGRESS TRUE
-)
+    )
 
-FetchContent_MakeAvailable(raylib)
-FetchContent_MakeAvailable(tinycsocket)
-FetchContent_MakeAvailable(cwalk)
+FetchContent_MakeAvailable(raylib tinycsocket cwalk)
+
+add_subdirectory(src)
+
+# Provides TOML parsing support
+add_subdirectory(lib/libtoml)
+
+target_link_libraries(Bocce PUBLIC raylib)
+target_link_libraries(Bocce PUBLIC tinycsocket)
+target_link_libraries(Bocce PUBLIC cwalk)
+target_link_libraries(Bocce PUBLIC toml)

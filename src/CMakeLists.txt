@@ -3,6 +3,8 @@ add_executable(Bocce
     init.c
     debug.c
     drawing.c
+    config.c
+    types.c
     # networking.c
     # graphics.c
     # physics.c
@@ -12,7 +14,7 @@ add_executable(Bocce
     # cli.c
     )
 
-target_include_directories(Bocce PUBLIC ../inc)
+target_include_directories(Bocce PRIVATE ../inc)
 
 target_compile_options(Bocce PRIVATE
     -pedantic 
@@ -24,4 +26,3 @@ target_compile_options(Bocce PRIVATE
     -Wno-unused-parameter
     -Wno-unused-variable
 )
-target_link_libraries(Bocce PRIVATE raylib)
