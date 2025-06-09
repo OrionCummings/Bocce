@@ -2,13 +2,10 @@
 
 ErrorCode init(ApplicationSettings* application_settings) {
 
-
-    // TODO: Parse a settings file to populate these settings; I don't care right now, so I'll do it a different (but worse way) for now
-
     // Apply the default config (release invariants) and then parse the config.toml (release variants)
     apply_default_config(application_settings);
-    // parse_config(application_settings);
-    // print_application_settings(*application_settings);
+    parse_config(application_settings);
+    print_application_settings(*application_settings);
 
     // Initialize and configure the window
     B_INFO("Initializing Raylib 5.6 and configuring the main window");
