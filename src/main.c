@@ -14,6 +14,7 @@
 #include "init.h"
 #include "drawing.h"
 #include "raylib.h"
+#include "error_codes.h"
 
 int update(void){
     global_time += dt;
@@ -24,12 +25,14 @@ int main(int argc, char** argv) {
 
     B_INFO("Starting Bocce application");
     B_INFO("C Version: %d (requires 202000)", __STDC_VERSION__);
-    
+
     // Initialize the application
     ApplicationSettings settings;
     ErrorCode ec_init = init(&settings);
-        if(ec_init) {
+    if (ec_init) {
         B_ERROR("Failed to initialize!");
+        B_ERROR("Exiting program!");
+        exit(EC_INIT_FAILURE);
     }
 
     // If we have not told the window to close, keep going!
@@ -43,13 +46,13 @@ int main(int argc, char** argv) {
 
         // Enable drawing mode (raylib)
         BeginDrawing();
-        
+
         // Draw to the screen buffer; must be in draw mode!
         ErrorCode ec_draw = draw();
         if (ec_draw){
             B_ERROR("Failed to draw!");
         }
-        
+
         // Disable drawing mode (raylib)
         EndDrawing();
     }
@@ -64,7 +67,6 @@ int main(int argc, char** argv) {
     }
 
     B_INFO("Exiting program");
-    printf("\nGoodbye!\n");
 
     return 0;
 }

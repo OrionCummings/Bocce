@@ -27,7 +27,6 @@ void __error__(const char* message, const char* func, const uint64_t line, ...) 
 	va_end(args);
 
 #endif
-	exit(1);
 }
 
 void __warning__(const char* message, const char* func, const uint64_t line, ...) {
