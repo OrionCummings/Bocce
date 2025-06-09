@@ -2,9 +2,6 @@
 
 ErrorCode init(ApplicationSettings* application_settings) {
 
-
-    // TODO: Parse a settings file to populate these settings; I don't care right now, so I'll do it a different (but worse way) for now
-
     // Apply the default config (release invariants) and then parse the config.toml (release variants)
     apply_default_config(application_settings);
     parse_config(application_settings);
