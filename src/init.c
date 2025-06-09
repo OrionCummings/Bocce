@@ -7,8 +7,8 @@ ErrorCode init(ApplicationSettings* application_settings) {
 
     // Apply the default config (release invariants) and then parse the config.toml (release variants)
     apply_default_config(application_settings);
-    // parse_config(application_settings);
-    // print_application_settings(*application_settings);
+    parse_config(application_settings);
+    print_application_settings(*application_settings);
 
     // Initialize and configure the window
     B_INFO("Initializing Raylib 5.6 and configuring the main window");
