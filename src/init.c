@@ -2,18 +2,14 @@
 
 ErrorCode init(ApplicationSettings* application_settings) {
 
-    // Apply the default config (release invariants) and then parse the config.toml (release variants)
-    apply_default_config(application_settings);
+    // Apply the default config and then parse the config.toml
+    apply_default_application_config(application_settings);
     parse_config(application_settings);
-    print_application_settings(*application_settings);
 
-    // Initialize and configure the window
-    B_INFO("Initializing Raylib 5.6 and configuring the main window");
-    WindowSettings ws = application_settings->window_settings;
-    SetConfigFlags(ws.config_flags); // FLAG_MSAA_4X_HINT
-    InitWindow(ws.window_width, ws.window_height, "Bocce");
-    SetTraceLogLevel(ws.log_level);
-    SetTargetFPS(ws.target_fps);
+    ErrorCode ec_init_window = init_window(application_settings);
+    if (ec_init_window) {
+        B_ERROR("Failed to initialize window");
+    }
 
     // TODO: Initialize arena allocator
     // TODO: Initialize networking; determine client/server
@@ -31,8 +27,20 @@ ErrorCode uninit(void){
     return 0;
 }
 
+ErrorCode init_window(ApplicationSettings* application_settings) {
 
-ErrorCode apply_default_config(ApplicationSettings* settings) {
+    // Initialize and configure the window
+    B_INFO("Initializing Raylib 5.6 and configuring the main window");
+    WindowSettings ws = application_settings->window_settings;
+    SetConfigFlags(ws.config_flags); // FLAG_MSAA_4X_HINT
+    SetTraceLogLevel(ws.log_level);
+    SetTargetFPS(ws.target_fps);
+    InitWindow(ws.window_width, ws.window_height, "Bocce");
+
+    return 0;
+}
+
+ErrorCode apply_default_application_config(ApplicationSettings* settings) {
 
     // Apply default window settings
     settings->window_settings.window_width = 1000;
@@ -40,7 +48,7 @@ ErrorCode apply_default_config(ApplicationSettings* settings) {
     settings->window_settings.fullscreen = false;
     memcpy_s(settings->window_settings.window_title, 256, "Multiplayer Bocce Game", strlen("Multiplayer Bocce Game"));
     settings->window_settings.config_flags = FLAG_MSAA_4X_HINT;
-    settings->window_settings.log_level = LOG_ALL;
+    settings->window_settings.log_level = LOG_NONE;
     settings->window_settings.target_fps = 120;
 
     // Apply default client settings

@@ -8,8 +8,10 @@
 #include "stdbool.h"
 
 ErrorCode init(ApplicationSettings*);
+ErrorCode init_window(ApplicationSettings* application_settings);
+
 ErrorCode uninit(void);
 
-ErrorCode apply_default_config(ApplicationSettings*);
+ErrorCode apply_default_application_config(ApplicationSettings*);
 
 #endif
