@@ -6,7 +6,7 @@
 #include "types.h"
 #include "error_codes.h"
 
-ErrorCode send(TcsSocket client_socket, const uint8_t* buffer, size_t buffer_size);
+ErrorCode send(TcsSocket socket, const uint8_t* buffer, size_t buffer_size);
 ErrorCode receive();
 
 #endif

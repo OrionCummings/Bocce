@@ -11,15 +11,18 @@
 #include "error_codes.h"
 #include "networking.h"
 
-ErrorCode init(ApplicationSettings*);
-ErrorCode init_window(ApplicationSettings*);
-ErrorCode init_networking(ApplicationSettings*);
-ErrorCode init_networking_client(ClientSettings);
-ErrorCode init_networking_server(ServerSettings);
+ErrorCode init(ApplicationSettings* settings);
+ErrorCode init_client(ApplicationSettings* settings);
+ErrorCode init_server(ApplicationSettings* settings);
+ErrorCode init_window(ApplicationSettings* settings);
+ErrorCode init_networking(ApplicationSettings* settings);
+ErrorCode init_networking_client(ClientSettings settings);
+ErrorCode init_networking_server(ServerSettings settings);
 
-ErrorCode uninit(void);
-ErrorCode uninit_networking(void);
+ErrorCode uninit(ApplicationSettings* settings);
+ErrorCode uninit_networking(ApplicationSettings* settings);
 
-ErrorCode apply_default_application_config(ApplicationSettings*);
+ErrorCode apply_default_application_config(ApplicationSettings* settings);
+bool should_have_window(const ApplicationSettings settings);
 
 #endif

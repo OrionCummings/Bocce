@@ -1,0 +1,12 @@
+[window]
+width = 1200
+height = 800
+fullscreen = false
+window_title = "Multiplayer Bocce Game"
+
+[client]
+major_version = 0
+minor_version = 0
+patch_version = 1
+server_ip = "127.0.0.1"
+server_port = 53278

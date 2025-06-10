@@ -1,6 +1,8 @@
 #include "init.h"
 
 static TcsSocket client_socket;
+static TcsSocket server_socket;
+static TcsSocket listen_socket;
 
 ErrorCode init(ApplicationSettings* application_settings) {
 
@@ -8,24 +10,60 @@ ErrorCode init(ApplicationSettings* application_settings) {
     memset(application_settings, 0, sizeof(*application_settings));
 
     // Apply the default config and then parse the config.toml
+    // TODO: This may not be good as it populates the ApplicationSettings regardless of the ApplicationMode
     ErrorCode ec_apply_default_application_config = apply_default_application_config(application_settings);
     if (ec_apply_default_application_config) {
         B_ERROR("Failed to apply default application config");
         return ec_apply_default_application_config;
     }
 
+    // Parse the config file
     ErrorCode ec_parse_config = parse_config(application_settings);
     if (ec_parse_config) {
         B_ERROR("Failed to parse application config");
         return ec_parse_config;
     }
 
-    ErrorCode ec_init_window = init_window(application_settings);
-    if (ec_init_window) {
-        B_ERROR("Failed to initialize window");
-        return ec_init_window;
+    ErrorCode ec_init_client;
+    ErrorCode ec_init_server;
+    switch (application_settings->application_mode) {
+    case AM_CLIENT:
+        ec_init_client = init_client(application_settings);
+        if (ec_init_client) {
+            B_ERROR("Failed to initialize client");
+            return ec_init_client;
+        }
+        break;
+
+    case AM_SERVER:
+        ec_init_server = init_server(application_settings);
+        if (ec_init_server) {
+            B_ERROR("Failed to initialize server");
+            return ec_init_server;
+        }
+        break;
+
+    case AM_DUAL:
+        ec_init_server = init_server(application_settings);
+        if (ec_init_server) {
+            B_ERROR("Failed to initialize server");
+            return ec_init_server;
+        }
+        ec_init_client = init_client(application_settings);
+        if (ec_init_client) {
+            B_ERROR("Failed to initialize client");
+            return ec_init_client;
+        }
+        break;
+
+    case AM_UNKNOWN:
+    default:
+        B_ERROR("Unknown application mode '%d'", application_settings->application_mode);
+        return EC_UNKNOWN_APPLICATION_MODE;
+        break;
     }
 
+    // Initialize networking
     ErrorCode ec_init_networking = init_networking(application_settings);
     if (ec_init_networking) {
         B_ERROR("Failed to initialize networking");
@@ -36,6 +74,25 @@ ErrorCode init(ApplicationSettings* application_settings) {
     // TODO: Initialize audio system
     // TODO: Initialize obj-file parser
     // TODO: Initialize database
+
+    return EC_OK;
+}
+
+ErrorCode init_client(ApplicationSettings* application_settings) {
+
+    // Initialize the window
+    ErrorCode ec_init_window = init_window(application_settings);
+    if (ec_init_window) {
+        B_ERROR("Failed to initialize window");
+        return ec_init_window;
+    }
+
+    return EC_OK;
+}
+
+ErrorCode init_server(ApplicationSettings* application_settings) {
+
+    // TODO: Implement
 
     return EC_OK;
 }
@@ -56,16 +113,7 @@ ErrorCode init_window(ApplicationSettings* application_settings) {
 ErrorCode init_networking(ApplicationSettings* application_settings) {
 
     // Determine if this is the client or the server
-    // TODO: Make this dynamic!
-    bool is_client = true;
-
-    if (is_client) {
-        ErrorCode ec_init_networking_client = init_networking_client(application_settings->client_settings);
-        if (ec_init_networking_client) {
-            B_ERROR("Failed to initialize networking client");
-            return ec_init_networking_client;
-        }
-    } else {
+    if (is_server(*application_settings)) {
         ErrorCode ec_init_networking_server = init_networking_server(application_settings->server_settings);
         if (ec_init_networking_server) {
             B_ERROR("Failed to initialize networking server");
@@ -73,14 +121,18 @@ ErrorCode init_networking(ApplicationSettings* application_settings) {
         }
     }
 
-    return 0;
+    if (is_client(*application_settings)) {
+        ErrorCode ec_init_networking_client = init_networking_client(application_settings->client_settings);
+        if (ec_init_networking_client) {
+            B_ERROR("Failed to initialize networking client");
+            return ec_init_networking_client;
+        }
+    }
+
+    return EC_OK;
 }
 
 ErrorCode init_networking_client(ClientSettings settings) {
-
-    // TODO: Remove this and add a graceful check for the server!
-    B_ERROR("Ensure the server is active before trying to run! -Orion");
-    return -1;
 
     if (tcs_lib_init() != TCS_SUCCESS) {
         B_ERROR("Client failed to initialize tinycsockets");
@@ -101,14 +153,14 @@ ErrorCode init_networking_client(ClientSettings settings) {
         return EC_TCS_CLIENT_CONNECTION_FAILURE;
     }
 
-    char buffer[] = "bocce client connecting";
+    char buffer[] = "CN1";
     size_t size = sizeof(buffer);
     const uint8_t* cbuffer = (const uint8_t*)buffer;
     // ErrorCode ec_send = send(client_socket, cbuffer, size);
     // if (ec_send) {
     if (tcs_send(client_socket, cbuffer, size, TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
         B_ERROR("Client failed to send data to the server");
-        return 342;
+        return EC_TCS_CLIENT_SEND_FAILURE;
     }
 
     uint8_t recv_buffer[1024];
@@ -127,14 +179,65 @@ ErrorCode init_networking_client(ClientSettings settings) {
 
 ErrorCode init_networking_server(ServerSettings settings) {
 
+    if (tcs_lib_init() != TCS_SUCCESS) {
+        B_ERROR("Server failed to initialize tinycsockets");
+        return EC_TCS_SERVER_INIT_FAILURE;
+    }
+
+    server_socket = TCS_NULLSOCKET;
+    listen_socket = TCS_NULLSOCKET;
+    if (tcs_create(&listen_socket, TCS_TYPE_TCP_IP4) != TCS_SUCCESS) {
+        B_ERROR("Server failed to create listening socket");
+        return EC_TCS_LISTEN_SOCKET_CREATE_FAILURE;
+    }
+
+    uint16_t listen_port = (uint16_t)(settings.port);
+    if (tcs_listen_to(listen_socket, listen_port)) {
+        B_ERROR("Server failed to listen on port '%d'", listen_port);
+        return EC_TCS_LISTEN_SOCKET_LISTEN_FAILURE;
+    }
+
+    if (tcs_accept(listen_socket, &server_socket, NULL)) {
+        B_ERROR("Server failed to accept connection");
+        return EC_TCS_LISTEN_SOCKET_CONNCTION_ACCEPTANCE_FAILURE;
+    }
+
+    if (tcs_destroy(&listen_socket) != TCS_SUCCESS) {
+        B_ERROR("Server failed to destroy listening socket");
+        return EC_TCS_LISTEN_SOCKET_DESTRUCTION_FAILURE;
+    }
+
+    uint8_t recv_buffer[1024]; // TODO: Remove magic numbers!
+    size_t recv_size = sizeof(recv_buffer) - sizeof('\0');
+    size_t bytes_received = 0;
+    if (tcs_receive(server_socket, recv_buffer, recv_size, TCS_NO_FLAGS, &bytes_received) != TCS_SUCCESS) {
+        B_ERROR("Server failed to receive data from client");
+        return EC_TCS_SERVER_SOCKET_RECEPTION_FAILURE;
+    }
+
+    recv_buffer[bytes_received] = '\0';
+    printf("received: %s\n", recv_buffer);
+
+    char msg[] = "Message from Bocce server\n";
+    if (tcs_send(server_socket, (const uint8_t*)msg, sizeof(msg), TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
+        B_ERROR("Server failed to send data to client");
+        return EC_TCS_SERVER_DATA_TRANSMISSION_FAILURE;
+    }
+
+    // TODO: Move this code (and init code) to a higher place!
+    // if (tcs_lib_free() != TCS_SUCCESS) {
+    //     B_ERROR("Server failed to destroy socket");
+    //     return EC_TCS_SERVER_SOCKET_DESTRUCTION_FAILURE;
+    // }
+
     return EC_OK;
 }
 
 // Uninitialzation functions
-ErrorCode uninit(void){
+ErrorCode uninit(ApplicationSettings* application_settings){
 
     B_INFO("Uninitializing network");
-    ErrorCode ec_uninit_networking = uninit_networking();
+    ErrorCode ec_uninit_networking = uninit_networking(application_settings);
     if (ec_uninit_networking) {
         B_ERROR("Failed to uninitialize networking");
         return ec_uninit_networking;
@@ -143,25 +246,57 @@ ErrorCode uninit(void){
     return EC_OK;
 }
 
-ErrorCode uninit_networking() {
+ErrorCode uninit_networking(ApplicationSettings* application_settings) {
 
-    B_INFO("Client shutting down socket");
-    if (tcs_shutdown(client_socket, TCS_SD_BOTH) != TCS_SUCCESS){
-        B_ERROR("Client failed to shutdown socket");
-        return EC_TCS_CLIENT_SOCKET_SHUTDOWN_FAILURE;
+    if (application_settings == NULL) {
+        B_ERROR("Passed NULL parameter 'application_settings'");
+        return EC_UNINIT_NETWORKING_PASSED_NULL;
+    }
+
+    if (is_server(*application_settings)) {
+
+        B_INFO("Server shutting down server socket");
+        if (tcs_shutdown(server_socket, TCS_SD_BOTH) != TCS_SUCCESS) {
+            B_ERROR("Server socket failed to shutdown");
+            return EC_TCS_SERVER_SOCKET_SHUTDOWN_FAILURE;
+        }
+
+        B_INFO("Server destroying server socket");
+        if (tcs_destroy(&server_socket) != TCS_SUCCESS){
+            B_ERROR("Server failed to destroy socket");
+            return EC_TCS_SERVER_SOCKET_DESTRUCTION_FAILURE;
+        }
+
+        // NOTE: This must be called once for every time tcs_lib_init() was called!
+        B_INFO("Client freeing tinycsocket");
+        if (tcs_lib_free() != TCS_SUCCESS) {
+            B_ERROR("Client failed to free tinycsocket");
+            return EC_TCS_CLIENT_SOCKET_FREE_TINYCSOCKET_FAILURE;
+        }
     }
     
-    B_INFO("Client closing socket");
-    if (tcs_destroy(&client_socket) != TCS_SUCCESS) {
-        B_ERROR("Client failed to close socket");
-        return EC_TCS_CLIENT_SOCKET_CLOSE_FAILURE;
+    if (is_client(*application_settings)) {
+        B_INFO("Client shutting down socket");
+        if (tcs_shutdown(client_socket, TCS_SD_BOTH) != TCS_SUCCESS){
+            B_ERROR("Client failed to shutdown socket");
+            return EC_TCS_CLIENT_SOCKET_SHUTDOWN_FAILURE;
+        }
+        
+        B_INFO("Client closing socket");
+        if (tcs_destroy(&client_socket) != TCS_SUCCESS) {
+            B_ERROR("Client failed to close socket");
+            return EC_TCS_CLIENT_SOCKET_CLOSE_FAILURE;
+        }
+        
+        // NOTE: This must be called once for every time tcs_lib_init() was called!
+        B_INFO("Client freeing tinycsocket");
+        if (tcs_lib_free() != TCS_SUCCESS) {
+            B_ERROR("Client failed to free tinycsocket");
+            return EC_TCS_CLIENT_SOCKET_FREE_TINYCSOCKET_FAILURE;
+        }
     }
-    
-    B_INFO("Client freeing tinycsocket");
-    if (tcs_lib_free() != TCS_SUCCESS) {
-        B_ERROR("Client failed to free tinycsocket");
-        return EC_TCS_CLIENT_SOCKET_FREE_TINYCSOCKET_FAILURE;
-    }
+
+
 
     return EC_OK;
 }
@@ -178,7 +313,7 @@ ErrorCode apply_default_application_config(ApplicationSettings* settings) {
     settings->window_settings.config_flags = FLAG_MSAA_4X_HINT;
     settings->window_settings.log_level = LOG_NONE;
     settings->window_settings.target_fps = 120;
-    
+
     // Apply default client settings
     settings->client_settings.major_version = -1;
     settings->client_settings.minor_version = -1;
@@ -196,3 +331,6 @@ ErrorCode apply_default_application_config(ApplicationSettings* settings) {
     return EC_OK;
 }
 
+bool should_have_window(const ApplicationSettings settings) {
+    return (settings.application_mode == AM_CLIENT) || (settings.application_mode == AM_DUAL);
+}

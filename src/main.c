@@ -16,9 +16,52 @@
 #include "raylib.h"
 #include "error_codes.h"
 
-int update(void){
+static ApplicationSettings settings;
+
+ErrorCode update(ApplicationSettings* settings){
     global_time += dt;
     return 0;
+}
+
+ErrorCode loop(ApplicationSettings* settings){
+
+    if (settings == NULL) {
+        B_ERROR("Passed null parameter");
+        return EC_LOOP_PASSED_NULL;
+    }
+
+    // Update the application state
+    ErrorCode ec_update = update(settings);
+    if (ec_update){
+        B_ERROR("Failed to update!");
+        return ec_update;
+    }
+
+    if (should_have_window(*settings)) {
+
+        // If we have not told the window to close, keep going!
+        while (!WindowShouldClose())
+        {
+
+            // Enable drawing mode (raylib)
+            BeginDrawing();
+
+            // Draw to the screen buffer; must be in draw mode!
+            ErrorCode ec_draw = draw();
+            if (ec_draw){
+                B_ERROR("Failed to draw!");
+                return ec_draw;
+            }
+
+            // Disable drawing mode (raylib)
+            EndDrawing();
+        }
+
+        // Close the window
+        CloseWindow();
+    }
+
+    return EC_OK;
 }
 
 int main(int argc, char** argv) {
@@ -27,43 +70,22 @@ int main(int argc, char** argv) {
     B_INFO("C Version: %d (requires 202000)", __STDC_VERSION__);
 
     // Initialize the application
-    ApplicationSettings settings;
     ErrorCode ec_init = init(&settings);
     if (ec_init) {
-        B_ERROR("Failed to initialize!");
-        B_ERROR("Exiting program!");
+        B_ERROR("Failed to initialize");
         return ec_init;
     }
 
-    // If we have not told the window to close, keep going!
-    while (!WindowShouldClose())
-    {
-        // Update the application state
-        ErrorCode ec_update = update();
-        if (ec_update){
-            B_ERROR("Failed to update!");
-        }
-
-        // Enable drawing mode (raylib)
-        BeginDrawing();
-
-        // Draw to the screen buffer; must be in draw mode!
-        ErrorCode ec_draw = draw();
-        if (ec_draw){
-            B_ERROR("Failed to draw!");
-        }
-
-        // Disable drawing mode (raylib)
-        EndDrawing();
+    ErrorCode ec_loop = loop(&settings);
+    if (ec_loop) {
+        B_ERROR("Failed to loop");
+        return ec_loop;
     }
 
-    // Close the window
-    CloseWindow();
-
     // Uninitialize the application
-    ErrorCode ec_uinit = uninit();
+    ErrorCode ec_uinit = uninit(&settings);
     if (ec_uinit) {
-        B_ERROR("Failed to uninitialize!");
+        B_ERROR("Failed to uninitialize");
         return ec_uinit;
     }
 

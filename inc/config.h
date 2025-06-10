@@ -4,6 +4,7 @@
 #include "toml.h"
 #include "debug.h"
 #include "types.h"
+#include "error_codes.h"
 
 // Config handling
 ErrorCode parse_config(ApplicationSettings*);

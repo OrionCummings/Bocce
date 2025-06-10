@@ -1,0 +1,6 @@
+[server]
+major_version = 0
+minor_version = 0
+patch_version = 1
+port = 53278
+max_players = 16
