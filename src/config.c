@@ -1,17 +1,27 @@
 #include "config.h"
 
 // TODO: Make this function accept a path (from cwalk!)
+// TODO: Make this function/subfunctions work properly with small integer types! As is, integers are used in places where small integer types would be more accurate (make invalid types unrepresentable!)
 ErrorCode parse_config(ApplicationSettings* application_settings) {
 
+    const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\client_config.toml";
+    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\server_config.toml";
+    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\dual_config.toml";
+
     // Load the config.toml
-    TomlTable* table = toml_load_filename("../../../config.toml");
+    TomlTable* table = toml_load_filename(file_path);
 
     // If the config file loading fails, then send an error message and then early return
     if (toml_err()->code != TOML_OK) {
-        B_ERROR("toml: %d: %s", toml_err()->code, toml_err()->message);
+        B_ERROR("Failed to load toml file: %d: %s", toml_err()->code, toml_err()->message);
         toml_err_clear();
-        return 1;
+        return EC_CONFIG_TOML_PARSE_FAILURE;
     }
+
+    // Flags to track the existence of these tables
+    bool has_window_table = false;
+    bool has_server_table = false;
+    bool has_client_table = false;
 
     // Create a table iterator and loop through each element (sub-tables)
     TomlTableIter it = toml_table_iter_new(table);
@@ -24,12 +34,15 @@ ErrorCode parse_config(ApplicationSettings* application_settings) {
 
         // If the current iterator head is a table with a known/expected name, parse it
         if (is_known_table(keyval, "window")) {
+            has_window_table = true;
             ErrorCode ec_parse_config_window = parse_config_window(application_settings, top_level_table);
             if (ec_parse_config_window) { B_ERROR("Failed to parse window config"); }
         } else if (is_known_table(keyval, "client")) {
+            has_client_table = true;
             ErrorCode ec_parse_config_client = parse_config_client(application_settings, top_level_table);
             if (ec_parse_config_client) { B_ERROR("Failed to parse client config"); }
         } else if (is_known_table(keyval, "server")) {
+            has_server_table = true;
             ErrorCode ec_parse_config_server = parse_config_server(application_settings, top_level_table);
             if (ec_parse_config_server) { B_ERROR("Failed to parse server config"); }
         } else {
@@ -42,7 +55,19 @@ ErrorCode parse_config(ApplicationSettings* application_settings) {
         toml_table_iter_next(&it);
     }
 
+    // Free the parsed table
     toml_table_free(table);
+
+    // Figure out if this is a client, server, or dual application
+    if (has_window_table && has_client_table && !has_server_table) {
+        application_settings->application_mode = AM_CLIENT;
+    } else if (!has_window_table && !has_client_table && has_server_table) {
+        application_settings->application_mode = AM_SERVER;
+    } else if (has_window_table && has_client_table && has_server_table) {
+        application_settings->application_mode = AM_DUAL;
+    } else {
+        application_settings->application_mode = AM_UNKNOWN;
+    }
 
     return 0;
 }
@@ -77,6 +102,7 @@ ErrorCode parse_config_window(ApplicationSettings* settings, TomlTable* table) {
             }
         } else if (is_known_key(keyval, "window_title")) {
             if (is_type(*keyval, TOML_STRING)){
+                memset(settings->window_settings.window_title, 0, 256);
                 memcpy_s(settings->window_settings.window_title, 256, keyval->value->value.string->str, strlen(keyval->value->value.string->str));
             } else {
                 B_WARNING("Key-value-pair 'window_title' in table '%s' does not have value type 'string'", table_name);
@@ -124,6 +150,7 @@ ErrorCode parse_config_client(ApplicationSettings* settings, TomlTable* table) {
             }
         } else if (is_known_key(keyval, "server_ip")) {
             if (is_type(*keyval, TOML_STRING)){
+                memset(settings->client_settings.server_ip, 0, 16);
                 memcpy_s(settings->client_settings.server_ip, 16, keyval->value->value.string->str, strlen(keyval->value->value.string->str));
             } else {
                 B_WARNING("Key-value-pair 'server_ip' in table '%s' does not have value type 'string'", table_name);
@@ -133,6 +160,12 @@ ErrorCode parse_config_client(ApplicationSettings* settings, TomlTable* table) {
                 settings->client_settings.server_port = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'server_port' in table '%s' does not have value type 'integer'", table_name);
+            }
+        } else if (is_known_key(keyval, "id")) {
+            if (is_type(*keyval, TOML_INTEGER)){
+                settings->client_settings.id = keyval->value->value.integer;
+            } else {
+                B_WARNING("Key-value-pair 'id' in table '%s' does not have value type 'integer'", table_name);
             }
         } else {
 
@@ -179,7 +212,13 @@ ErrorCode parse_config_server(ApplicationSettings* settings, TomlTable* table) {
             if (is_type(*keyval, TOML_INTEGER)){
                 settings->server_settings.max_players = keyval->value->value.integer;
             } else {
-                B_WARNING("Key-value-pair 'server_ip' in table '%s' does not have value type 'string'", table_name);
+                B_WARNING("Key-value-pair 'max_players' in table '%s' does not have value type 'integer'", table_name);
+            }
+        } else if (is_known_key(keyval, "port")) {
+            if (is_type(*keyval, TOML_INTEGER)){
+                settings->server_settings.port = keyval->value->value.integer;
+            } else {
+                B_WARNING("Key-value-pair 'port' in table '%s' does not have value type 'integer'", table_name);
             }
         } else {
 

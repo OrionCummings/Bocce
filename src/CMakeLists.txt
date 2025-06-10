@@ -5,7 +5,7 @@ add_executable(Bocce
     drawing.c
     config.c
     types.c
-    # networking.c
+    networking.c
     # graphics.c
     # physics.c
     # resources.c
@@ -25,4 +25,5 @@ target_compile_options(Bocce PRIVATE
     -Werror  
     -Wno-unused-parameter
     -Wno-unused-variable
+    -g
 )

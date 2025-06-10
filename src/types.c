@@ -29,3 +29,14 @@ void print_application_settings(const ApplicationSettings settings) {
     print_client_settings(settings.client_settings);
     print_server_settings(settings.server_settings);
 }
+
+bool is_server(const ApplicationSettings settings){
+    return (settings.application_mode == AM_SERVER) || (settings.application_mode == AM_DUAL);
+}
+
+bool is_client(const ApplicationSettings settings){
+    return (settings.application_mode == AM_CLIENT) || (settings.application_mode == AM_DUAL);
+}
+
+
+

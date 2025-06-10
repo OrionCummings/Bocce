@@ -1,5 +1,5 @@
 [window]
-width = 1000
+width = 1200
 height = 800
 fullscreen = false
 window_title = "Multiplayer Bocce Game"
@@ -9,10 +9,5 @@ major_version = 0
 minor_version = 0
 patch_version = 1
 server_ip = "127.0.0.1"
-server_port = 57283
-
-[server]
-major_version = 0
-minor_version = 0
-patch_version = 1
-max_players = 16
+server_port = 53278
+id=82
