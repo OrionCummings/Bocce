@@ -73,23 +73,26 @@ int main(int argc, char** argv) {
     ErrorCode ec_init = init(&settings);
     if (ec_init) {
         B_ERROR("Failed to initialize");
+        B_ERROR("Exiting with error code '%d'", ec_init);
         return ec_init;
     }
-
+    
     ErrorCode ec_loop = loop(&settings);
     if (ec_loop) {
         B_ERROR("Failed to loop");
+        B_ERROR("Exiting with error code '%d'", ec_loop);
         return ec_loop;
     }
-
+    
     // Uninitialize the application
     ErrorCode ec_uinit = uninit(&settings);
     if (ec_uinit) {
         B_ERROR("Failed to uninitialize");
+        B_ERROR("Exiting with error code '%d'", ec_uinit);
         return ec_uinit;
     }
 
     B_INFO("Exiting program");
 
-    return 0;
+    return EC_OK;
 }

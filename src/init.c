@@ -153,14 +153,22 @@ ErrorCode init_networking_client(ClientSettings settings) {
         return EC_TCS_CLIENT_CONNECTION_FAILURE;
     }
 
-    char buffer[] = "CN1";
+    // NetworkCommand nc = {
+    //     .type = NCT_CONNECT,
+    // };
+
+    size_t n = 32; // TODO: Magic number!
+    char buffer[n]; // TODO: this lowkey leaks memory
+    snprintf(buffer, n, "CN.%d", settings.id);
+
     size_t size = sizeof(buffer);
     const uint8_t* cbuffer = (const uint8_t*)buffer;
-    // ErrorCode ec_send = send(client_socket, cbuffer, size);
-    // if (ec_send) {
-    if (tcs_send(client_socket, cbuffer, size, TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
+    ErrorCode ec_send = send_data(client_socket, cbuffer, size);
+    if (ec_send) {
+    // if (tcs_send(client_socket, cbuffer, size, TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
         B_ERROR("Client failed to send data to the server");
-        return EC_TCS_CLIENT_SEND_FAILURE;
+        return ec_send;
+        // return EC_TCS_CLIENT_SEND_FAILURE;
     }
 
     uint8_t recv_buffer[1024];
@@ -218,17 +226,11 @@ ErrorCode init_networking_server(ServerSettings settings) {
     recv_buffer[bytes_received] = '\0';
     printf("received: %s\n", recv_buffer);
 
-    char msg[] = "Message from Bocce server\n";
+    char msg[] = "CN.ACK\n";
     if (tcs_send(server_socket, (const uint8_t*)msg, sizeof(msg), TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
         B_ERROR("Server failed to send data to client");
         return EC_TCS_SERVER_DATA_TRANSMISSION_FAILURE;
     }
-
-    // TODO: Move this code (and init code) to a higher place!
-    // if (tcs_lib_free() != TCS_SUCCESS) {
-    //     B_ERROR("Server failed to destroy socket");
-    //     return EC_TCS_SERVER_SOCKET_DESTRUCTION_FAILURE;
-    // }
 
     return EC_OK;
 }

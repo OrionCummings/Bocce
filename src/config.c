@@ -6,6 +6,7 @@ ErrorCode parse_config(ApplicationSettings* application_settings) {
 
     const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\client_config.toml";
     // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\server_config.toml";
+    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\dual_config.toml";
 
     // Load the config.toml
     TomlTable* table = toml_load_filename(file_path);
@@ -159,6 +160,12 @@ ErrorCode parse_config_client(ApplicationSettings* settings, TomlTable* table) {
                 settings->client_settings.server_port = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'server_port' in table '%s' does not have value type 'integer'", table_name);
+            }
+        } else if (is_known_key(keyval, "id")) {
+            if (is_type(*keyval, TOML_INTEGER)){
+                settings->client_settings.id = keyval->value->value.integer;
+            } else {
+                B_WARNING("Key-value-pair 'id' in table '%s' does not have value type 'integer'", table_name);
             }
         } else {
 

@@ -30,6 +30,7 @@ typedef struct ClientSettings {
     int patch_version;
     char server_ip[16]; // "AAA.BBB.CCC.DDD\0" is 16 characters long (\0 is the null character)
     int server_port;
+    int id;
 } ClientSettings;
 
 typedef struct ServerSettings {

@@ -5,7 +5,7 @@ add_executable(Bocce
     drawing.c
     config.c
     types.c
-    # networking.c
+    networking.c
     # graphics.c
     # physics.c
     # resources.c
