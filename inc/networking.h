@@ -6,45 +6,61 @@
 #include "types.h"
 #include "error_codes.h"
 
-#define MAX_PLAYERS (16) // NOTE: This is independent of the config.toml
-
 typedef struct IdIndexMapEntry {
     int client_id;
     int cliend_index;
 } IdIndexMapEntry;
 
-typedef struct Server {
-    IdIndexMapEntry player_id_map[MAX_PLAYERS]; //
+typedef struct ServerSettings {
+    int major_version;
+    int minor_version;
+    int patch_version;
+    int port;
+    int max_players;
+} ServerSettings;
 
+typedef struct Server {
+    ServerSettings settings;
+    TcsSocket player_sockets[MAX_PLAYERS];
+    IdIndexMapEntry player_id_map[MAX_PLAYERS];
+    GameState state;
 } Server;
 
-// 16 types
-typedef enum NetworkCommandType {
-    NCT_UNKNOWN = 0,
-    NCT_CONNECT = 1,
-    NCT_CONNECT_ACK = 2,
-    NCT_DISCONNECT = 3,
-    NCT_DISCONNECT_ACK = 4,
-    NCT_5 = 5,
-    NCT_6 = 6,
-    NCT_7 = 7,
-    NCT_8 = 8,
-    NCT_9 = 9,
-    NCT_10 = 10,
-    NCT_11 = 11,
-    NCT_12 = 12,
-    NCT_13 = 13,
-    NCT_14 = 14,
-    NCT_15 = 15,
-} NetworkCommandType;
+typedef struct ClientSettings {
+    int major_version;
+    int minor_version;
+    int patch_version;
+    char server_ip[16]; // "AAA.BBB.CCC.DDD\0" is 16 characters long (\0 is the null character)
+    int server_port;
+    int id;
+} ClientSettings;
 
-typedef struct NetworkCommand {
-    NetworkCommandType type;
-} NetworkCommand;
+typedef struct Client {
+    ClientSettings settings;
+    TcsSocket socket;
+    bool connected;
+    GameState state;
+} Client;
+
+// Type-supporting functions
+void print_window_settings(WindowSettings);
+void print_client_settings(ClientSettings);
+void print_server_settings(ServerSettings);
+void print_application_settings(const ApplicationSettings);
+
+bool is_server(const ApplicationSettings);
+bool is_client(const ApplicationSettings);
+
 
 // High-level functions
 ErrorCode send_data(TcsSocket socket, const uint8_t* buffer, size_t buffer_size);
 ErrorCode receive_data();
+
+// Client queries/commands
+bool is_connected(const Client*);
+const char* get_connected_address(const Client*);
+const char* get_connected_ip(const Client*);
+int get_connected_port(const Client*);
 
 // Server queries/commands
 bool is_server_full(const Server* server);
@@ -52,13 +68,5 @@ int get_num_players(const Server* server);
 int get_max_num_players(const Server* server);
 bool is_player_connected(const Server* server, int client_id);
 ErrorCode kick_player(const Server* server, int client_id);
-
-// TODO: maybe remove?
-char* network_command_to_string(const NetworkCommand);
-uint64_t network_command_to_qword(const NetworkCommand);
-NetworkCommand qword_to_network_command(const uint64_t);
-
-
-
 
 #endif

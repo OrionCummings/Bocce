@@ -35,7 +35,7 @@ ErrorCode send_data(TcsSocket socket, const uint8_t* buffer, size_t buffer_size)
         return EC_TCS_CLIENT_SEND_FAILURE;
     }
 
-    B_INFO("Sent %lld bytes to server\n", num_bytes_sent);
+    B_INFO("Sent %lld bytes to server", num_bytes_sent);
 
     return EC_OK;
 }
@@ -45,28 +45,39 @@ ErrorCode receive_data() {
     return EC_OK;
 }
 
-// TODO: Are these functions good ideas?
-char* network_command_to_string(const NetworkCommand nc) {
-    B_ERROR("NOT IMPLEMENTED YET");
-    return NULL;
+// Helper functions
+void print_window_settings(WindowSettings settings) {
+    printf("Window Settings:\n");
+    printf("\twindow_width: '%d'\n", settings.window_width);
+    printf("\twindow_height:' %d'\n", settings.window_height);
+    printf("\tfullscreen: '%s'\n", (settings.fullscreen)? "true" : "false");
+    printf("\twindow_title: '%s'\n", settings.window_title);
+    printf("\tlog_level: '%d'\n", settings.log_level);
+    printf("\ttarget_fps: '%d'\n", settings.target_fps);
+    printf("\tconfig_flags: '%d'\n", settings.config_flags);
 }
 
-uint64_t network_command_to_qword(const NetworkCommand nc) {
-    const uint8_t len = 64;
-    uint64_t qword = 0;
-
-    qword |= (nc.type << (len - 4));
-
-    return qword;
+void print_client_settings(ClientSettings settings) {
+    printf("Client Settings:\n");
+    printf("\tversion: '%d.%d.%d'\n", settings.major_version, settings.minor_version, settings.patch_version);
+    printf("\tserver_ip: '%s'\n", settings.server_ip);
+    printf("\tserver_port: '%d'\n", settings.server_port);
 }
 
-NetworkCommand qword_to_network_command(const uint64_t qword) {
-    NetworkCommand nc = {0};
-
-    NetworkCommandType nct = ((qword & 0xF000000000000000) >> 28);
-    nc.type = nct;
-
-    return nc;
+void print_server_settings(ServerSettings settings) {
+    printf("Server Settings:\n");
+    printf("\tversion: '%d.%d.%d'\n", settings.major_version, settings.minor_version, settings.patch_version);
+    printf("\tmax_players: '%d'\n", settings.max_players);
 }
 
+void print_application_settings(const ApplicationSettings settings) {
+    print_window_settings(settings.window_settings);
+}
 
+bool is_server(const ApplicationSettings settings){
+    return (settings.application_mode == AM_SERVER) || (settings.application_mode == AM_DUAL);
+}
+
+bool is_client(const ApplicationSettings settings){
+    return (settings.application_mode == AM_CLIENT) || (settings.application_mode == AM_DUAL);
+}

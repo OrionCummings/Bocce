@@ -2,7 +2,7 @@
 
 // TODO: Make this function accept a path (from cwalk!)
 // TODO: Make this function/subfunctions work properly with small integer types! As is, integers are used in places where small integer types would be more accurate (make invalid types unrepresentable!)
-ErrorCode parse_config(ApplicationSettings* application_settings) {
+ErrorCode parse_config(ApplicationSettings* application_settings, Server* server, Client* client) {
 
     const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\client_config.toml";
     // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\server_config.toml";
@@ -39,11 +39,11 @@ ErrorCode parse_config(ApplicationSettings* application_settings) {
             if (ec_parse_config_window) { B_ERROR("Failed to parse window config"); }
         } else if (is_known_table(keyval, "client")) {
             has_client_table = true;
-            ErrorCode ec_parse_config_client = parse_config_client(application_settings, top_level_table);
+            ErrorCode ec_parse_config_client = parse_config_client(&client->settings, top_level_table);
             if (ec_parse_config_client) { B_ERROR("Failed to parse client config"); }
         } else if (is_known_table(keyval, "server")) {
             has_server_table = true;
-            ErrorCode ec_parse_config_server = parse_config_server(application_settings, top_level_table);
+            ErrorCode ec_parse_config_server = parse_config_server(&server->settings, top_level_table);
             if (ec_parse_config_server) { B_ERROR("Failed to parse server config"); }
         } else {
 
@@ -120,7 +120,7 @@ ErrorCode parse_config_window(ApplicationSettings* settings, TomlTable* table) {
     return 0;
 }
 
-ErrorCode parse_config_client(ApplicationSettings* settings, TomlTable* table) {
+ErrorCode parse_config_client(ClientSettings* settings, TomlTable* table) {
 
     const char* table_name = "client";
     TomlTableIter it = toml_table_iter_new(table);
@@ -132,38 +132,38 @@ ErrorCode parse_config_client(ApplicationSettings* settings, TomlTable* table) {
 
         if (is_known_key(keyval, "major_version")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->client_settings.major_version = keyval->value->value.integer;
+                settings->major_version = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'width' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "minor_version")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->client_settings.minor_version = keyval->value->value.integer;
+                settings->minor_version = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'height' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "patch_version")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->client_settings.patch_version = keyval->value->value.integer;
+                settings->patch_version = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'path_version' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "server_ip")) {
             if (is_type(*keyval, TOML_STRING)){
-                memset(settings->client_settings.server_ip, 0, 16);
-                memcpy_s(settings->client_settings.server_ip, 16, keyval->value->value.string->str, strlen(keyval->value->value.string->str));
+                memset(settings->server_ip, 0, 16);
+                memcpy_s(settings->server_ip, 16, keyval->value->value.string->str, strlen(keyval->value->value.string->str));
             } else {
                 B_WARNING("Key-value-pair 'server_ip' in table '%s' does not have value type 'string'", table_name);
             }
         } else if (is_known_key(keyval, "server_port")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->client_settings.server_port = keyval->value->value.integer;
+                settings->server_port = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'server_port' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "id")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->client_settings.id = keyval->value->value.integer;
+                settings->id = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'id' in table '%s' does not have value type 'integer'", table_name);
             }
@@ -180,7 +180,7 @@ ErrorCode parse_config_client(ApplicationSettings* settings, TomlTable* table) {
     return 0;
 }
 
-ErrorCode parse_config_server(ApplicationSettings* settings, TomlTable* table) {
+ErrorCode parse_config_server(ServerSettings* settings, TomlTable* table) {
 
     const char* table_name = "server";
     TomlTableIter it = toml_table_iter_new(table);
@@ -192,31 +192,31 @@ ErrorCode parse_config_server(ApplicationSettings* settings, TomlTable* table) {
 
         if (is_known_key(keyval, "major_version")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->server_settings.major_version = keyval->value->value.integer;
+                settings->major_version = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'width' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "minor_version")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->server_settings.minor_version = keyval->value->value.integer;
+                settings->minor_version = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'height' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "patch_version")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->server_settings.patch_version = keyval->value->value.integer;
+                settings->patch_version = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'path_version' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "max_players")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->server_settings.max_players = keyval->value->value.integer;
+                settings->max_players = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'max_players' in table '%s' does not have value type 'integer'", table_name);
             }
         } else if (is_known_key(keyval, "port")) {
             if (is_type(*keyval, TOML_INTEGER)){
-                settings->server_settings.port = keyval->value->value.integer;
+                settings->port = keyval->value->value.integer;
             } else {
                 B_WARNING("Key-value-pair 'port' in table '%s' does not have value type 'integer'", table_name);
             }
