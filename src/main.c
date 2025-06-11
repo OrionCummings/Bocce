@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
+#include <sqlite3.h>
 #include "constants.h"
 #include "types.h"
 #include "debug.h"
@@ -20,9 +21,17 @@
 static ApplicationSettings settings;
 static Client client;
 static Server server;
+static sqlite3* database;
 static GameState state;
 
+// Debug
+static int looped = 0;
+
 ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, GameState* state){
+
+    if (looped++) return -1;
+
+    B_INFO("Executing one main loop");
 
     if (should_have_window(*settings)) {
 
@@ -68,7 +77,7 @@ int main(int argc, char** argv) {
     B_INFO("C Version: %d (requires 202000)", __STDC_VERSION__);
 
     // Initialize the application
-    ErrorCode ec_init = init(&settings, &server, &client);
+    ErrorCode ec_init = init(&settings, &server, &client, &database);
     if (ec_init) {
         B_ERROR("Failed to initialize");
         B_ERROR("Exiting with error code '%d'", ec_init);
@@ -83,7 +92,7 @@ int main(int argc, char** argv) {
     }
 
     // Uninitialize the application
-    ErrorCode ec_uinit = uninit(&settings);
+    ErrorCode ec_uinit = uninit(&settings, &database);
     if (ec_uinit) {
         B_ERROR("Failed to uninitialize");
         B_ERROR("Exiting with error code '%d'", ec_uinit);

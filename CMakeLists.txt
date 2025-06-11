@@ -35,6 +35,7 @@ FetchContent_Declare(
     )
 
 FetchContent_MakeAvailable(raylib tinycsocket cwalk)
+find_package(SQLite3 REQUIRED)
 
 add_subdirectory(src)
 
@@ -45,3 +46,4 @@ target_link_libraries(Bocce PUBLIC raylib)
 target_link_libraries(Bocce PUBLIC tinycsocket)
 target_link_libraries(Bocce PUBLIC cwalk)
 target_link_libraries(Bocce PUBLIC toml)
+target_link_libraries(Bocce PUBLIC SQLite3)
