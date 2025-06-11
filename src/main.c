@@ -15,23 +15,20 @@
 #include "drawing.h"
 #include "raylib.h"
 #include "error_codes.h"
+#include "update.h"
 
 static ApplicationSettings settings;
+static Client client;
+static Server server;
 
-ErrorCode update(ApplicationSettings* settings){
-    global_time += dt;
-    return 0;
-}
+ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client){
 
-ErrorCode loop(ApplicationSettings* settings){
-
-    if (settings == NULL) {
-        B_ERROR("Passed null parameter");
-        return EC_LOOP_PASSED_NULL;
-    }
+    if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
+    if (server == NULL) { B_ERROR("Passed null parameter 'server'"); return EC_PASSED_NULL; }
+    if (client == NULL) { B_ERROR("Passed null parameter 'client'"); return EC_PASSED_NULL; }
 
     // Update the application state
-    ErrorCode ec_update = update(settings);
+    ErrorCode ec_update = update(settings, server, client);
     if (ec_update){
         B_ERROR("Failed to update!");
         return ec_update;
@@ -47,7 +44,7 @@ ErrorCode loop(ApplicationSettings* settings){
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw();
+            ErrorCode ec_draw = draw(settings);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;
@@ -70,20 +67,20 @@ int main(int argc, char** argv) {
     B_INFO("C Version: %d (requires 202000)", __STDC_VERSION__);
 
     // Initialize the application
-    ErrorCode ec_init = init(&settings);
+    ErrorCode ec_init = init(&settings, &server, &client);
     if (ec_init) {
         B_ERROR("Failed to initialize");
         B_ERROR("Exiting with error code '%d'", ec_init);
         return ec_init;
     }
-    
-    ErrorCode ec_loop = loop(&settings);
+
+    ErrorCode ec_loop = loop(&settings, &server, &client);
     if (ec_loop) {
         B_ERROR("Failed to loop");
         B_ERROR("Exiting with error code '%d'", ec_loop);
         return ec_loop;
     }
-    
+
     // Uninitialize the application
     ErrorCode ec_uinit = uninit(&settings);
     if (ec_uinit) {

@@ -6,6 +6,8 @@ add_executable(Bocce
     config.c
     types.c
     networking.c
+    ball.c
+    update.c
     # graphics.c
     # physics.c
     # resources.c

@@ -5,12 +5,13 @@
 #include "debug.h"
 #include "types.h"
 #include "error_codes.h"
+#include "networking.h"
 
 // Config handling
-ErrorCode parse_config(ApplicationSettings*);
+ErrorCode parse_config(ApplicationSettings*, Server*, Client*);
 ErrorCode parse_config_window(ApplicationSettings*, TomlTable*);
-ErrorCode parse_config_client(ApplicationSettings*, TomlTable*);
-ErrorCode parse_config_server(ApplicationSettings*, TomlTable*);
+ErrorCode parse_config_client(ClientSettings*, TomlTable*);
+ErrorCode parse_config_server(ServerSettings*, TomlTable*);
 
 // TOML handling
 void print_table(const TomlTable *table);

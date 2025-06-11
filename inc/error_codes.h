@@ -1,6 +1,8 @@
 #ifndef __ERROR_CODES_H
 #define __ERROR_CODES_H
 
+typedef int ErrorCode;
+
 #define EC_OK (0)
 #define EC_INIT_FAILURE (14)
 
@@ -31,7 +33,6 @@
 
 #define EC_UNKNOWN_APPLICATION_MODE (672)
 
-#define EC_LOOP_PASSED_NULL (-267)
-#define EC_UNINIT_NETWORKING_PASSED_NULL (-268)
+#define EC_PASSED_NULL (-5)
 
 #endif
