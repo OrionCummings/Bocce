@@ -17,13 +17,26 @@
 #define COLOR_TEXT (COLOR_VSC_4)
 #define COLOR_HIGHLIGHT (COLOR_VSC_5)
 
+// https://coolors.co/palette/606c38-283618-fefae0-dda15e-bc6c25
+#define COLOR_COURT_BASE_DARK ((Color){40, 54, 24, 255})
+#define COLOR_COURT_BASE ((Color){96, 108, 56, 255})
+#define COLOR_COURT_BEIGE ((Color){254, 250, 224, 255})
+#define COLOR_COURT_WALL ((Color){221, 161, 94, 255})
+#define COLOR_COURT_WALL_DARK ((Color){188, 108, 37, 255})
+
 // Colors
 Color dim_color(const Color, float);
 
 // Drawing
+ErrorCode draw(const ApplicationSettings*, const GameState*);
 void draw_background(void);
-void draw_circle_outline(Vector2, float, Color);
-ErrorCode draw(const ApplicationSettings*);
+void draw_court(void);
+void draw_circle_outline(Vector2, float, Color, float dim_factor);
+void draw_ball(const Ball);
+void draw_balls(const Ball*, uint16_t);
+
+// Misc
+Ball generate_ball(Vector2 mouse_position);
 
 // Debug
 void draw_debug_information(const ApplicationSettings*);

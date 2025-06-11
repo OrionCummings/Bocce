@@ -56,6 +56,7 @@ ErrorCode init_window(ApplicationSettings* application_settings) {
     SetTraceLogLevel(ws.log_level);
     SetTargetFPS(ws.target_fps);
     InitWindow(ws.window_width, ws.window_height, ws.window_title);
+    HideCursor();
 
     return EC_OK;
 }

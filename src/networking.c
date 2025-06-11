@@ -81,4 +81,3 @@ bool is_server(const ApplicationSettings settings){
 bool is_client(const ApplicationSettings settings){
     return (settings.application_mode == AM_CLIENT) || (settings.application_mode == AM_DUAL);
 }
-

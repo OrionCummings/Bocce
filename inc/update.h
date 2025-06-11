@@ -5,9 +5,15 @@
 #include "error_codes.h"
 #include "debug.h"
 #include "networking.h"
+#include "raylib.h"
 
-ErrorCode update(ApplicationSettings* settings, Server* server, Client* client);
-ErrorCode update_server(Server* server);
-ErrorCode update_client(Client* client);
+ErrorCode update(ApplicationSettings*, Server*, Client*, GameState*);
+ErrorCode update_game_state(GameState*);
+ErrorCode update_server(Server*);
+ErrorCode update_client(Client*);
+
+// Misc
+Ball generate_ball(Vector2 mouse_position);
+Color get_random_color(void);
 
 #endif

@@ -20,31 +20,32 @@
 static ApplicationSettings settings;
 static Client client;
 static Server server;
+static GameState state;
 
-ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client){
-
-    if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
-    if (server == NULL) { B_ERROR("Passed null parameter 'server'"); return EC_PASSED_NULL; }
-    if (client == NULL) { B_ERROR("Passed null parameter 'client'"); return EC_PASSED_NULL; }
-
-    // Update the application state
-    ErrorCode ec_update = update(settings, server, client);
-    if (ec_update){
-        B_ERROR("Failed to update!");
-        return ec_update;
-    }
+ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, GameState* state){
 
     if (should_have_window(*settings)) {
 
         // If we have not told the window to close, keep going!
-        while (!WindowShouldClose())
-        {
+        while (!WindowShouldClose()) {
+
+            if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
+            if (server == NULL) { B_ERROR("Passed null parameter 'server'");   return EC_PASSED_NULL; }
+            if (client == NULL) { B_ERROR("Passed null parameter 'client'");   return EC_PASSED_NULL; }
+            if (state == NULL) { B_ERROR("Passed null parameter 'state'");   return EC_PASSED_NULL; }
+
+            // Update the application state
+            ErrorCode ec_update = update(settings, server, client, state);
+            if (ec_update){
+                B_ERROR("Failed to update!");
+                return ec_update;
+            }
 
             // Enable drawing mode (raylib)
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw(settings);
+            ErrorCode ec_draw = draw(settings, state);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;
@@ -74,7 +75,7 @@ int main(int argc, char** argv) {
         return ec_init;
     }
 
-    ErrorCode ec_loop = loop(&settings, &server, &client);
+    ErrorCode ec_loop = loop(&settings, &server, &client, &state);
     if (ec_loop) {
         B_ERROR("Failed to loop");
         B_ERROR("Exiting with error code '%d'", ec_loop);
