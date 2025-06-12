@@ -300,7 +300,7 @@ bool is_known_key(const TomlKeyValue* keyval, const char* key) {
     return strcmp(keyval->key->str, key) == 0;
 }
 
-bool is_type(TomlKeyValue keyval, TomlType type) {
+bool is_type(const TomlKeyValue keyval, TomlType type) {
     return keyval.value->type == type;
 }
 

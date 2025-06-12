@@ -54,21 +54,68 @@ void draw_circle_outline(Vector2 point, float radius, Color color, float dim_fac
     DrawCircleLines((int)point.x, (int)point.y, radius * 0.99f, color);
 }
 
-ErrorCode draw(const ApplicationSettings* settings, const GameState* state) {
+ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
     if (state == NULL) { B_ERROR("Passed null parameter 'state'"); return EC_PASSED_NULL; }
 
     // Draw the background and the bocce court
     draw_background();
-    draw_court();
-    draw_balls(state->balls, state->num_balls);
+    // draw_court();
+    // draw_balls(state->balls, state->num_balls);
+    Vector2 chat_pos = (Vector2){ 300, 50 };
+    Vector2 chat_dim = (Vector2){ 800, 700 };
+    draw_chat(chat_pos, chat_dim, chat);
 
     // Debug information
     draw_debug_information(settings);
     draw_circle_outline(GetMousePosition(), 20, (Color){ 255, 0, 255, 70 }, 0.3f);
 
     return 0;
+}
+
+void draw_chat(const Vector2 pos, const Vector2 dim, const Chat* chat) {
+
+    Vector2 shadow_offset = { 7, 7 };
+    Vector2 input_offset = { 4, 4 };
+    int input_height = 34;
+    int padding = 4;
+
+    // Draw shadow
+    DrawRectangle((int)(pos.x + shadow_offset.x), (int)(pos.y + shadow_offset.y), (int)dim.x, (int)dim.y, COLOR_VSC_2);
+
+    // Draw background
+    DrawRectangle((int)pos.x, (int)pos.y, (int)dim.x, (int)dim.y, COLOR_VSC_3);
+
+    // Draw prebuffer box
+    int pb_x = (int)(pos.x + input_offset.x);
+    int pb_y = (int)(pos.y + dim.y - ((float)input_height + input_offset.y));
+    int pb_w = (int)(dim.x - (2 * input_offset.x));
+    int pb_h = input_height;
+    DrawRectangle(pb_x, pb_y, pb_w, pb_h, COLOR_VSC_4);
+
+    // Draw message history
+    for (uint16_t index = 0; index < chat->history.num_messages; index++) {
+        ChatMessage message = chat->history.messages[index];
+        char buffer[128] = { 0 };
+        format_chat_message(buffer, message);
+        DrawText(buffer, 500, 500, 30, COLOR_VSC_5);
+    }
+
+    // Draw prebuffer message
+    ChatMessage hint_message = (ChatMessage){.text = "type a message!", .text_index = 15, .userId = 0};
+    ChatMessage message = chat->pre_buffer;
+    char buffer[128] = { 0 };
+    
+    // Display the chat hint if there is no text in the prebuffer
+    if (chat->pre_buffer_index == 0) {
+        format_chat_message(buffer, hint_message);
+        DrawText(buffer, pb_x + (padding / 2), pb_y + (padding / 2), 32, COLOR_VSC_3);
+    } else {
+        format_chat_message(buffer, message);
+        DrawText(buffer, pb_x + (padding / 2), pb_y + (padding / 2), 32, COLOR_VSC_5);
+    }
+
 }
 
 void draw_debug_information(const ApplicationSettings* settings) {
@@ -86,3 +133,7 @@ void draw_debug_information(const ApplicationSettings* settings) {
     DrawText(TextFormat("Server: %s", (is_server(*settings)) ? "Yes" : "No"), 10, 10 + (20 * i++), 20, COLOR_TEXT);
     // DrawText(TextFormat("Connected to: %s", get_server_address(*)), 10, 10 + (20 * i++), 20, COLOR_TEXT);
 }
+
+
+
+

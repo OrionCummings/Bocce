@@ -48,7 +48,8 @@ typedef struct ApplicationSettings {
 
 typedef struct GameState {
     uint16_t num_balls;
-    Ball balls[12];
+    Ball balls[12]; // TEMP
 } GameState;
+
 
 #endif
