@@ -17,12 +17,14 @@
 #include "raylib.h"
 #include "error_codes.h"
 #include "update.h"
+#include "chat.h"
 
 static ApplicationSettings settings;
 static Client client;
 static Server server;
 static sqlite3* database;
 static GameState state;
+static Chat chat;
 
 // Debug
 static int looped = 0;
@@ -44,7 +46,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             if (state == NULL) { B_ERROR("Passed null parameter 'state'");   return EC_PASSED_NULL; }
 
             // Update the application state
-            ErrorCode ec_update = update(settings, server, client, state);
+            ErrorCode ec_update = update(settings, server, client, state, &chat);
             if (ec_update){
                 B_ERROR("Failed to update!");
                 return ec_update;
@@ -54,7 +56,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw(settings, state);
+            ErrorCode ec_draw = draw(settings, state, &chat);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;

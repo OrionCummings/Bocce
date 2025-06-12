@@ -8,6 +8,7 @@ add_executable(Bocce
     networking.c
     ball.c
     update.c
+    chat.c
     # graphics.c
     # physics.c
     # resources.c

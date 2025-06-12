@@ -22,6 +22,6 @@ void print_keyval(const TomlKeyValue *keyval);
 // Helper functions
 bool is_known_table(const TomlKeyValue*, const char*);
 bool is_known_key(const TomlKeyValue*, const char*);
-bool is_type(TomlKeyValue, TomlType);
+bool is_type(const TomlKeyValue, TomlType);
 
 #endif
