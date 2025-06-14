@@ -25,6 +25,7 @@ static Server server;
 static sqlite3* database;
 static GameState state;
 static Chat chat;
+static Font font;
 
 // Debug
 static int looped = 0;
@@ -56,7 +57,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw(settings, state, &chat);
+            ErrorCode ec_draw = draw(settings, state, &chat, &font);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;
@@ -66,8 +67,6 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             EndDrawing();
         }
 
-        // Close the window
-        CloseWindow();
     }
 
     return EC_OK;
@@ -79,7 +78,7 @@ int main(int argc, char** argv) {
     B_INFO("C Version: %d (requires 202000)", __STDC_VERSION__);
 
     // Initialize the application
-    ErrorCode ec_init = init(&settings, &server, &client, &database);
+    ErrorCode ec_init = init(&settings, &server, &client, &database, &font);
     if (ec_init) {
         B_ERROR("Failed to initialize");
         B_ERROR("Exiting with error code '%d'", ec_init);
@@ -94,7 +93,7 @@ int main(int argc, char** argv) {
     }
 
     // Uninitialize the application
-    ErrorCode ec_uinit = uninit(&settings, &database);
+    ErrorCode ec_uinit = uninit(&settings, &database, &font);
     if (ec_uinit) {
         B_ERROR("Failed to uninitialize");
         B_ERROR("Exiting with error code '%d'", ec_uinit);

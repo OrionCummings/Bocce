@@ -54,7 +54,7 @@ void draw_circle_outline(Vector2 point, float radius, Color color, float dim_fac
     DrawCircleLines((int)point.x, (int)point.y, radius * 0.99f, color);
 }
 
-ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat) {
+ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
     if (state == NULL) { B_ERROR("Passed null parameter 'state'"); return EC_PASSED_NULL; }
@@ -65,7 +65,7 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
     // draw_balls(state->balls, state->num_balls);
     Vector2 chat_pos = (Vector2){ 300, 50 };
     Vector2 chat_dim = (Vector2){ 800, 700 };
-    draw_chat(chat_pos, chat_dim, chat);
+    draw_chat(chat_pos, chat_dim, chat, font);
 
     // Debug information
     draw_debug_information(settings);
@@ -74,12 +74,16 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
     return 0;
 }
 
-void draw_chat(const Vector2 pos, const Vector2 dim, const Chat* chat) {
+void draw_chat(const Vector2 pos, const Vector2 dim, const Chat* chat, const Font* font) {
+
+    if (chat == NULL) { B_ERROR("Passed null parameter 'chat'"); return; }
+    if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return; }
 
     Vector2 shadow_offset = { 7, 7 };
     Vector2 input_offset = { 4, 4 };
-    int input_height = 34;
-    int padding = 4;
+    const int input_height = 34;
+    const int padding = 4;
+    const int font_size = 30;
 
     // Draw shadow
     DrawRectangle((int)(pos.x + shadow_offset.x), (int)(pos.y + shadow_offset.y), (int)dim.x, (int)dim.y, COLOR_VSC_2);
@@ -87,7 +91,7 @@ void draw_chat(const Vector2 pos, const Vector2 dim, const Chat* chat) {
     // Draw background
     DrawRectangle((int)pos.x, (int)pos.y, (int)dim.x, (int)dim.y, COLOR_VSC_3);
 
-    // Draw prebuffer box
+    // Draw active text box
     int pb_x = (int)(pos.x + input_offset.x);
     int pb_y = (int)(pos.y + dim.y - ((float)input_height + input_offset.y));
     int pb_w = (int)(dim.x - (2 * input_offset.x));
@@ -95,25 +99,26 @@ void draw_chat(const Vector2 pos, const Vector2 dim, const Chat* chat) {
     DrawRectangle(pb_x, pb_y, pb_w, pb_h, COLOR_VSC_4);
 
     // Draw message history
-    for (uint16_t index = 0; index < chat->history.num_messages; index++) {
-        ChatMessage message = chat->history.messages[index];
+    for (uint16_t index = chat->history.num_messages; index > 0; index--) {
+        ChatMessage message = get_message(chat, index - 1);
         char buffer[128] = { 0 };
         format_chat_message(buffer, message);
-        DrawText(buffer, 500, 500, 30, COLOR_VSC_5);
+        DrawText(buffer, pb_x + (padding / 2), pb_y - (font_size * (chat->history.num_messages - index + 1)), font_size, COLOR_VSC_5);
     }
 
-    // Draw prebuffer message
-    ChatMessage hint_message = (ChatMessage){.text = "type a message!", .text_index = 15, .userId = 0};
-    ChatMessage message = chat->pre_buffer;
+    // Draw active text message
+    ChatMessage hint_message = (ChatMessage){ .text = "type a message!", .text_index = 15, .userId = 0 };
+    ChatMessage message = chat->active_message;
     char buffer[128] = { 0 };
-    
-    // Display the chat hint if there is no text in the prebuffer
-    if (chat->pre_buffer_index == 0) {
+
+    // Display the chat hint if there is no active text
+    const Vector2 active_text_pos = (Vector2){ (float)(pb_x + (padding / 2)), (float)(pb_y + (padding / 2)) };
+    if (chat->active_message.text_index == 0) {
         format_chat_message(buffer, hint_message);
-        DrawText(buffer, pb_x + (padding / 2), pb_y + (padding / 2), 32, COLOR_VSC_3);
+        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize * 4, (float)padding, COLOR_VSC_3);
     } else {
         format_chat_message(buffer, message);
-        DrawText(buffer, pb_x + (padding / 2), pb_y + (padding / 2), 32, COLOR_VSC_5);
+        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize * 4, (float)padding, COLOR_VSC_5);
     }
 
 }

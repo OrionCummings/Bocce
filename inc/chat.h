@@ -6,25 +6,30 @@
 #include "debug.h"
 #include "error_codes.h"
 
+#define MAX_CHAT_LENGTH (128)
+#define MAX_CHAT_HISTORY_DEPTH (512)
+
 typedef struct ChatMessage {
-    char text[128];
+    char text[MAX_CHAT_LENGTH];
     uint8_t text_index;
     const uint32_t userId;
 } ChatMessage;
 
 typedef struct ChatHistory {
     uint16_t num_messages;
-    ChatMessage* messages;
+    ChatMessage messages[MAX_CHAT_HISTORY_DEPTH];
 } ChatHistory;
 
 typedef struct Chat {
     ChatHistory history;
-    ChatMessage pre_buffer;
-    uint8_t pre_buffer_index;
+    ChatMessage active_message;
 } Chat;
 
-ErrorCode add_char_to_pre_buffer(Chat*, const char);
-// ChatMessage pre_buffer_to_chat_message(const char[static 128]);
+ChatMessage get_message(const Chat*, const uint16_t);
+ErrorCode add_char_to_active_message(Chat*, const char);
+ErrorCode push_active_message(Chat*);
+ErrorCode clear_active_message(Chat*);
+bool has_active_text(Chat*);
 
 // Misc
 void format_chat_message(char*, ChatMessage);

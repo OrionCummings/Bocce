@@ -33,6 +33,8 @@ typedef int ErrorCode;
 
 #define EC_UNKNOWN_APPLICATION_MODE (672)
 
+#define EC_CHAT_MAX_CHAT_DEPTH_EXCEEDED (701)
+
 #define EC_PASSED_NULL (-5)
 
 #endif

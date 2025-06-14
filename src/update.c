@@ -84,22 +84,37 @@ ErrorCode update_chat(Chat* chat) {
     int key = GetCharPressed();
 
     while (key > 0) {
-        if ((key >= 32) && (key <= 125) && (chat->pre_buffer_index < 128)) { // TODO: Magic number!
-            chat->pre_buffer.text[chat->pre_buffer_index] = (char)key;
-            chat->pre_buffer.text[chat->pre_buffer_index + 1] = '\0'; // Add null terminator at the end of the string.
-            chat->pre_buffer_index++;
-            B_INFO("[%d]: '%s'", chat->pre_buffer_index, chat->pre_buffer.text);
+        if ((key >= 32) && (key <= 125) && (chat->active_message.text_index < MAX_CHAT_LENGTH)) { // TODO: Magic number!
+            chat->active_message.text[chat->active_message.text_index] = (char)key;
+            chat->active_message.text[chat->active_message.text_index + 1] = '\0'; // Add null terminator at the end of the string.
+            chat->active_message.text_index++;
+            B_INFO("[%d]: '%s'", chat->active_message.text_index, chat->active_message.text);
         }
 
         key = GetCharPressed();
     }
 
     if (IsKeyPressed(KEY_BACKSPACE) || IsKeyPressedRepeat(KEY_BACKSPACE)) {
-        if (chat->pre_buffer_index >= 1) {
-            chat->pre_buffer_index--;
+        if (chat->active_message.text_index >= 1) {
+            chat->active_message.text_index--;
         }
-        chat->pre_buffer.text[chat->pre_buffer_index] = '\0';
-        B_INFO("[%d]: '%s'", chat->pre_buffer_index, chat->pre_buffer.text);
+        chat->active_message.text[chat->active_message.text_index] = '\0';
+        B_INFO("[%d]: '%s'", chat->active_message.text_index, chat->active_message.text);
+    }
+
+    if (IsKeyPressed(KEY_ENTER) && has_active_text(chat)) {
+
+        B_INFO("Pushing active message to chat history");
+        ErrorCode ec_push_active_message = push_active_message(chat);
+        if (ec_push_active_message) {
+            B_ERROR("Failed to push active message to chat history");
+        }
+
+        B_INFO("Clearing active message");
+        ErrorCode ec_clear_active_message = clear_active_message(chat);
+        if (ec_clear_active_message) {
+            B_ERROR("Failed to clear active message");
+        }
     }
 
     return EC_OK;
