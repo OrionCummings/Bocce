@@ -4,7 +4,7 @@ static TcsSocket client_socket;
 static TcsSocket server_socket;
 static TcsSocket listen_socket;
 
-ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database) {
+ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database, Font* font) {
 
     // Set all memory to zero
     memset(application_settings, 0, sizeof(*application_settings));
@@ -33,7 +33,7 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
         return ec_init_networking;
     }
 
-    ErrorCode ec_init_window = init_window(application_settings);
+    ErrorCode ec_init_window = init_window(application_settings, font);
     if (ec_init_window) {
         B_ERROR("Failed to initialize the window");
         return ec_init_window;
@@ -47,7 +47,7 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
     return EC_OK;
 }
 
-ErrorCode init_window(ApplicationSettings* application_settings) {
+ErrorCode init_window(ApplicationSettings* application_settings, Font* font) {
 
     // Initialize and configure the window
     B_INFO("Initializing Raylib 5.6 and configuring the main window");
@@ -57,6 +57,11 @@ ErrorCode init_window(ApplicationSettings* application_settings) {
     SetTargetFPS(ws.target_fps);
     InitWindow(ws.window_width, ws.window_height, ws.window_title);
     HideCursor();
+
+    // Load font(s)
+    *font = LoadFont("..\\..\\..\\res\\fonts\\RasterForge-Font-1-1\\RasterForge.fnt");
+
+    SetTextLineSpacing(16);
 
     return EC_OK;
 }
@@ -158,7 +163,7 @@ ErrorCode init_networking_server(Server* server) {
         B_ERROR("Server failed to initialize tinycsockets");
         return EC_TCS_SERVER_INIT_FAILURE;
     }
-    
+
     B_ERROR("Server creating listening socket");
     server_socket = TCS_NULLSOCKET;
     listen_socket = TCS_NULLSOCKET;
@@ -225,7 +230,7 @@ ErrorCode init_database(sqlite3** database) {
 }
 
 // Uninitialzation functions
-ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database){
+ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, Font* font){
 
     if (application_settings == NULL) { B_ERROR("Passed null parameter 'application_settings'"); return EC_PASSED_NULL; }
 
@@ -236,13 +241,20 @@ ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database){
         return ec_uninit_networking;
     }
 
+    B_INFO("Uninitializing the window");
+    ErrorCode ec_uninit_window = uninit_window(font);
+    if (ec_uninit_window) {
+        B_ERROR("Failed to uninitialize the window");
+        return ec_uninit_window;
+    }
+
     return EC_OK;
 }
 
 ErrorCode uninit_networking(ApplicationSettings* application_settings, sqlite3** database) {
 
     if (application_settings == NULL) { B_ERROR("Passed NULL parameter 'application_settings'"); return EC_PASSED_NULL; }
-    
+
     if (is_server(*application_settings)) {
 
         if (database == NULL) { B_ERROR("Passed NULL parameter 'database'"); return EC_PASSED_NULL; }
@@ -306,6 +318,19 @@ ErrorCode uninit_database(sqlite3** database) {
         B_ERROR("Failed to close the SQLite database");
         return ec_sqlite3_close;
     }
+
+    return EC_OK;
+}
+
+ErrorCode uninit_window(Font* font) {
+
+    // Unload the fonts
+    B_INFO("Unloading font(s)");
+    UnloadFont(*font);
+    
+    // Close the window
+    B_INFO("Unloading the window");
+    CloseWindow();
 
     return EC_OK;
 }

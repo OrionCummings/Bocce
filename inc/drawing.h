@@ -29,13 +29,13 @@
 Color dim_color(const Color, float);
 
 // Drawing
-ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*);
+ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*);
 void draw_background(void);
 void draw_court(void);
 void draw_circle_outline(Vector2, float, Color, float dim_factor);
 void draw_ball(const Ball);
 void draw_balls(const Ball*, uint16_t);
-void draw_chat(const Vector2, const Vector2, const Chat*);
+void draw_chat(const Vector2, const Vector2, const Chat*, const Font*);
 
 // Misc
 Ball generate_ball(Vector2 mouse_position);
