@@ -30,7 +30,7 @@ static Font font;
 // Debug
 static int looped = 0;
 
-ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, GameState* state){
+ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, GameState* state, Chat* chat, Font* font){
 
     if (looped++) return -1;
 
@@ -47,7 +47,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             if (state == NULL) { B_ERROR("Passed null parameter 'state'");   return EC_PASSED_NULL; }
 
             // Update the application state
-            ErrorCode ec_update = update(settings, server, client, state, &chat);
+            ErrorCode ec_update = update(settings, server, client, state, chat);
             if (ec_update){
                 B_ERROR("Failed to update!");
                 return ec_update;
@@ -57,7 +57,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw(settings, state, &chat, &font);
+            ErrorCode ec_draw = draw(settings, state, chat, font);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;
@@ -75,7 +75,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
 int main(int argc, char** argv) {
 
     B_INFO("Starting Bocce application");
-    B_INFO("C Version: %d (requires 202000)", __STDC_VERSION__);
+    B_INFO("C Version: %d (requires 202000/C23)", __STDC_VERSION__);
 
     // Initialize the application
     ErrorCode ec_init = init(&settings, &server, &client, &database, &font);
@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
         return ec_init;
     }
 
-    ErrorCode ec_loop = loop(&settings, &server, &client, &state);
+    ErrorCode ec_loop = loop(&settings, &server, &client, &state, &chat, &font);
     if (ec_loop) {
         B_ERROR("Failed to loop");
         B_ERROR("Exiting with error code '%d'", ec_loop);
@@ -104,3 +104,6 @@ int main(int argc, char** argv) {
 
     return EC_OK;
 }
+
+
+

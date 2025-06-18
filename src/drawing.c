@@ -99,26 +99,28 @@ void draw_chat(const Vector2 pos, const Vector2 dim, const Chat* chat, const Fon
     DrawRectangle(pb_x, pb_y, pb_w, pb_h, COLOR_VSC_4);
 
     // Draw message history
+    Vector2 text_pos = (Vector2){0};
     for (uint16_t index = chat->history.num_messages; index > 0; index--) {
         ChatMessage message = get_message(chat, index - 1);
         char buffer[128] = { 0 };
         format_chat_message(buffer, message);
-        DrawText(buffer, pb_x + (padding / 2), pb_y - (font_size * (chat->history.num_messages - index + 1)), font_size, COLOR_VSC_5);
+        text_pos = (Vector2){.x = (float)(pb_x + (padding / 2)), .y = (float)(pb_y - (font_size * (chat->history.num_messages - index + 1)))};
+        DrawTextEx(*font, buffer, text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
     }
 
     // Draw active text message
-    ChatMessage hint_message = (ChatMessage){ .text = "type a message!", .text_index = 15, .userId = 0 };
+    ChatMessage hint_message = (ChatMessage){ .text = "type a message!", .text_size = 15, .userId = 0 };
     ChatMessage message = chat->active_message;
     char buffer[128] = { 0 };
 
     // Display the chat hint if there is no active text
     const Vector2 active_text_pos = (Vector2){ (float)(pb_x + (padding / 2)), (float)(pb_y + (padding / 2)) };
-    if (chat->active_message.text_index == 0) {
+    if (chat->active_message.text_size == 0) {
         format_chat_message(buffer, hint_message);
-        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize * 4, (float)padding, COLOR_VSC_3);
+        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_3);
     } else {
         format_chat_message(buffer, message);
-        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize * 4, (float)padding, COLOR_VSC_5);
+        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
     }
 
 }

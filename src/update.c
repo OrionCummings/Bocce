@@ -84,22 +84,22 @@ ErrorCode update_chat(Chat* chat) {
     int key = GetCharPressed();
 
     while (key > 0) {
-        if ((key >= 32) && (key <= 125) && (chat->active_message.text_index < MAX_CHAT_LENGTH)) { // TODO: Magic number!
-            chat->active_message.text[chat->active_message.text_index] = (char)key;
-            chat->active_message.text[chat->active_message.text_index + 1] = '\0'; // Add null terminator at the end of the string.
-            chat->active_message.text_index++;
-            B_INFO("[%d]: '%s'", chat->active_message.text_index, chat->active_message.text);
+        if ((key >= 32) && (key <= 125) && (chat->active_message.text_size < MAX_CHAT_LENGTH)) { // TODO: Magic number!
+            chat->active_message.text[chat->active_message.text_size] = (char)key;
+            chat->active_message.text[chat->active_message.text_size + 1] = '\0'; // Add null terminator at the end of the string.
+            chat->active_message.text_size++;
+            B_INFO("[%d]: '%s'", chat->active_message.text_size, chat->active_message.text);
         }
 
         key = GetCharPressed();
     }
 
     if (IsKeyPressed(KEY_BACKSPACE) || IsKeyPressedRepeat(KEY_BACKSPACE)) {
-        if (chat->active_message.text_index >= 1) {
-            chat->active_message.text_index--;
+        if (chat->active_message.text_size >= 1) {
+            chat->active_message.text_size--;
         }
-        chat->active_message.text[chat->active_message.text_index] = '\0';
-        B_INFO("[%d]: '%s'", chat->active_message.text_index, chat->active_message.text);
+        chat->active_message.text[chat->active_message.text_size] = '\0';
+        B_INFO("[%d]: '%s'", chat->active_message.text_size, chat->active_message.text);
     }
 
     if (IsKeyPressed(KEY_ENTER) && has_active_text(chat)) {

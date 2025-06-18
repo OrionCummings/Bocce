@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message ChatMessage {
+    repeated char text = 1;
+    int16 text_size
+}
+
+message ChatHistory {
+    int16 num_messages = 1;
+    repeated ChatMessage messages = 2;
+}

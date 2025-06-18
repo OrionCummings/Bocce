@@ -10,6 +10,8 @@
 
 #define MAX_PLAYERS (16) // NOTE: This is independent of the config.toml
 
+#define MAX_MESSAGE_SIZE_BYTES (256)
+
 // A Ceritifed C Moment:
 // It's 2025 and the C standard committee has 
 // FINALLY decided to elevate the Boolean literals
@@ -23,6 +25,8 @@
 // *thumbs up*
 #define false ((bool) + 0)
 #define  true ((bool) + 1)
+
+typedef uint8_t byte;
 
 typedef enum ApplicationMode {
     AM_UNKNOWN = 0,

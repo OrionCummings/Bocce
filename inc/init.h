@@ -13,8 +13,16 @@
 #include "error_codes.h"
 #include "networking.h"
 
+// Fonts
+#define NUM_FONTS (4)
+#define PRIMARY_FONT_INDEX (0)
+#define SECONDARY_FONT_INDEX (1)
+#define TERTIARY_FONT_INDEX (2)
+#define QUATRENARY_FONT_INDEX (3)
+
 ErrorCode init(ApplicationSettings*, Server*, Client*, sqlite3**, Font*);
 ErrorCode init_window(ApplicationSettings*, Font*);
+ErrorCode init_fonts(Font* fonts);
 ErrorCode init_networking(ApplicationSettings*, Server*, Client*, sqlite3**);
 ErrorCode init_networking_server(Server*);
 ErrorCode init_networking_client(Client*);
@@ -29,5 +37,8 @@ ErrorCode apply_default_application_config(ApplicationSettings*);
 ErrorCode apply_default_client_config(ClientSettings*);
 ErrorCode apply_default_server_config(ServerSettings*);
 bool should_have_window(const ApplicationSettings);
+
+ErrorCode verify_fonts(const Font*);
+ErrorCode verify_font(const Font);
 
 #endif

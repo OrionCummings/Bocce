@@ -1,5 +1,8 @@
 #include "init.h"
 
+// TODO: Remove
+#include <unistd.h>
+
 static TcsSocket client_socket;
 static TcsSocket server_socket;
 static TcsSocket listen_socket;
@@ -59,11 +62,84 @@ ErrorCode init_window(ApplicationSettings* application_settings, Font* font) {
     HideCursor();
 
     // Load font(s)
-    *font = LoadFont("..\\..\\..\\res\\fonts\\RasterForge-Font-1-1\\RasterForge.fnt");
+    // TODO: Make this actually handle multiple fonts lol
+    init_fonts(font);
 
     SetTextLineSpacing(16);
 
     return EC_OK;
+}
+
+ErrorCode init_fonts(Font* font) {
+
+    if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
+
+    char cwd[_MAX_PATH] = { 0 };
+    getcwd(cwd, _MAX_PATH);
+    printf("cwd = %s\n", cwd);
+    
+    /*
+
+    struct cwk_segment segment;
+
+    if (!cwk_path_get_last_segment(cwd, &segment)) {
+        B_ERROR("CWD has no segments! Are you working straight from the C: drive or home directory?");
+        return EC_CWD_NO_SEGMENTS;
+    }
+
+    do {
+        // printf("Current segment is '%.*s'.\n", (int)segment.size, segment.begin);
+        printf("Current segment is '%s'.\n", segment.begin);
+
+        char segment_name[segment.size];
+        strncpy_s(segment_name, segment.size, segment.begin + (segment.size - strnlen_s(segment.begin, segment.size * sizeof(*segment.begin))), segment.size);
+
+
+        // if (!strcmp(segment.begin, "Bocce")) {
+        //     break;
+        // }
+        printf("%s\n", segment_name);
+    } while (cwk_path_get_previous_segment(&segment));
+    
+    printf("Last segment is '%.*s'.\n", (int)segment.size, segment.begin);
+    */
+   
+   // TODO: Make the font selection better
+    // Make sure the font file exists
+    const char* font_path = "..\\..\\..\\res\\fonts\\daydream\\daydream.ttf";
+    if (access(font_path, F_OK) == 0) {
+        B_INFO("Loaded font 'daydream'");
+        *font = LoadFontEx(font_path, 32, NULL, 259);
+    } else {
+        B_INFO("Failed to load font 'daydream'; falling back to default font");
+        *font = GetFontDefault();
+    }
+
+    ErrorCode ec_verify_fonts = verify_font(*font);
+    if (!ec_verify_fonts) {
+        B_WARNING("Some fonts failed to load");
+    }
+
+    return EC_OK;
+}
+
+ErrorCode verify_fonts(const Font* fonts) {
+
+    if (fonts == NULL) { B_ERROR("Passed null parameter 'fonts'"); return EC_PASSED_NULL; }
+
+    bool invalid_fonts = false;
+    for (size_t index = 0; index < NUM_FONTS; index++) {
+        if (!verify_font(fonts[index])) {
+            B_WARNING("Failed to verify font '%d'", index);
+            invalid_fonts = true;
+        }
+    }
+
+    return (ErrorCode)invalid_fonts;
+}
+
+ErrorCode verify_font(const Font font) {
+    return (ErrorCode)(font.glyphCount > 0);
 }
 
 ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client* client, sqlite3** database) {
@@ -327,7 +403,7 @@ ErrorCode uninit_window(Font* font) {
     // Unload the fonts
     B_INFO("Unloading font(s)");
     UnloadFont(*font);
-    
+
     // Close the window
     B_INFO("Unloading the window");
     CloseWindow();
