@@ -15,7 +15,7 @@ ErrorCode add_char_to_active_message(Chat* chat, const char c) {
     } else {
         B_ERROR("Failed to add new character '%c' to prebuffer", c);
     }
-    
+
     return EC_OK;
 }
 
@@ -25,8 +25,9 @@ ErrorCode push_active_message(Chat* chat) {
     }
     strcpy_s(chat->history.messages[chat->history.num_messages++].text, sizeof(*chat->active_message.text) * MAX_CHAT_LENGTH, chat->active_message.text);
     
-    byte bytes[MAX_MESSAGE_SIZE_BYTES];
-    serialize(chat, bytes, MAX_MESSAGE_SIZE_BYTES);
+    // TODO: Fix!
+    // byte bytes[MAX_MESSAGE_SIZE_BYTES];
+    // serialize(chat, bytes, MAX_MESSAGE_SIZE_BYTES);
 
     return EC_OK;
 }
@@ -40,7 +41,7 @@ ErrorCode clear_active_message(Chat* chat) {
 // TODO: Fix this; this is probably trash
 ErrorCode serialize(const Chat* chat, byte* bytes, size_t n) {
 
-    memcpy_s(bytes, n, (void*)chat, n);
+    // memcpy_s(bytes, n, (void*)chat, n);
 
     return EC_OK;
 }

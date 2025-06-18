@@ -106,10 +106,14 @@ ErrorCode init_fonts(Font* font) {
    
    // TODO: Make the font selection better
     // Make sure the font file exists
-    const char* font_path = "..\\..\\..\\res\\fonts\\daydream\\daydream.ttf";
-    if (access(font_path, F_OK) == 0) {
+    const char* font_path_release = "res\\fonts\\daydream\\daydream.ttf";
+    const char* font_path_debug = "..\\..\\..\\res\\fonts\\daydream\\daydream.ttf";
+    if (access(font_path_release, F_OK) == 0) {
         B_INFO("Loaded font 'daydream'");
-        *font = LoadFontEx(font_path, 32, NULL, 259);
+        *font = LoadFontEx(font_path_release, 32, NULL, 259);
+    } else if (access(font_path_debug, F_OK) == 0) {
+        B_INFO("Loaded font 'daydream'");
+        *font = LoadFontEx(font_path_debug, 32, NULL, 259);
     } else {
         B_INFO("Failed to load font 'daydream'; falling back to default font");
         *font = GetFontDefault();
