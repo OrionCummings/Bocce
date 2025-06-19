@@ -11,30 +11,39 @@ void draw_background() {
     ClearBackground(COLOR_BACKGROUND);
 }
 
-void draw_court(void) {
+void draw_court(const WindowSettings ws) {
 
-    const float r = 25.0f;
-    const float s = 7.0f;
-    const float wall_roundness = 0.1f;
-    const int wall_roundness_segments = 10;
+    Vector2 origin = ORIGIN;
+    float padding = 10;
+    float bocce_game_width = 700 - (padding * 2);
+    float bocce_game_height = (float)(ws.window_height) - (padding * 2);
 
-    Vector2 a = (Vector2){ .x = 300, .y = 50 }; // top left
-    Vector2 b = (Vector2){ .x = 900, .y = 750 }; // bot right
-    Vector2 c = (Vector2){ .x = b.x, .y = a.y }; // top right
-    Vector2 d = (Vector2){ .x = a.x, .y = b.y }; // bot left
-    Vector2 size = (Vector2){ .x = b.x - a.x, .y = b.y - a.y };
+    Rectangle bocce_game = (Rectangle){.x = origin.x - padding, .y = origin.y + padding, .width = bocce_game_width, .height = bocce_game_height};
 
-    Rectangle court_rect = (Rectangle){ .x = a.x, .y = a.y, .width = size.x, .height = size.y };
-    Rectangle court_rect_shadow_1 = (Rectangle){ .x = a.x, .y = a.y, .width = s, .height = d.y - a.y };
-    Rectangle court_rect_shadow_2 = (Rectangle){ .x = a.x, .y = a.y, .width = c.x - a.x, .height = s };
-    Rectangle court_rect_wall = (Rectangle){ .x = a.x - r, .y = a.y - r, .width = size.x + (2 * r), .height = size.y + (2 * r) };
-    Rectangle court_rect_wall_shadow = (Rectangle){ .x = a.x - r + s, .y = a.y - r + s, .width = size.x + (2 * r), .height = size.y + (2 * r) };
+    GuiGroupBox(bocce_game, "Bocce Game");
 
-    DrawRectangleRounded(court_rect_wall_shadow, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL_DARK); // wall shadow (right)
-    DrawRectangleRounded(court_rect_wall, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL); // wall
-    DrawRectangleRec(court_rect, COLOR_COURT_BASE); // court
-    DrawRectangleRec(court_rect_shadow_1, COLOR_COURT_BASE_DARK); // court shadow (left)
-    DrawRectangleRec(court_rect_shadow_2, COLOR_COURT_BASE_DARK); // court shadow (top)
+    // const float r = 25.0f;
+    // const float s = 7.0f;
+    // const float wall_roundness = 0.1f;
+    // const int wall_roundness_segments = 10;
+
+    // Vector2 a = (Vector2){ .x = 300, .y = 50 }; // top left
+    // Vector2 b = (Vector2){ .x = 900, .y = 750 }; // bot right
+    // Vector2 c = (Vector2){ .x = b.x, .y = a.y }; // top right
+    // Vector2 d = (Vector2){ .x = a.x, .y = b.y }; // bot left
+    // Vector2 size = (Vector2){ .x = b.x - a.x, .y = b.y - a.y };
+
+    // Rectangle court_rect = (Rectangle){ .x = a.x, .y = a.y, .width = size.x, .height = size.y };
+    // Rectangle court_rect_shadow_1 = (Rectangle){ .x = a.x, .y = a.y, .width = s, .height = d.y - a.y };
+    // Rectangle court_rect_shadow_2 = (Rectangle){ .x = a.x, .y = a.y, .width = c.x - a.x, .height = s };
+    // Rectangle court_rect_wall = (Rectangle){ .x = a.x - r, .y = a.y - r, .width = size.x + (2 * r), .height = size.y + (2 * r) };
+    // Rectangle court_rect_wall_shadow = (Rectangle){ .x = a.x - r + s, .y = a.y - r + s, .width = size.x + (2 * r), .height = size.y + (2 * r) };
+
+    // DrawRectangleRounded(court_rect_wall_shadow, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL_DARK); // wall shadow (right)
+    // DrawRectangleRounded(court_rect_wall, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL); // wall
+    // DrawRectangleRec(court_rect, COLOR_COURT_BASE); // court
+    // DrawRectangleRec(court_rect_shadow_1, COLOR_COURT_BASE_DARK); // court shadow (left)
+    // DrawRectangleRec(court_rect_shadow_2, COLOR_COURT_BASE_DARK); // court shadow (top)
 
 }
 
@@ -58,10 +67,12 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
     if (state == NULL) { B_ERROR("Passed null parameter 'state'"); return EC_PASSED_NULL; }
+    if (chat == NULL) { B_ERROR("Passed null parameter 'chat'"); return EC_PASSED_NULL; }
+    if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
 
     // Draw the background and the bocce court
     draw_background();
-    // draw_court();
+    draw_court(settings->window_settings);
     // draw_balls(state->balls, state->num_balls);
     Vector2 chat_pos = (Vector2){ 300, 50 };
     Vector2 chat_dim = (Vector2){ 800, 700 };

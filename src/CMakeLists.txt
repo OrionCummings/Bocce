@@ -17,7 +17,9 @@ add_executable(Bocce
     # cli.c
     )
 
-target_include_directories(Bocce PRIVATE ../inc)
+target_include_directories(Bocce PRIVATE "../inc")
+# target_include_directories(Bocce PRIVATE ../lib/raylib)
+# include_directories(SYSTEM "../lib/raylib")
 
 target_compile_options(Bocce PRIVATE
     -pedantic 

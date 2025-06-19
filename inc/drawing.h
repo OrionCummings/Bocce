@@ -3,10 +3,13 @@
 
 #include "types.h"
 #include "debug.h"
+#include "raygui.h"
 #include "raylib.h"
 #include "error_codes.h"
 #include "networking.h"
 #include "chat.h"
+
+#define ORIGIN ((Vector2){0, 0})
 
 #define COLOR_VSC_1 ((Color){30, 30, 30, 255})
 #define COLOR_VSC_2 ((Color){37, 37, 38, 255})
@@ -31,7 +34,7 @@ Color dim_color(const Color, float);
 // Drawing
 ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*);
 void draw_background(void);
-void draw_court(void);
+void draw_court(const WindowSettings);
 void draw_circle_outline(Vector2, float, Color, float dim_factor);
 void draw_ball(const Ball);
 void draw_balls(const Ball*, uint16_t);

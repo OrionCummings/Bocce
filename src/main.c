@@ -3,18 +3,21 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+#define RAYGUI_IMPLEMENTATION (1)
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 #include <sqlite3.h>
+#include "raylib.h"
+#include "raygui.h"
 #include "constants.h"
 #include "types.h"
 #include "debug.h"
 #include "init.h"
 #include "drawing.h"
-#include "raylib.h"
 #include "error_codes.h"
 #include "update.h"
 #include "chat.h"

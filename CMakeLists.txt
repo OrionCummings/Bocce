@@ -24,7 +24,7 @@ FetchContent_Declare(
     GIT_REPOSITORY "https://github.com/dosshell/tinycsocket.git"
     GIT_TAG "master"
     GIT_PROGRESS TRUE
-    )
+)
     
 # Provides cross-platform file path manipulation
 FetchContent_Declare(
@@ -32,15 +32,18 @@ FetchContent_Declare(
     GIT_REPOSITORY "https://github.com/likle/cwalk.git"
     GIT_TAG "master"
     GIT_PROGRESS TRUE
-    )
+)
 
 FetchContent_MakeAvailable(raylib tinycsocket cwalk)
+
 find_package(SQLite3 REQUIRED)
 
 add_subdirectory(src)
 
 # Provides TOML parsing support
 add_subdirectory(lib/libtoml)
+
+# target_include_directories(Bocce PRIVATE "/lib/raygui")
 
 target_link_libraries(Bocce PUBLIC raylib)
 target_link_libraries(Bocce PUBLIC tinycsocket)
