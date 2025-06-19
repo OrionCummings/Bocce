@@ -3,6 +3,10 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+// This must appear here. Do not move it.
+// Admire my house of cards from a respectful distance.
+// Thanks
+// xoxo
 #define RAYGUI_IMPLEMENTATION (1)
 
 #include <stdio.h>
