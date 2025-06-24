@@ -26,6 +26,7 @@
 #include "update.h"
 #include "chat.h"
 
+// TODO: Reduce the scope of these variables!
 static ApplicationSettings settings;
 static Client client;
 static Server server;
@@ -33,6 +34,11 @@ static sqlite3* database;
 static GameState state;
 static Chat chat;
 static Font font;
+
+static Rectangle rect_game = {10.0f, 10.0f, 1270.0f, 1070.0f}; // TODO Don't hard code this 
+static RenderTexture screen_game;
+static RenderTexture screen_game_info;
+static RenderTexture screen_chat;
 
 // Debug
 static int looped = 0;
@@ -42,6 +48,8 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
     if (looped++) return -1;
 
     B_INFO("Executing one main loop");
+
+    screen_game = LoadRenderTexture((int)rect_game.width, (int)rect_game.height);
 
     if (should_have_window(*settings)) {
 
@@ -64,7 +72,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw(settings, state, chat, font);
+            ErrorCode ec_draw = draw(settings, state, chat, font, screen_game);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;
@@ -75,6 +83,8 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
         }
 
     }
+
+    UnloadRenderTexture(screen_game);
 
     return EC_OK;
 }

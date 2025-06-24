@@ -1,6 +1,8 @@
 #include "drawing.h"
 
-ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font) {
+// static Camera2D camera = { 0 };
+
+ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font, RenderTexture screen_game) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
     if (state == NULL) { B_ERROR("Passed null parameter 'state'"); return EC_PASSED_NULL; }
@@ -12,9 +14,9 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
 
     // Draw the background and the bocce court
     draw_background();
-    draw_court(settings->window_settings);
-    draw_chat(settings->window_settings, chat_pos, chat_dim, chat, font);
+    draw_game(settings->window_settings, screen_game);
     draw_game_info(settings->window_settings);
+    draw_chat(settings->window_settings, chat_pos, chat_dim, chat, font);
 
     // Debug information
     draw_debug_information(settings);
@@ -23,43 +25,67 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
     return 0;
 }
 
-void draw_court(const WindowSettings ws) {
+void draw_game(const WindowSettings ws, RenderTexture screen) {
 
-    float court_width = ((float)ws.window_width * HORIZONTAL_RATIO) - (padding * 2);
-    float court_height = (float)(ws.window_height) - (padding * 2);
+    float ui_width = ((float)ws.window_width * HORIZONTAL_RATIO) - (padding * 2);
+    float ui_height = (float)(ws.window_height) - (padding * 2);
+    Vector2 ui_anchor = (Vector2){ .x = origin.x + padding, .y = origin.y + padding };
 
-    Rectangle court_rect = (Rectangle){
-        .x = origin.x + padding,
-        .y = origin.y + padding,
-        .width = court_width,
-        .height = court_height
+    Vector2 mouse_position = (Vector2){GetMousePosition().x, ui_height - GetMousePosition().y + padding};
+
+    Rectangle ui_rect = (Rectangle){
+        .x = ui_anchor.x,
+        .y = ui_anchor.y,
+        .width = ui_width,
+        .height = ui_height
     };
 
-    DrawRectangleRec(rect_shrink(court_rect, 10.0f), COLOR_VSC_3);
-    GuiGroupBox(court_rect, "Bocce Game");
+    Vector2 center = {
+        .x = (ui_rect.x + ui_rect.width) / 2.0f,
+        .y = (ui_rect.y + ui_rect.height) / 2.0f
+    };
 
-    // const float r = 25.0f;
-    // const float s = 7.0f;
-    // const float wall_roundness = 0.1f;
-    // const int wall_roundness_segments = 10;
+    BeginTextureMode(screen);
+    ClearBackground(COLOR_BACKGROUND);
+    
+    draw_ui_base(ui_rect);
+    draw_game_court(ui_rect);
+    // draw_game_debug();
 
-    // Vector2 a = (Vector2){ .x = 300, .y = 50 }; // top left
-    // Vector2 b = (Vector2){ .x = 900, .y = 750 }; // bot right
-    // Vector2 c = (Vector2){ .x = b.x, .y = a.y }; // top right
-    // Vector2 d = (Vector2){ .x = a.x, .y = b.y }; // bot left
-    // Vector2 size = (Vector2){ .x = b.x - a.x, .y = b.y - a.y };
+    // Draw court-related objects in the subscreen [0, 0] x [court_width, court_height]
+    draw_circle_outline((Vector2){0.0f, 0.0f}, 100.0f, RED, 0.5f);
+    draw_circle_outline((Vector2){ui_width, 0.0f}, 100.0f, GREEN, 0.5f);
+    draw_circle_outline((Vector2){0.0f, ui_height}, 100.0f, BLUE, 0.5f);
+    draw_circle_outline((Vector2){ui_width, ui_height}, 100.0f, PURPLE, 0.5f);
+    draw_circle_outline((Vector2){ui_width / 2, ui_height / 2}, 100.0f, WHITE, 0.5f);
+    draw_circle_outline(mouse_position, 100.0f, ORANGE, 0.5f);
+    
+    EndTextureMode();
+    DrawTextureRec(screen.texture, ui_rect, ui_anchor, WHITE);
+}
 
-    // Rectangle court_rect = (Rectangle){ .x = a.x, .y = a.y, .width = size.x, .height = size.y };
-    // Rectangle court_rect_shadow_1 = (Rectangle){ .x = a.x, .y = a.y, .width = s, .height = d.y - a.y };
-    // Rectangle court_rect_shadow_2 = (Rectangle){ .x = a.x, .y = a.y, .width = c.x - a.x, .height = s };
-    // Rectangle court_rect_wall = (Rectangle){ .x = a.x - r, .y = a.y - r, .width = size.x + (2 * r), .height = size.y + (2 * r) };
-    // Rectangle court_rect_wall_shadow = (Rectangle){ .x = a.x - r + s, .y = a.y - r + s, .width = size.x + (2 * r), .height = size.y + (2 * r) };
+void draw_game_court(const Rectangle ui_rect) {
+    const float court_padding = 100.0f;
+    const float r = 5.0f;
+    const float s = 7.0f;
+    const float wall_roundness = 0.01f;
+    const int wall_roundness_segments = 10;
 
-    // DrawRectangleRounded(court_rect_wall_shadow, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL_DARK); // wall shadow (right)
-    // DrawRectangleRounded(court_rect_wall, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL); // wall
-    // DrawRectangleRec(court_rect, COLOR_COURT_BASE); // court
-    // DrawRectangleRec(court_rect_shadow_1, COLOR_COURT_BASE_DARK); // court shadow (left)
-    // DrawRectangleRec(court_rect_shadow_2, COLOR_COURT_BASE_DARK); // court shadow (top)
+    Vector2 a = (Vector2){ .x = ui_rect.x + court_padding, .y = ui_rect.y + court_padding }; // top left
+    Vector2 b = (Vector2){ .x = ui_rect.x + ui_rect.width - court_padding, .y = ui_rect.y + ui_rect.height - court_padding }; // bot right
+    Vector2 c = (Vector2){ .x = b.x, .y = a.y }; // top right
+    Vector2 d = (Vector2){ .x = a.x, .y = b.y }; // bot left
+    Vector2 size = (Vector2){ .x = b.x - a.x, .y = b.y - a.y };
+
+    Rectangle court_rect = (Rectangle){ .x = a.x, .y = a.y, .width = size.x, .height = size.y };
+    Rectangle court_rect_shadow_1 = (Rectangle){ .x = a.x, .y = a.y, .width = s, .height = d.y - a.y };
+    Rectangle court_rect_shadow_2 = (Rectangle){ .x = a.x, .y = a.y, .width = c.x - a.x, .height = s };
+    Rectangle court_rect_wall = (Rectangle){ .x = a.x - r, .y = a.y - r, .width = size.x + (2 * r), .height = size.y + (2 * r) };
+
+    DrawRectangleRec(court_rect_shadow_1, COLOR_COURT_BASE_DARK); // court shadow (left)
+    DrawRectangleRec(court_rect_shadow_2, COLOR_COURT_BASE_DARK); // court shadow (top)
+    DrawRectangleRounded(court_rect_wall, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL); // wall
+    DrawRectangleRec(court_rect, COLOR_COURT_BASE); // court
 
 }
 
@@ -72,14 +98,15 @@ void draw_chat(const WindowSettings ws, const Vector2 pos, const Vector2 dim, co
     const float chat_height = (float)((float)ws.window_height * (1.0f - VERTICAL_RATIO)) - (padding * 2);
 
     Rectangle rect_chat_rect = (Rectangle){
-        .x = origin.x + ((float)ws.window_width * HORIZONTAL_RATIO) + padding,
-        .y = origin.y + ((float)ws.window_height * (1.0f - VERTICAL_RATIO)) + padding,
-        .width = chat_width,
-        .height = chat_height
+        .x = origin.x + ((float)ws.window_width * HORIZONTAL_RATIO),
+        .y = origin.y + ((float)ws.window_height * (1.0f - VERTICAL_RATIO)) + (padding / 2.0f),
+        .width = chat_width + padding,
+        .height = chat_height + (padding / 2.0f)
     };
 
     DrawRectangleRec(rect_shrink(rect_chat_rect, 10.0f), COLOR_VSC_3);
-    GuiGroupBox(rect_chat_rect, "Chat");
+    // GuiGroupBox(rect_chat_rect, "Chat");
+    draw_ui_base(rect_chat_rect);
 
     // Vector2 shadow_offset = { 7, 7 };
     // Vector2 input_offset = { 4, 4 };
@@ -133,14 +160,15 @@ void draw_game_info(const WindowSettings ws) {
     float bocce_game_info_height = ((float)ws.window_height * VERTICAL_RATIO) - (padding * 2);
 
     Rectangle rect_bocce_game_info = (Rectangle){
-        .x = origin.x + ((float)ws.window_width * HORIZONTAL_RATIO) + padding,
+        .x = origin.x + ((float)ws.window_width * HORIZONTAL_RATIO),
         .y = origin.y + padding,
-        .width = bocce_game_info_width,
-        .height = bocce_game_info_height
+        .width = bocce_game_info_width + padding,
+        .height = bocce_game_info_height + (padding / 2.0f)
     };
 
     DrawRectangleRec(rect_shrink(rect_bocce_game_info, 10.0f), COLOR_VSC_3);
-    GuiGroupBox(rect_bocce_game_info, "Game Info");
+    // GuiGroupBox(rect_bocce_game_info, "Game Info");
+    draw_ui_base(rect_bocce_game_info);
 }
 
 void draw_debug_information(const ApplicationSettings* settings) {
@@ -193,4 +221,12 @@ void draw_circle_outline(Vector2 point, float radius, Color color, float dim_fac
     DrawCircleLines((int)point.x, (int)point.y, radius * 0.99f, color);
 }
 
+void draw_ui_base(Rectangle r) {
+
+    // DEBUG: Draw dots on the corners!
+
+
+    DrawRectangleRec(r, COLOR_VSC_2);
+    DrawRectangleRec(rect_shrink(r, 5.0f), COLOR_VSC_3);
+}
 

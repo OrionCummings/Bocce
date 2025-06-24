@@ -12,12 +12,14 @@
 #define HORIZONTAL_RATIO (2.0f/3.0f)
 #define VERTICAL_RATIO (1.0f/2.0f)
 
+#define COLOR_VSC_0 ((Color){10, 10, 15, 255})
 #define COLOR_VSC_1 ((Color){30, 30, 30, 255})
 #define COLOR_VSC_2 ((Color){37, 37, 38, 255})
 #define COLOR_VSC_3 ((Color){45, 45, 48, 255})
 #define COLOR_VSC_4 ((Color){62, 62, 66, 255})
 #define COLOR_VSC_5 ((Color){0, 122, 204, 255})
 
+#define COLOR_SHADOW (COLOR_VSC_0)
 #define COLOR_BACKGROUND (COLOR_VSC_1)
 #define COLOR_TEXT (COLOR_VSC_4)
 #define COLOR_HIGHLIGHT (COLOR_VSC_5)
@@ -29,6 +31,8 @@
 #define COLOR_COURT_WALL ((Color){221, 161, 94, 255})
 #define COLOR_COURT_WALL_DARK ((Color){188, 108, 37, 255})
 
+#define COLOR_RANDOM ((Color){(unsigned char)rand(), (unsigned char)rand(), (unsigned char)rand(), 255})
+
 #define origin ((Vector2){0.0f, 0.0f})
 static const float padding = 10.0f;
 
@@ -36,21 +40,22 @@ static const float padding = 10.0f;
 Color dim_color(const Color, float);
 
 // Drawing
-ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*);
-void draw_court(const WindowSettings);
+ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*, RenderTexture);
+void draw_game(const WindowSettings, RenderTexture);
 void draw_game_info(const WindowSettings);
 void draw_chat(const WindowSettings, Vector2, const Vector2, const Chat*, const Font*);
 void draw_background(void);
 void draw_circle_outline(Vector2, float, Color, float dim_factor);
 void draw_ball(const Ball);
 void draw_balls(const Ball*, uint16_t);
+void draw_ui_base(Rectangle);
+void draw_game_court(const Rectangle ui_rect);
 
 // Misc
 Ball generate_ball(Vector2 mouse_position);
 
 // Debug
 void draw_debug_information(const ApplicationSettings*);
-
 
 // Inlines
 // TODO: Fix this; does not handle non-Q4 rectangles
