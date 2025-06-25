@@ -2,42 +2,68 @@
 
 // static Camera2D camera = { 0 };
 
-ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font, RenderTexture screen_game) {
+ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font, RenderTexture screen_game, RenderTexture screen_game_info, RenderTexture screen_chat) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
     if (state == NULL) { B_ERROR("Passed null parameter 'state'"); return EC_PASSED_NULL; }
     if (chat == NULL) { B_ERROR("Passed null parameter 'chat'"); return EC_PASSED_NULL; }
     if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
 
-    Vector2 chat_pos = (Vector2){ 300, 50 };
-    Vector2 chat_dim = (Vector2){ 800, 700 };
-
     // Draw the background and the bocce court
     draw_background();
-    draw_game(settings->window_settings, screen_game);
-    draw_game_info(settings->window_settings);
-    draw_chat(settings->window_settings, chat_pos, chat_dim, chat, font);
+    draw_game(settings, screen_game);
+    draw_game_info(settings, screen_game_info);
+    draw_chat(settings, chat, font, screen_chat);
+
+    // Draw top-level UI elements
+
+    ///*
+    float thickness = 4.0f;
+    Color color = COLOR_VSC_2;
+
+    Vector2 line_v_top = {
+        ((float)settings->window_settings.window_width * HORIZONTAL_RATIO) - (thickness / 2.0f),
+        0,
+    };
+
+    Vector2 line_v_bot = {
+        line_v_top.x,
+        (float)settings->window_settings.window_height,
+    };
+
+    Vector2 line_h_left = {
+        ((float)settings->window_settings.window_width * HORIZONTAL_RATIO),
+        ((float)settings->window_settings.window_height * VERTICAL_RATIO)
+    };
+
+    Vector2 line_h_right = {
+        line_h_left.x + ((float)settings->window_settings.window_width * (1.0f - HORIZONTAL_RATIO)),
+        line_h_left.y
+    };
+
+    DrawLineEx(line_v_top, line_v_bot, thickness, color);
+    DrawLineEx(line_h_left, line_h_right, thickness, color);
+    //*/
 
     // Debug information
     draw_debug_information(settings);
     draw_circle_outline(GetMousePosition(), 20, (Color){ 255, 0, 255, 70 }, 0.3f);
+    draw_circle_outline(GetMousePosition(), 1, (Color){ 255, 255, 255, 255 }, 0.3f);
 
     return 0;
 }
 
-void draw_game(const WindowSettings ws, RenderTexture screen) {
+void draw_game(const ApplicationSettings* settings, RenderTexture screen) {
 
-    float ui_width = ((float)ws.window_width * HORIZONTAL_RATIO) - (padding * 2);
-    float ui_height = (float)(ws.window_height) - (padding * 2);
-    Vector2 ui_anchor = (Vector2){ .x = origin.x + padding, .y = origin.y + padding };
-
-    Vector2 mouse_position = (Vector2){GetMousePosition().x, ui_height - GetMousePosition().y + padding};
+    Vector2 ui_dim = (Vector2){ (float)screen.texture.width, (float)screen.texture.height };
+    Vector2 ui_anchor = (Vector2){ .x = 0.0f, .y = 0.0f };
+    Vector2 mouse_position_normalized = (Vector2){ GetMousePosition().x, ui_dim.y - GetMousePosition().y };
 
     Rectangle ui_rect = (Rectangle){
         .x = ui_anchor.x,
         .y = ui_anchor.y,
-        .width = ui_width,
-        .height = ui_height
+        .width = ui_dim.x,
+        .height = ui_dim.y
     };
 
     Vector2 center = {
@@ -46,22 +72,120 @@ void draw_game(const WindowSettings ws, RenderTexture screen) {
     };
 
     BeginTextureMode(screen);
-    ClearBackground(COLOR_BACKGROUND);
-    
-    draw_ui_base(ui_rect);
-    draw_game_court(ui_rect);
-    // draw_game_debug();
+    draw_background();
 
-    // Draw court-related objects in the subscreen [0, 0] x [court_width, court_height]
-    draw_circle_outline((Vector2){0.0f, 0.0f}, 100.0f, RED, 0.5f);
-    draw_circle_outline((Vector2){ui_width, 0.0f}, 100.0f, GREEN, 0.5f);
-    draw_circle_outline((Vector2){0.0f, ui_height}, 100.0f, BLUE, 0.5f);
-    draw_circle_outline((Vector2){ui_width, ui_height}, 100.0f, PURPLE, 0.5f);
-    draw_circle_outline((Vector2){ui_width / 2, ui_height / 2}, 100.0f, WHITE, 0.5f);
-    draw_circle_outline(mouse_position, 100.0f, ORANGE, 0.5f);
-    
+    DrawRectangleRec(ui_rect, COLOR_VSC_1);
+
+    // Draw court-related objects in the subscreen [0, 0] x [ui_width, ui_height]
+    draw_game_court(ui_rect);
+
+    // TODO: debug; remove
+    draw_circle_outline(mouse_position_normalized, 50.0f, ORANGE, 0.5f);
+
     EndTextureMode();
     DrawTextureRec(screen.texture, ui_rect, ui_anchor, WHITE);
+}
+
+void draw_chat(const ApplicationSettings* settings, const Chat* chat, const Font* font, RenderTexture screen) {
+
+    if (chat == NULL) { B_ERROR("Passed null parameter 'chat'"); return; }
+    if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return; }
+
+    Vector2 shadow_offset = { 7, 7 };
+    Vector2 input_offset = { 4, 4 };
+    const int input_height = 34;
+    const int padding = 4;
+    const int font_size = 16 * 2;
+
+    // TODO: figure out; flip this because render textures are upside-down?
+    Vector2 ui_dim = (Vector2){ (float)screen.texture.width, -(float)screen.texture.height };
+    Vector2 ui_anchor = (Vector2){
+        .x = ((float)settings->window_settings.window_width * (HORIZONTAL_RATIO)),
+        .y = ((float)settings->window_settings.window_height * (VERTICAL_RATIO))
+    };
+    Vector2 mouse_position_normalized = (Vector2){ GetMousePosition().x - ui_anchor.x, GetMousePosition().y - ui_anchor.y };
+    Rectangle ui_rect = (Rectangle){
+        .x = ui_anchor.x,
+        .y = ui_anchor.y,
+        .width = ui_dim.x,
+        .height = ui_dim.y
+    };
+
+    BeginTextureMode(screen);
+    draw_background();
+
+    DrawRectangle(0, 0, (int)ui_rect.width, (int)ui_rect.height, COLOR_CHAT_BACKGROUND);
+
+    // Draw active text box
+    int pb_w = (int)ui_rect.width;
+    int pb_h = font_size - (padding * 1);
+    int pb_x = 0;
+    int pb_y = -(int)ui_rect.height - pb_h;
+    DrawRectangle(pb_x, pb_y, pb_w, pb_h, COLOR_VSC_4);
+
+    // Draw active text message
+    // Display the chat hint if there is no active text
+    ChatMessage hint_message = (ChatMessage){ .text = "type a message!", .text_size = 15, .userId = 0 };
+    ChatMessage message = chat->active_message;
+    char buffer[128] = { 0 };
+    const Vector2 active_text_pos = (Vector2){ (float)(pb_x + (padding / 2)), (float)(pb_y + (padding / 2)) };
+    if (chat->active_message.text_size == 0) {
+        format_chat_message(buffer, hint_message);
+        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_3);
+    } else {
+        format_chat_message(buffer, message);
+        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
+    }
+
+    // Draw the chat history
+    Vector2 text_pos = (Vector2){ 0 };
+    for (uint16_t index = 0; index < chat->history.num_messages; index++) {
+        ChatMessage message = get_message(chat, index);
+        char buffer[128] = { 0 };
+        format_chat_message(buffer, message);
+        text_pos = (Vector2){
+            (float)(pb_x),
+            (float)(pb_y - (font_size * (chat->history.num_messages - index)))
+        };
+        DrawTextEx(*font, buffer, text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
+    }
+
+    draw_circle_outline(mouse_position_normalized, 50.0f, WHITE, 0.5f);
+
+    EndTextureMode();
+    DrawTextureRec(screen.texture, ui_rect, ui_anchor, WHITE);
+
+}
+
+void draw_game_info(const ApplicationSettings* settings, RenderTexture screen) {
+
+    Vector2 ui_dim = (Vector2){ (float)screen.texture.width, (float)screen.texture.height };
+    Vector2 ui_anchor = (Vector2){
+        .x = ((float)settings->window_settings.window_width * (HORIZONTAL_RATIO)),
+        .y = 0.0f
+    };
+    Vector2 mouse_position_normalized = (Vector2){ GetMousePosition().x - ui_anchor.x, ui_dim.y - GetMousePosition().y + ui_anchor.y };
+    Rectangle ui_rect = (Rectangle){
+        .x = ui_anchor.x,
+        .y = ui_anchor.y,
+        .width = ui_dim.x,
+        .height = ui_dim.y
+    };
+
+    Vector2 center = {
+        .x = (ui_rect.x + ui_rect.width) / 2.0f,
+        .y = (ui_rect.y + ui_rect.height) / 2.0f
+    };
+
+    BeginTextureMode(screen);
+    draw_background();
+
+    DrawRectangle(0, 0, (int)ui_rect.width, (int)ui_rect.height, COLOR_VSC_1);
+    draw_circle_outline(mouse_position_normalized, 50.0f, GREEN, 0.5f);
+
+    EndTextureMode();
+    DrawTextureRec(screen.texture, ui_rect, ui_anchor, WHITE);
+
 }
 
 void draw_game_court(const Rectangle ui_rect) {
@@ -89,88 +213,6 @@ void draw_game_court(const Rectangle ui_rect) {
 
 }
 
-void draw_chat(const WindowSettings ws, const Vector2 pos, const Vector2 dim, const Chat* chat, const Font* font) {
-
-    if (chat == NULL) { B_ERROR("Passed null parameter 'chat'"); return; }
-    if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return; }
-
-    const float chat_width = ((float)ws.window_width * (1.0f - HORIZONTAL_RATIO)) - (padding * 2);
-    const float chat_height = (float)((float)ws.window_height * (1.0f - VERTICAL_RATIO)) - (padding * 2);
-
-    Rectangle rect_chat_rect = (Rectangle){
-        .x = origin.x + ((float)ws.window_width * HORIZONTAL_RATIO),
-        .y = origin.y + ((float)ws.window_height * (1.0f - VERTICAL_RATIO)) + (padding / 2.0f),
-        .width = chat_width + padding,
-        .height = chat_height + (padding / 2.0f)
-    };
-
-    DrawRectangleRec(rect_shrink(rect_chat_rect, 10.0f), COLOR_VSC_3);
-    // GuiGroupBox(rect_chat_rect, "Chat");
-    draw_ui_base(rect_chat_rect);
-
-    // Vector2 shadow_offset = { 7, 7 };
-    // Vector2 input_offset = { 4, 4 };
-    // const int input_height = 34;
-    // const int padding = 4;
-    // const int font_size = 30;
-
-    // // Draw shadow
-    // DrawRectangle((int)(pos.x + shadow_offset.x), (int)(pos.y + shadow_offset.y), (int)dim.x, (int)dim.y, COLOR_VSC_2);
-
-    // // Draw background
-    // DrawRectangle((int)pos.x, (int)pos.y, (int)dim.x, (int)dim.y, COLOR_VSC_3);
-
-    // // Draw active text box
-    // int pb_x = (int)(pos.x + input_offset.x);
-    // int pb_y = (int)(pos.y + dim.y - ((float)input_height + input_offset.y));
-    // int pb_w = (int)(dim.x - (2 * input_offset.x));
-    // int pb_h = input_height;
-    // DrawRectangle(pb_x, pb_y, pb_w, pb_h, COLOR_VSC_4);
-
-    // // Draw message history
-    // Vector2 text_pos = (Vector2){0};
-    // for (uint16_t index = chat->history.num_messages; index > 0; index--) {
-    //     ChatMessage message = get_message(chat, index - 1);
-    //     char buffer[128] = { 0 };
-    //     format_chat_message(buffer, message);
-    //     text_pos = (Vector2){.x = (float)(pb_x + (padding / 2)), .y = (float)(pb_y - (font_size * (chat->history.num_messages - index + 1)))};
-    //     DrawTextEx(*font, buffer, text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
-    // }
-
-    // // Draw active text message
-    // ChatMessage hint_message = (ChatMessage){ .text = "type a message!", .text_size = 15, .userId = 0 };
-    // ChatMessage message = chat->active_message;
-    // char buffer[128] = { 0 };
-
-    // // Display the chat hint if there is no active text
-    // const Vector2 active_text_pos = (Vector2){ (float)(pb_x + (padding / 2)), (float)(pb_y + (padding / 2)) };
-    // if (chat->active_message.text_size == 0) {
-    //     format_chat_message(buffer, hint_message);
-    //     DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_3);
-    // } else {
-    //     format_chat_message(buffer, message);
-    //     DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
-    // }
-
-}
-
-void draw_game_info(const WindowSettings ws) {
-
-    float bocce_game_info_width = ((float)ws.window_width * (1.0f - HORIZONTAL_RATIO)) - (padding * 2);
-    float bocce_game_info_height = ((float)ws.window_height * VERTICAL_RATIO) - (padding * 2);
-
-    Rectangle rect_bocce_game_info = (Rectangle){
-        .x = origin.x + ((float)ws.window_width * HORIZONTAL_RATIO),
-        .y = origin.y + padding,
-        .width = bocce_game_info_width + padding,
-        .height = bocce_game_info_height + (padding / 2.0f)
-    };
-
-    DrawRectangleRec(rect_shrink(rect_bocce_game_info, 10.0f), COLOR_VSC_3);
-    // GuiGroupBox(rect_bocce_game_info, "Game Info");
-    draw_ui_base(rect_bocce_game_info);
-}
-
 void draw_debug_information(const ApplicationSettings* settings) {
 
     int i = 0;
@@ -187,8 +229,7 @@ void draw_debug_information(const ApplicationSettings* settings) {
 
     DrawText(TextFormat("Screen Size: [%i, %i]", GetScreenWidth(), GetScreenHeight()), offset_x, offset_y + (20 * i++), 20, COLOR_TEXT);
     DrawText(TextFormat("Mouse: [%i, %i]", (int)mp.x, (int)mp.y), offset_x, offset_y + (20 * i++), 20, COLOR_TEXT);
-    DrawText(TextFormat("Client: %s", (is_client(*settings)) ? "Yes" : "No"), offset_x, offset_y + (20 * i++), 20, COLOR_TEXT);
-    DrawText(TextFormat("Server: %s", (is_server(*settings)) ? "Yes" : "No"), offset_x, offset_y + (20 * i++), 20, COLOR_TEXT);
+    DrawText(TextFormat("App: %s", get_app_type(*settings)), offset_x, offset_y + (20 * i++), 20, COLOR_TEXT);
     // DrawText(TextFormat("Connected to: %s", get_server_address(*)), 10, 10 + (20 * i++), 20, COLOR_TEXT);
 }
 

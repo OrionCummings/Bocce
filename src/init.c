@@ -110,10 +110,10 @@ ErrorCode init_fonts(Font* font) {
     const char* font_path_debug = "..\\..\\..\\res\\fonts\\daydream\\daydream.ttf";
     if (access(font_path_release, F_OK) == 0) {
         B_INFO("Loaded font 'daydream'");
-        *font = LoadFontEx(font_path_release, 32, NULL, 259);
+        *font = LoadFontEx(font_path_release, FONT_SIZE, NULL, FONT_DAYDREAM_NUM_CHARS);
     } else if (access(font_path_debug, F_OK) == 0) {
         B_INFO("Loaded font 'daydream'");
-        *font = LoadFontEx(font_path_debug, 32, NULL, 259);
+        *font = LoadFontEx(font_path_debug, FONT_SIZE, NULL, FONT_DAYDREAM_NUM_CHARS);
     } else {
         B_INFO("Failed to load font 'daydream'; falling back to default font");
         *font = GetFontDefault();

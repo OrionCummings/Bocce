@@ -50,7 +50,7 @@ void print_window_settings(WindowSettings settings) {
     printf("Window Settings:\n");
     printf("\twindow_width: '%d'\n", settings.window_width);
     printf("\twindow_height:' %d'\n", settings.window_height);
-    printf("\tfullscreen: '%s'\n", (settings.fullscreen)? "true" : "false");
+    printf("\tfullscreen: '%s'\n", (settings.fullscreen) ? "true" : "false");
     printf("\twindow_title: '%s'\n", settings.window_title);
     printf("\tlog_level: '%d'\n", settings.log_level);
     printf("\ttarget_fps: '%d'\n", settings.target_fps);
@@ -81,3 +81,18 @@ bool is_server(const ApplicationSettings settings){
 bool is_client(const ApplicationSettings settings){
     return (settings.application_mode == AM_CLIENT) || (settings.application_mode == AM_DUAL);
 }
+
+char* get_app_type(const ApplicationSettings settings) {
+    bool server = is_server(settings);
+    bool client = is_client(settings);
+    if (server && client) {
+        return "Host";
+    } else if (server && !client) {
+        return "Server";
+    } else if (!server && client) {
+        return "Client";
+    } else {
+        return "Unknown app type";
+    }
+}
+

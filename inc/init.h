@@ -20,6 +20,10 @@
 #define TERTIARY_FONT_INDEX (2)
 #define QUATRENARY_FONT_INDEX (3)
 
+#define FONT_SIZE (24)
+
+#define FONT_DAYDREAM_NUM_CHARS (259)
+
 ErrorCode init(ApplicationSettings*, Server*, Client*, sqlite3**, Font*);
 ErrorCode init_window(ApplicationSettings*, Font*);
 ErrorCode init_fonts(Font* fonts);

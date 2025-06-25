@@ -50,6 +50,7 @@ void print_application_settings(const ApplicationSettings);
 
 bool is_server(const ApplicationSettings);
 bool is_client(const ApplicationSettings);
+char* get_app_type(const ApplicationSettings);
 
 // High-level functions
 ErrorCode send_data(TcsSocket socket, const uint8_t* buffer, size_t buffer_size);

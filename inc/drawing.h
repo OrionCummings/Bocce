@@ -9,8 +9,9 @@
 #include "networking.h"
 #include "chat.h"
 
-#define HORIZONTAL_RATIO (2.0f/3.0f)
-#define VERTICAL_RATIO (1.0f/2.0f)
+#define HORIZONTAL_RATIO ((float)(2.0f/3.0f))
+#define VERTICAL_RATIO ((float)(1.0f/2.0f))
+// #define VERTICAL_RATIO ((float)(1.0f/3.0f)) // TODO: Fix this bug; it works with 0.5 for now!
 
 #define COLOR_VSC_0 ((Color){10, 10, 15, 255})
 #define COLOR_VSC_1 ((Color){30, 30, 30, 255})
@@ -18,6 +19,10 @@
 #define COLOR_VSC_3 ((Color){45, 45, 48, 255})
 #define COLOR_VSC_4 ((Color){62, 62, 66, 255})
 #define COLOR_VSC_5 ((Color){0, 122, 204, 255})
+
+#define COLOR_GAME_BACKGROUND ((Color){196, 177, 174, 255})
+#define COLOR_GAME_INFO_BACKGROUND ((Color){202, 183, 162, 255})
+#define COLOR_CHAT_BACKGROUND ((Color){133, 135, 134, 255})
 
 #define COLOR_SHADOW (COLOR_VSC_0)
 #define COLOR_BACKGROUND (COLOR_VSC_1)
@@ -40,10 +45,10 @@ static const float padding = 10.0f;
 Color dim_color(const Color, float);
 
 // Drawing
-ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*, RenderTexture);
-void draw_game(const WindowSettings, RenderTexture);
-void draw_game_info(const WindowSettings);
-void draw_chat(const WindowSettings, Vector2, const Vector2, const Chat*, const Font*);
+ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*, RenderTexture, RenderTexture, RenderTexture);
+void draw_game(const ApplicationSettings*, RenderTexture);
+void draw_game_info(const ApplicationSettings*, RenderTexture);
+void draw_chat(const ApplicationSettings*, const Chat*, const Font*, RenderTexture);
 void draw_background(void);
 void draw_circle_outline(Vector2, float, Color, float dim_factor);
 void draw_ball(const Ball);

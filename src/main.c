@@ -35,7 +35,6 @@ static GameState state;
 static Chat chat;
 static Font font;
 
-static Rectangle rect_game = {10.0f, 10.0f, 1270.0f, 1070.0f}; // TODO Don't hard code this 
 static RenderTexture screen_game;
 static RenderTexture screen_game_info;
 static RenderTexture screen_chat;
@@ -49,13 +48,27 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
 
     B_INFO("Executing one main loop");
 
-    screen_game = LoadRenderTexture((int)rect_game.width, (int)rect_game.height);
+    // TODO: Pull this stuff out of loop(). Why is this re-run every loop????
+    int screen_game_width = (int)((float)settings->window_settings.window_width * HORIZONTAL_RATIO);
+    int screen_game_height = (int)(settings->window_settings.window_height);
+
+    int screen_chat_width = (int)((float)settings->window_settings.window_width * (1.0f - HORIZONTAL_RATIO)) + 1; // +1 to account for float rounding!
+    int screen_chat_height = (int)((float)settings->window_settings.window_height * (1.0f - VERTICAL_RATIO));
+
+    int screen_game_info_width = (int)((float)settings->window_settings.window_width * (1.0f - HORIZONTAL_RATIO)) + 1; // +1 to account for float rounding!
+    int screen_game_info_height = (int)((float)settings->window_settings.window_height * (VERTICAL_RATIO));
+
+    screen_game = LoadRenderTexture(screen_game_width, screen_game_height);
+    screen_game_info = LoadRenderTexture(screen_game_info_width, screen_game_info_height);
+    screen_chat = LoadRenderTexture(screen_chat_width, screen_chat_height);
+    //
 
     if (should_have_window(*settings)) {
 
         // If we have not told the window to close, keep going!
         while (!WindowShouldClose()) {
 
+            // TODO: Align this with the current parameter list! Apply globally!
             if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
             if (server == NULL) { B_ERROR("Passed null parameter 'server'");   return EC_PASSED_NULL; }
             if (client == NULL) { B_ERROR("Passed null parameter 'client'");   return EC_PASSED_NULL; }
@@ -72,7 +85,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw(settings, state, chat, font, screen_game);
+            ErrorCode ec_draw = draw(settings, state, chat, font, screen_game, screen_game_info, screen_chat);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;
