@@ -76,6 +76,10 @@ ErrorCode update_server(Server* server){
 
 ErrorCode update_client(Client* client){
 
+    // Update the court
+
+    
+
     return EC_OK;
 }
 

@@ -8,6 +8,7 @@
 #include "error_codes.h"
 #include "networking.h"
 #include "chat.h"
+#include "physac.h"
 
 #define HORIZONTAL_RATIO ((float)(2.0f/3.0f))
 #define VERTICAL_RATIO ((float)(1.0f/2.0f))
@@ -38,8 +39,21 @@
 
 #define COLOR_RANDOM ((Color){(unsigned char)rand(), (unsigned char)rand(), (unsigned char)rand(), 255})
 
+#define TEXT_BOX_EMPTY_TEXT_MAX_LENGTH (128)
+
 #define origin ((Vector2){0.0f, 0.0f})
+
 static const float padding = 10.0f;
+
+typedef struct TextBox {
+    Rectangle bounds;
+    bool selected;
+    char empty_text[128];
+} TextBox;
+
+typedef struct UIManager {
+    int selected_id;
+} UIManager;
 
 // Colors
 Color dim_color(const Color, float);
@@ -55,6 +69,11 @@ void draw_ball(const Ball);
 void draw_balls(const Ball*, uint16_t);
 void draw_ui_base(Rectangle);
 void draw_game_court(const Rectangle ui_rect);
+
+// TextBox
+TextBox create_active_text_box(Rectangle, int);
+void draw_text_box(TextBox);
+
 
 // Misc
 Ball generate_ball(Vector2 mouse_position);

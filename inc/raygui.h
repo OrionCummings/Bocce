@@ -11,9 +11,7 @@
 #endif
 
 #include "raylib.h"
-// #define RAYGUI_IMPLEMENTATION (1)
 #include "../lib/raygui/raygui_real.h"
-// #undef RAYGUI_IMPLEMENTATION
 
 /* restore warnings */
 #ifdef __GNUC__

@@ -8,6 +8,7 @@
 // Thanks
 // xoxo
 #define RAYGUI_IMPLEMENTATION (1)
+#define PHYSAC_IMPLEMENTATION
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +26,7 @@
 #include "error_codes.h"
 #include "update.h"
 #include "chat.h"
+#include "physac.h"
 
 // TODO: Reduce the scope of these variables!
 static ApplicationSettings settings;
@@ -61,7 +63,6 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
     screen_game = LoadRenderTexture(screen_game_width, screen_game_height);
     screen_game_info = LoadRenderTexture(screen_game_info_width, screen_game_info_height);
     screen_chat = LoadRenderTexture(screen_chat_width, screen_chat_height);
-    //
 
     if (should_have_window(*settings)) {
 
@@ -97,6 +98,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
 
     }
 
+    // TODO: Pull out!
     UnloadRenderTexture(screen_game);
 
     return EC_OK;

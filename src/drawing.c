@@ -46,7 +46,6 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
     //*/
 
     // Debug information
-    draw_debug_information(settings);
     draw_circle_outline(GetMousePosition(), 20, (Color){ 255, 0, 255, 70 }, 0.3f);
     draw_circle_outline(GetMousePosition(), 1, (Color){ 255, 255, 255, 255 }, 0.3f);
 
@@ -70,6 +69,8 @@ void draw_game(const ApplicationSettings* settings, RenderTexture screen) {
         .x = (ui_rect.x + ui_rect.width) / 2.0f,
         .y = (ui_rect.y + ui_rect.height) / 2.0f
     };
+
+
 
     BeginTextureMode(screen);
     draw_background();
@@ -117,23 +118,22 @@ void draw_chat(const ApplicationSettings* settings, const Chat* chat, const Font
     DrawRectangle(0, 0, (int)ui_rect.width, (int)ui_rect.height, COLOR_CHAT_BACKGROUND);
 
     // Draw active text box
-    int pb_w = (int)ui_rect.width;
-    int pb_h = font_size - (padding * 1);
-    int pb_x = 0;
-    int pb_y = -(int)ui_rect.height - pb_h;
-    DrawRectangle(pb_x, pb_y, pb_w, pb_h, COLOR_VSC_4);
+    TextBox active_text_box = create_active_text_box(ui_rect, font_size);
+    draw_text_box(active_text_box);
 
     // Draw active text message
     // Display the chat hint if there is no active text
-    ChatMessage hint_message = (ChatMessage){ .text = "type a message!", .text_size = 15, .userId = 0 };
+    ChatMessage hint_message = (ChatMessage){ .text = "type a message!", .text_size = 15, .user_id = 0 };
     ChatMessage message = chat->active_message;
     char buffer[128] = { 0 };
-    const Vector2 active_text_pos = (Vector2){ (float)(pb_x + (padding / 2)), (float)(pb_y + (padding / 2)) };
+    const Vector2 active_text_pos = (Vector2){ (float)(active_text_box.bounds.x), (float)(active_text_box.bounds.y + ((float)padding / 2.0f)) };
     if (chat->active_message.text_size == 0) {
         format_chat_message(buffer, hint_message);
-        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_3);
+        DrawTextEx(*font, buffer, (Vector2){active_text_pos.x + 4.0f, active_text_pos.y + 4.0f}, (float)font->baseSize, (float)padding, COLOR_VSC_3);
+        DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_2);
     } else {
         format_chat_message(buffer, message);
+        DrawTextEx(*font, buffer, (Vector2){active_text_pos.x + 4.0f, active_text_pos.y + 4.0f}, (float)font->baseSize, (float)padding, COLOR_VSC_3);
         DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
     }
 
@@ -144,9 +144,10 @@ void draw_chat(const ApplicationSettings* settings, const Chat* chat, const Font
         char buffer[128] = { 0 };
         format_chat_message(buffer, message);
         text_pos = (Vector2){
-            (float)(pb_x),
-            (float)(pb_y - (font_size * (chat->history.num_messages - index)))
+            (float)(active_text_box.bounds.x),
+            (float)((float)active_text_box.bounds.y - ((0.8f * (float)font_size) * (float)(chat->history.num_messages - index))) // TODO: Magic number! TODO: Holy casts!
         };
+        DrawTextEx(*font, buffer, (Vector2){text_pos.x + 4.0f, text_pos.y + 4.0f}, (float)font->baseSize, (float)padding, COLOR_VSC_3);
         DrawTextEx(*font, buffer, text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
     }
 
@@ -154,17 +155,16 @@ void draw_chat(const ApplicationSettings* settings, const Chat* chat, const Font
 
     EndTextureMode();
     DrawTextureRec(screen.texture, ui_rect, ui_anchor, WHITE);
-
 }
 
 void draw_game_info(const ApplicationSettings* settings, RenderTexture screen) {
 
-    Vector2 ui_dim = (Vector2){ (float)screen.texture.width, (float)screen.texture.height };
+    Vector2 ui_dim = (Vector2){ (float)screen.texture.width, -(float)screen.texture.height };
     Vector2 ui_anchor = (Vector2){
         .x = ((float)settings->window_settings.window_width * (HORIZONTAL_RATIO)),
         .y = 0.0f
     };
-    Vector2 mouse_position_normalized = (Vector2){ GetMousePosition().x - ui_anchor.x, ui_dim.y - GetMousePosition().y + ui_anchor.y };
+    Vector2 mouse_position_normalized = (Vector2){ GetMousePosition().x - ui_anchor.x, GetMousePosition().y + ui_anchor.y };
     Rectangle ui_rect = (Rectangle){
         .x = ui_anchor.x,
         .y = ui_anchor.y,
@@ -180,7 +180,7 @@ void draw_game_info(const ApplicationSettings* settings, RenderTexture screen) {
     BeginTextureMode(screen);
     draw_background();
 
-    DrawRectangle(0, 0, (int)ui_rect.width, (int)ui_rect.height, COLOR_VSC_1);
+    draw_debug_information(settings);
     draw_circle_outline(mouse_position_normalized, 50.0f, GREEN, 0.5f);
 
     EndTextureMode();
@@ -210,6 +210,16 @@ void draw_game_court(const Rectangle ui_rect) {
     DrawRectangleRec(court_rect_shadow_2, COLOR_COURT_BASE_DARK); // court shadow (top)
     DrawRectangleRounded(court_rect_wall, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL); // wall
     DrawRectangleRec(court_rect, COLOR_COURT_BASE); // court
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // TODO: Physics stuff: temp location
+    // Create floor rectangle physics body
+    PhysicsBody floor = CreatePhysicsBodyRectangle((Vector2){ ui_rect.width/2.0f, ui_rect.height/2.0f }, screenWidth, 100, 10);
+    floor->enabled = false; // Disable body state to convert it to static (no dynamics, but collisions)
+    PhysicsBody wall = CreatePhysicsBodyRectangle((Vector2){ screenWidth/2, screenHeight*0.8f }, 10, 80, 10);
+    wall->enabled = false; // Disable body state to convert it to static (no dynamics, but collisions)
+
+    //
 
 }
 
@@ -270,4 +280,28 @@ void draw_ui_base(Rectangle r) {
     DrawRectangleRec(r, COLOR_VSC_2);
     DrawRectangleRec(rect_shrink(r, 5.0f), COLOR_VSC_3);
 }
+
+TextBox create_active_text_box(Rectangle r, int font_size) {
+    float w = r.width;
+    float h = (float)font_size - (padding / 2.0f);
+    float x = 0.0f;
+    float y = -r.height - h;
+
+    TextBox tb;
+    tb.bounds = (Rectangle){ x, y, w, h };
+    tb.selected = false;
+    const char* text = "type a message!";
+    memcpy_s(tb.empty_text, TEXT_BOX_EMPTY_TEXT_MAX_LENGTH, text, strlen(text));
+    return tb;
+}
+
+void draw_text_box(TextBox box){
+    DrawRectangleRec(box.bounds, COLOR_VSC_3);
+
+    if (box.selected) {
+        DrawRectangleLinesEx(box.bounds, 4.0f, COLOR_VSC_5);
+    }
+}
+
+
 

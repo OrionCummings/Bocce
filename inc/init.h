@@ -12,6 +12,7 @@
 #include "string.h"
 #include "error_codes.h"
 #include "networking.h"
+#include "physac.h"
 
 // Fonts
 #define NUM_FONTS (4)

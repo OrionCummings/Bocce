@@ -65,6 +65,9 @@ ErrorCode init_window(ApplicationSettings* application_settings, Font* font) {
     // TODO: Make this actually handle multiple fonts lol
     init_fonts(font);
 
+    // Init physics
+    InitPhysics();
+
     SetTextLineSpacing(16);
 
     return EC_OK;
@@ -407,6 +410,10 @@ ErrorCode uninit_window(Font* font) {
     // Unload the fonts
     B_INFO("Unloading font(s)");
     UnloadFont(*font);
+    
+    // Unload the physics engine
+    B_INFO("Unloading physics");
+    ClosePhysics();
 
     // Close the window
     B_INFO("Unloading the window");

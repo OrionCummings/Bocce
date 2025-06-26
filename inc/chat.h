@@ -13,7 +13,7 @@
 typedef struct ChatMessage {
     char text[MAX_CHAT_LENGTH];
     uint8_t text_size;
-    const uint32_t userId;
+    const uint32_t user_id;
 } ChatMessage;
 
 typedef struct ChatHistory {

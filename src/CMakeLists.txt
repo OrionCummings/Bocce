@@ -9,16 +9,11 @@ add_executable(Bocce
     ball.c
     update.c
     chat.c
-    # graphics.c
-    # physics.c
-    # resources.c
-    # data_structures.c
-    # database.c
-    # cli.c
+    ui.c
     )
 
 target_include_directories(Bocce PRIVATE "../inc")
-# target_include_directories(Bocce PRIVATE ../lib/raylib)
+# target_include_directories(Bocce PRIVATE "../lib/physac")
 # include_directories(SYSTEM "../lib/raylib")
 
 target_compile_options(Bocce PRIVATE

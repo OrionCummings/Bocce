@@ -43,7 +43,7 @@ add_subdirectory(src)
 # Provides TOML parsing support
 add_subdirectory(lib/libtoml)
 
-# target_include_directories(Bocce PRIVATE "/lib/raygui")
+# target_include_directories(Bocce PRIVATE "/lib/physac")
 
 target_link_libraries(Bocce PUBLIC raylib)
 target_link_libraries(Bocce PUBLIC tinycsocket)
