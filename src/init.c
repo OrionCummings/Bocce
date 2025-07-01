@@ -68,9 +68,16 @@ ErrorCode init_window(ApplicationSettings* application_settings, Font* font, Cla
     },
         (Clay_ErrorHandler) {
         .errorHandlerFunction = clay_handle_errors,
-            .userData = 0
+            .userData = NULL
     }
     );
+
+    // TODO: Refactor this into init_fonts()
+    // Font fonts[1];
+    // fonts[0] = GetFontDefault();
+    // SetTextureFilter(fonts[0].texture, TEXTURE_FILTER_BILINEAR);
+    // Clay_SetMeasureTextFunction(clay_raylib_measure_text, fonts);
+    // Clay_SetDebugModeEnabled(true);
 
     SetConfigFlags(ws.config_flags); // FLAG_MSAA_4X_HINT
     SetTraceLogLevel(ws.log_level);
@@ -508,5 +515,49 @@ void clay_handle_errors(Clay_ErrorData error_data) {
     } else if (error_data.errorType == CLAY_ERROR_TYPE_TEXT_MEASUREMENT_CAPACITY_EXCEEDED) {
         Clay_SetMaxMeasureTextCacheWordCount(Clay_GetMaxMeasureTextCacheWordCount() * 2);
     }
+}
+
+Clay_Dimensions clay_raylib_measure_text(Clay_StringSlice text, Clay_TextElementConfig* config, void* user_data) {
+
+    // Measure string size for Font
+    Clay_Dimensions textSize = { 0 };
+
+    float maxTextWidth = 0.0f;
+    float lineTextWidth = 0;
+    int maxLineCharCount = 0;
+    int lineCharCount = 0;
+
+    float textHeight = config->fontSize;
+    Font* fonts = (Font*)user_data;
+    Font fontToUse = fonts[config->fontId];
+    // Font failed to load, likely the fonts are in the wrong place relative to the execution dir.
+    // RayLib ships with a default font, so we can continue with that built in one. 
+    if (!fontToUse.glyphs) {
+        fontToUse = GetFontDefault();
+    }
+
+    float scaleFactor = config->fontSize / (float)fontToUse.baseSize;
+
+    for (int i = 0; i < text.length; ++i, lineCharCount++)
+    {
+        if (text.chars[i] == '\n') {
+            maxTextWidth = fmaxf(maxTextWidth, lineTextWidth);
+            maxLineCharCount = CLAY__MAX(maxLineCharCount, lineCharCount);
+            lineTextWidth = 0;
+            lineCharCount = 0;
+            continue;
+        }
+        int index = text.chars[i] - 32;
+        if (fontToUse.glyphs[index].advanceX != 0) lineTextWidth += (float)fontToUse.glyphs[index].advanceX;
+        else lineTextWidth += (fontToUse.recs[index].width + (float)fontToUse.glyphs[index].offsetX);
+    }
+
+    maxTextWidth = fmaxf(maxTextWidth, lineTextWidth);
+    maxLineCharCount = CLAY__MAX(maxLineCharCount, lineCharCount);
+
+    textSize.width = maxTextWidth * scaleFactor + (float)(lineCharCount * config->letterSpacing);
+    textSize.height = textHeight;
+
+    return textSize;
 }
 
