@@ -9,6 +9,8 @@
 #include "networking.h"
 #include "chat.h"
 #include "physac.h"
+#include "clay.h"
+#include "clay_renderer_raylib.h"
 
 #define HORIZONTAL_RATIO ((float)(2.0f/3.0f))
 #define VERTICAL_RATIO ((float)(1.0f/2.0f))
@@ -59,7 +61,7 @@ typedef struct UIManager {
 Color dim_color(const Color, float);
 
 // Drawing
-ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*, RenderTexture, RenderTexture, RenderTexture);
+ErrorCode draw(const ApplicationSettings*, const GameState*, const Chat*, const Font*, RenderTexture, RenderTexture, RenderTexture, Clay_RenderCommandArray);
 void draw_game(const ApplicationSettings*, RenderTexture);
 void draw_game_info(const ApplicationSettings*, RenderTexture);
 void draw_chat(const ApplicationSettings*, const Chat*, const Font*, RenderTexture);

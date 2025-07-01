@@ -36,6 +36,7 @@ typedef struct ClientSettings {
 } ClientSettings;
 
 typedef struct Client {
+    bool enabled;
     ClientSettings settings;
     TcsSocket socket;
     bool connected;

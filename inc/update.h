@@ -7,6 +7,7 @@
 #include "networking.h"
 #include "raylib.h"
 #include "chat.h"
+#include "physac.h"
 
 ErrorCode update(ApplicationSettings*, Server*, Client*, GameState*, Chat*);
 ErrorCode update_game_state(GameState*);

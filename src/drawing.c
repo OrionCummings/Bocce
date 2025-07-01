@@ -2,7 +2,7 @@
 
 // static Camera2D camera = { 0 };
 
-ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font, RenderTexture screen_game, RenderTexture screen_game_info, RenderTexture screen_chat) {
+ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font, RenderTexture screen_game, RenderTexture screen_game_info, RenderTexture screen_chat, Clay_RenderCommandArray render_commands) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
     if (state == NULL) { B_ERROR("Passed null parameter 'state'"); return EC_PASSED_NULL; }
@@ -11,46 +11,16 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
 
     // Draw the background and the bocce court
     draw_background();
-    draw_game(settings, screen_game);
-    draw_game_info(settings, screen_game_info);
-    draw_chat(settings, chat, font, screen_chat);
-
-    // Draw top-level UI elements
-
-    ///*
-    float thickness = 4.0f;
-    Color color = COLOR_VSC_2;
-
-    Vector2 line_v_top = {
-        ((float)settings->window_settings.window_width * HORIZONTAL_RATIO) - (thickness / 2.0f),
-        0,
-    };
-
-    Vector2 line_v_bot = {
-        line_v_top.x,
-        (float)settings->window_settings.window_height,
-    };
-
-    Vector2 line_h_left = {
-        ((float)settings->window_settings.window_width * HORIZONTAL_RATIO),
-        ((float)settings->window_settings.window_height * VERTICAL_RATIO)
-    };
-
-    Vector2 line_h_right = {
-        line_h_left.x + ((float)settings->window_settings.window_width * (1.0f - HORIZONTAL_RATIO)),
-        line_h_left.y
-    };
-
-    DrawLineEx(line_v_top, line_v_bot, thickness, color);
-    DrawLineEx(line_h_left, line_h_right, thickness, color);
-    //*/
-
-    // Debug information
-    draw_circle_outline(GetMousePosition(), 20, (Color){ 255, 0, 255, 70 }, 0.3f);
-    draw_circle_outline(GetMousePosition(), 1, (Color){ 255, 255, 255, 255 }, 0.3f);
+    Clay_Raylib_Render(render_commands, NULL);
 
     return 0;
 }
+
+void draw_background() {
+    ClearBackground(COLOR_BACKGROUND);
+}
+
+/*
 
 void draw_game(const ApplicationSettings* settings, RenderTexture screen) {
 
@@ -69,8 +39,6 @@ void draw_game(const ApplicationSettings* settings, RenderTexture screen) {
         .x = (ui_rect.x + ui_rect.width) / 2.0f,
         .y = (ui_rect.y + ui_rect.height) / 2.0f
     };
-
-
 
     BeginTextureMode(screen);
     draw_background();
@@ -129,11 +97,11 @@ void draw_chat(const ApplicationSettings* settings, const Chat* chat, const Font
     const Vector2 active_text_pos = (Vector2){ (float)(active_text_box.bounds.x), (float)(active_text_box.bounds.y + ((float)padding / 2.0f)) };
     if (chat->active_message.text_size == 0) {
         format_chat_message(buffer, hint_message);
-        DrawTextEx(*font, buffer, (Vector2){active_text_pos.x + 4.0f, active_text_pos.y + 4.0f}, (float)font->baseSize, (float)padding, COLOR_VSC_3);
+        DrawTextEx(*font, buffer, (Vector2){ active_text_pos.x + 4.0f, active_text_pos.y + 4.0f }, (float)font->baseSize, (float)padding, COLOR_VSC_3);
         DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_2);
     } else {
         format_chat_message(buffer, message);
-        DrawTextEx(*font, buffer, (Vector2){active_text_pos.x + 4.0f, active_text_pos.y + 4.0f}, (float)font->baseSize, (float)padding, COLOR_VSC_3);
+        DrawTextEx(*font, buffer, (Vector2){ active_text_pos.x + 4.0f, active_text_pos.y + 4.0f }, (float)font->baseSize, (float)padding, COLOR_VSC_3);
         DrawTextEx(*font, buffer, active_text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
     }
 
@@ -147,7 +115,7 @@ void draw_chat(const ApplicationSettings* settings, const Chat* chat, const Font
             (float)(active_text_box.bounds.x),
             (float)((float)active_text_box.bounds.y - ((0.8f * (float)font_size) * (float)(chat->history.num_messages - index))) // TODO: Magic number! TODO: Holy casts!
         };
-        DrawTextEx(*font, buffer, (Vector2){text_pos.x + 4.0f, text_pos.y + 4.0f}, (float)font->baseSize, (float)padding, COLOR_VSC_3);
+        DrawTextEx(*font, buffer, (Vector2){ text_pos.x + 4.0f, text_pos.y + 4.0f }, (float)font->baseSize, (float)padding, COLOR_VSC_3);
         DrawTextEx(*font, buffer, text_pos, (float)font->baseSize, (float)padding, COLOR_VSC_5);
     }
 
@@ -210,17 +178,6 @@ void draw_game_court(const Rectangle ui_rect) {
     DrawRectangleRec(court_rect_shadow_2, COLOR_COURT_BASE_DARK); // court shadow (top)
     DrawRectangleRounded(court_rect_wall, wall_roundness, wall_roundness_segments, COLOR_COURT_WALL); // wall
     DrawRectangleRec(court_rect, COLOR_COURT_BASE); // court
-
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    // TODO: Physics stuff: temp location
-    // Create floor rectangle physics body
-    PhysicsBody floor = CreatePhysicsBodyRectangle((Vector2){ ui_rect.width/2.0f, ui_rect.height/2.0f }, screenWidth, 100, 10);
-    floor->enabled = false; // Disable body state to convert it to static (no dynamics, but collisions)
-    PhysicsBody wall = CreatePhysicsBodyRectangle((Vector2){ screenWidth/2, screenHeight*0.8f }, 10, 80, 10);
-    wall->enabled = false; // Disable body state to convert it to static (no dynamics, but collisions)
-
-    //
-
 }
 
 void draw_debug_information(const ApplicationSettings* settings) {
@@ -250,10 +207,6 @@ Color dim_color(const Color C, float Factor) {
     Color R = C;
     R.a = (unsigned char)((float)C.a * Factor);
     return R;
-}
-
-void draw_background() {
-    ClearBackground(COLOR_BACKGROUND);
 }
 
 void draw_balls(const Ball* balls, uint16_t num_balls) {
@@ -304,4 +257,4 @@ void draw_text_box(TextBox box){
 }
 
 
-
+*/

@@ -76,10 +76,28 @@ ErrorCode update_server(Server* server){
 
 ErrorCode update_client(Client* client){
 
+    // B_INFO("client time: %f", GetTime());
+
     // Update the court
 
-    
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // TODO: Physics stuff: temp location
+    // Create floor rectangle physics body
+    // PhysicsBody floor = CreatePhysicsBodyRectangle((Vector2){ 0.0f, 0.0f }, (float)GetScreenWidth(), (float)GetScreenHeight(), 10.0f);
+    // floor->enabled = false; // Disable body state to convert it to static (no dynamics, but collisions)
+
+    // PhysicsBody wall = CreatePhysicsBodyRectangle((Vector2){ 0.0f, 0.0f }, 500.0f, 500.0f, 10.0f);
+    // wall->enabled = false; // Disable body state to convert it to static (no dynamics, but collisions)
+
+    // // Create dynamic physics bodies
+    // PhysicsBody ball = CreatePhysicsBodyCircle((Vector2){ 100.0f, 500.0f }, 100.0f, 10.0f);
+    // ball->staticFriction = 0.1f;
+    // ball->dynamicFriction = 0.1f;
+
+
+    
     return EC_OK;
 }
 

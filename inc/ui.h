@@ -1,17 +1,11 @@
 #ifndef __UI_H
 #define __UI_H
 
+#include "types.h"
+#include "debug.h"
 #include "raylib.h"
+#include "clay.h"
 
-#define BUTTON_TEXT_MAX_LENGTH (64)
-
-typedef struct Button {
-    Rectangle bounds;
-    bool selected;
-    char text[BUTTON_TEXT_MAX_LENGTH];
-} Button;
-
-bool clicked(Button, Vector2);
-bool is_selected(const Button*);
+Clay_RenderCommandArray create_layout(Clay_Context* ctx);
 
 #endif

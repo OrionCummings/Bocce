@@ -34,6 +34,14 @@ FetchContent_Declare(
     GIT_PROGRESS TRUE
 )
 
+# Provides UI layout engine
+FetchContent_Declare(
+    clay
+    GIT_REPOSITORY "https://github.com/nicbarker/clay.git"
+    GIT_TAG "main"
+    GIT_PROGRESS TRUE
+)
+
 FetchContent_MakeAvailable(raylib tinycsocket cwalk)
 
 find_package(SQLite3 REQUIRED)
@@ -42,8 +50,6 @@ add_subdirectory(src)
 
 # Provides TOML parsing support
 add_subdirectory(lib/libtoml)
-
-# target_include_directories(Bocce PRIVATE "/lib/physac")
 
 target_link_libraries(Bocce PUBLIC raylib)
 target_link_libraries(Bocce PUBLIC tinycsocket)

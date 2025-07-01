@@ -7,7 +7,9 @@ static TcsSocket client_socket;
 static TcsSocket server_socket;
 static TcsSocket listen_socket;
 
-ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database, Font* font) {
+static Clay_Arena clay_memory;
+
+ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database, Font* font, Clay_Context** context) {
 
     // Set all memory to zero
     memset(application_settings, 0, sizeof(*application_settings));
@@ -36,7 +38,7 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
         return ec_init_networking;
     }
 
-    ErrorCode ec_init_window = init_window(application_settings, font);
+    ErrorCode ec_init_window = init_window(application_settings, font, context);
     if (ec_init_window) {
         B_ERROR("Failed to initialize the window");
         return ec_init_window;
@@ -50,15 +52,31 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
     return EC_OK;
 }
 
-ErrorCode init_window(ApplicationSettings* application_settings, Font* font) {
+ErrorCode init_window(ApplicationSettings* application_settings, Font* font, Clay_Context** context) {
 
     // Initialize and configure the window
     B_INFO("Initializing Raylib 5.6 and configuring the main window");
+
     WindowSettings ws = application_settings->window_settings;
+
+    size_t clay_required_memory = Clay_MinMemorySize();
+    clay_memory = Clay_CreateArenaWithCapacityAndMemory(clay_required_memory, malloc(clay_required_memory));
+    *context = Clay_Initialize(
+        clay_memory, (Clay_Dimensions) {
+        .width = (float)ws.window_width,
+            .height = (float)ws.window_height
+    },
+        (Clay_ErrorHandler) {
+        .errorHandlerFunction = clay_handle_errors,
+            .userData = 0
+    }
+    );
+
     SetConfigFlags(ws.config_flags); // FLAG_MSAA_4X_HINT
     SetTraceLogLevel(ws.log_level);
     SetTargetFPS(ws.target_fps);
-    InitWindow(ws.window_width, ws.window_height, ws.window_title);
+    Clay_Raylib_Initialize(ws.window_width, ws.window_height, ws.window_title, FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
+    // InitWindow(ws.window_width, ws.window_height, ws.window_title);
     HideCursor();
 
     // Load font(s)
@@ -77,10 +95,10 @@ ErrorCode init_fonts(Font* font) {
 
     if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
 
-    char cwd[_MAX_PATH] = { 0 };
-    getcwd(cwd, _MAX_PATH);
-    printf("cwd = %s\n", cwd);
-    
+    // char cwd[_MAX_PATH] = { 0 };
+    // getcwd(cwd, _MAX_PATH);
+    // B_INFO("cwd = %s\n", cwd);
+
     /*
 
     struct cwk_segment segment;
@@ -103,12 +121,12 @@ ErrorCode init_fonts(Font* font) {
         // }
         printf("%s\n", segment_name);
     } while (cwk_path_get_previous_segment(&segment));
-    
+
     printf("Last segment is '%.*s'.\n", (int)segment.size, segment.begin);
     */
-   
-   // TODO: Make the font selection better
-    // Make sure the font file exists
+
+    // TODO: Make the font selection better
+     // Make sure the font file exists
     const char* font_path_release = "res\\fonts\\daydream\\daydream.ttf";
     const char* font_path_debug = "..\\..\\..\\res\\fonts\\daydream\\daydream.ttf";
     if (access(font_path_release, F_OK) == 0) {
@@ -188,6 +206,11 @@ ErrorCode init_networking_client(Client* client) {
         return EC_PASSED_NULL;
     }
 
+    if (!client->enabled) {
+        B_WARNING("Client networking disabled; not initializing!");
+        return EC_OK;
+    }
+
     if (tcs_lib_init() != TCS_SUCCESS) {
         B_ERROR("Client failed to initialize tinycsockets");
         return EC_TCS_CLIENT_INIT_FAILURE;
@@ -204,7 +227,9 @@ ErrorCode init_networking_client(Client* client) {
 
     if (tcs_connect(client_socket, ip, port) != TCS_SUCCESS) {
         B_ERROR("Client failed to connect to server");
-        return EC_TCS_CLIENT_CONNECTION_FAILURE;
+        B_WARNING("Ignoring server connection failure");
+        // return EC_TCS_CLIENT_CONNECTION_FAILURE;
+        return EC_OK;
     }
 
     size_t n = 32; // TODO: Magic number!
@@ -369,6 +394,12 @@ ErrorCode uninit_networking(ApplicationSettings* application_settings, sqlite3**
     }
 
     if (is_client(*application_settings)) {
+
+        if (!client_socket) {
+            B_WARNING("Client networking disabled; not uninitializing!");
+            return EC_OK;
+        }
+
         B_INFO("Client shutting down socket");
         if (tcs_shutdown(client_socket, TCS_SD_BOTH) != TCS_SUCCESS){
             B_ERROR("Client failed to shutdown socket");
@@ -410,14 +441,18 @@ ErrorCode uninit_window(Font* font) {
     // Unload the fonts
     B_INFO("Unloading font(s)");
     UnloadFont(*font);
-    
+
     // Unload the physics engine
     B_INFO("Unloading physics");
     ClosePhysics();
 
+    // Unload Clay
+    B_INFO("Unloading Clay");
+    Clay_Raylib_Close();
+
     // Close the window
     B_INFO("Unloading the window");
-    CloseWindow();
+    CloseWindow(); // TODO: Figure out why it seems to crash here!
 
     return EC_OK;
 }
@@ -465,3 +500,13 @@ ErrorCode apply_default_server_config(ServerSettings* settings) {
 bool should_have_window(const ApplicationSettings settings) {
     return (settings.application_mode == AM_CLIENT) || (settings.application_mode == AM_DUAL);
 }
+
+void clay_handle_errors(Clay_ErrorData error_data) {
+    B_ERROR("%s", error_data.errorText.chars);
+    if (error_data.errorType == CLAY_ERROR_TYPE_ELEMENTS_CAPACITY_EXCEEDED) {
+        Clay_SetMaxElementCount(Clay_GetMaxElementCount() * 2);
+    } else if (error_data.errorType == CLAY_ERROR_TYPE_TEXT_MEASUREMENT_CAPACITY_EXCEEDED) {
+        Clay_SetMaxMeasureTextCacheWordCount(Clay_GetMaxMeasureTextCacheWordCount() * 2);
+    }
+}
+

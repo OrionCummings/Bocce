@@ -10,11 +10,10 @@ add_executable(Bocce
     update.c
     chat.c
     ui.c
+    clay_renderer_raylib.c
     )
 
 target_include_directories(Bocce PRIVATE "../inc")
-# target_include_directories(Bocce PRIVATE "../lib/physac")
-# include_directories(SYSTEM "../lib/raylib")
 
 target_compile_options(Bocce PRIVATE
     -pedantic 

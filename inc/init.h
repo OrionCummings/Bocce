@@ -13,6 +13,8 @@
 #include "error_codes.h"
 #include "networking.h"
 #include "physac.h"
+#include "clay.h"
+#include "clay_renderer_raylib.h"
 
 // Fonts
 #define NUM_FONTS (4)
@@ -25,8 +27,8 @@
 
 #define FONT_DAYDREAM_NUM_CHARS (259)
 
-ErrorCode init(ApplicationSettings*, Server*, Client*, sqlite3**, Font*);
-ErrorCode init_window(ApplicationSettings*, Font*);
+ErrorCode init(ApplicationSettings*, Server*, Client*, sqlite3**, Font*, Clay_Context**);
+ErrorCode init_window(ApplicationSettings*, Font*, Clay_Context**);
 ErrorCode init_fonts(Font* fonts);
 ErrorCode init_networking(ApplicationSettings*, Server*, Client*, sqlite3**);
 ErrorCode init_networking_server(Server*);
@@ -45,5 +47,7 @@ bool should_have_window(const ApplicationSettings);
 
 ErrorCode verify_fonts(const Font*);
 ErrorCode verify_font(const Font);
+
+void clay_handle_errors(Clay_ErrorData error_data);
 
 #endif
