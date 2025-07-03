@@ -45,9 +45,6 @@ ErrorCode apply_default_client_config(ClientSettings*);
 ErrorCode apply_default_server_config(ServerSettings*);
 bool should_have_window(const ApplicationSettings);
 
-ErrorCode verify_fonts(const Font*);
-ErrorCode verify_font(const Font);
-
 void clay_handle_errors(Clay_ErrorData error_data);
 Clay_Dimensions clay_raylib_measure_text(Clay_StringSlice text, Clay_TextElementConfig *config, void *userData);
 

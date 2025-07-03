@@ -11,6 +11,7 @@ add_executable(Bocce
     chat.c
     ui.c
     clay_renderer_raylib.c
+    scene.c
     )
 
 target_include_directories(Bocce PRIVATE "../inc")

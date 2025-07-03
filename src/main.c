@@ -32,6 +32,7 @@
 #include "update.h"
 #include "chat.h"
 #include "ui.h"
+#include "scene.h"
 
 // TODO: Reduce the scope of these variables!
 static ApplicationSettings settings;
@@ -40,18 +41,17 @@ static Server server;
 static sqlite3* database;
 static GameState state;
 static Chat chat;
-static Font font;
+static Font fonts[3];
 
-static RenderTexture screen_game;
-static RenderTexture screen_game_info;
-static RenderTexture screen_chat;
+static SceneID scene_current = 0;
 
 static Clay_Context* context;
 
 // Debug
 static int looped = 0;
 
-ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, GameState* state, Chat* chat, Font* font, Clay_Context** context){
+// TODO: Refactor these parameters into a single "LoopState" struct or something better!
+ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, GameState* state, Chat* chat, Font* fonts, Clay_Context** context, SceneID* scene_current){
 
     if (looped++) return -1;
 
@@ -64,22 +64,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
     if (state == NULL) { B_ERROR("Passed null parameter 'state'");   return EC_PASSED_NULL; }
     if (context == NULL) { B_ERROR("Passed null parameter 'context'");   return EC_PASSED_NULL; }
     if (*context == NULL) { B_ERROR("Passed null parameter '*context'");   return EC_PASSED_NULL; }
-
-    {
-        // TODO: Pull this stuff out of loop(). Why is this re-run every loop????
-        int screen_game_width = (int)((float)settings->window_settings.window_width * HORIZONTAL_RATIO);
-        int screen_game_height = (int)(settings->window_settings.window_height);
-
-        int screen_chat_width = (int)((float)settings->window_settings.window_width * (1.0f - HORIZONTAL_RATIO)) + 1; // +1 to account for float rounding!
-        int screen_chat_height = (int)((float)settings->window_settings.window_height * (1.0f - VERTICAL_RATIO));
-
-        int screen_game_info_width = (int)((float)settings->window_settings.window_width * (1.0f - HORIZONTAL_RATIO)) + 1; // +1 to account for float rounding!
-        int screen_game_info_height = (int)((float)settings->window_settings.window_height * (VERTICAL_RATIO));
-
-        screen_game = LoadRenderTexture(screen_game_width, screen_game_height);
-        screen_game_info = LoadRenderTexture(screen_game_info_width, screen_game_info_height);
-        screen_chat = LoadRenderTexture(screen_chat_width, screen_chat_height);
-    }
+    if (scene_current == NULL) { B_ERROR("Passed null parameter 'scene_current'");   return EC_PASSED_NULL; }
 
     if (should_have_window(*settings)) {
 
@@ -88,10 +73,10 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             
             // Update the layout dimensions
             Clay_SetLayoutDimensions((Clay_Dimensions) { (float)GetScreenWidth(), (float)GetScreenHeight() });
-            Clay_RenderCommandArray render_commands = create_layout(*context);
+            Clay_RenderCommandArray render_commands = create_layout(*context, *scene_current);
 
             // Update the application state
-            ErrorCode ec_update = update(settings, server, client, state, chat);
+            ErrorCode ec_update = update(settings, server, client, state, chat, scene_current);
             if (ec_update){
                 B_ERROR("Failed to update!");
                 return ec_update;
@@ -101,7 +86,7 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
             BeginDrawing();
 
             // Draw to the screen buffer; must be in draw mode!
-            ErrorCode ec_draw = draw(settings, state, chat, font, screen_game, screen_game_info, screen_chat, render_commands);
+            ErrorCode ec_draw = draw(settings, state, chat, fonts, render_commands);
             if (ec_draw){
                 B_ERROR("Failed to draw!");
                 return ec_draw;
@@ -113,11 +98,6 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
 
     }
 
-    {
-        // TODO: Pull out!
-        UnloadRenderTexture(screen_game);
-    }
-
     return EC_OK;
 }
 
@@ -127,7 +107,7 @@ int main(int argc, char** argv) {
     B_INFO("C Version: %d (requires 202000/C23)", __STDC_VERSION__);
 
     // Initialize the application
-    ErrorCode ec_init = init(&settings, &server, &client, &database, &font, &context);
+    ErrorCode ec_init = init(&settings, &server, &client, &database, fonts, &context);
     if (ec_init) {
         B_ERROR("Failed to initialize");
         B_ERROR("Exiting with error code '%d'", ec_init);
@@ -135,7 +115,7 @@ int main(int argc, char** argv) {
     }
 
     // Loop the application until it should close
-    ErrorCode ec_loop = loop(&settings, &server, &client, &state, &chat, &font, &context);
+    ErrorCode ec_loop = loop(&settings, &server, &client, &state, &chat, fonts, &context, &scene_current);
     if (ec_loop) {
         B_ERROR("Failed to loop");
         B_ERROR("Exiting with error code '%d'", ec_loop);
@@ -143,7 +123,7 @@ int main(int argc, char** argv) {
     }
 
     // Uninitialize the application
-    ErrorCode ec_uinit = uninit(&settings, &database, &font);
+    ErrorCode ec_uinit = uninit(&settings, &database, fonts);
     if (ec_uinit) {
         B_ERROR("Failed to uninitialize");
         B_ERROR("Exiting with error code '%d'", ec_uinit);

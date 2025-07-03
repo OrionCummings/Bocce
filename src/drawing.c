@@ -2,16 +2,16 @@
 
 // static Camera2D camera = { 0 };
 
-ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, const Font* font, RenderTexture screen_game, RenderTexture screen_game_info, RenderTexture screen_chat, Clay_RenderCommandArray render_commands) {
+ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, Font* fonts, Clay_RenderCommandArray render_commands) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
     if (state == NULL) { B_ERROR("Passed null parameter 'state'"); return EC_PASSED_NULL; }
     if (chat == NULL) { B_ERROR("Passed null parameter 'chat'"); return EC_PASSED_NULL; }
-    if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
+    if (fonts == NULL) { B_ERROR("Passed null parameter 'fonts'"); return EC_PASSED_NULL; }
 
     // Draw the background and the bocce court
     draw_background();
-    Clay_Raylib_Render(render_commands, NULL);
+    Clay_Raylib_Render(render_commands, fonts);
 
     return 0;
 }

@@ -9,7 +9,7 @@ static TcsSocket listen_socket;
 
 static Clay_Arena clay_memory;
 
-ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database, Font* font, Clay_Context** context) {
+ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database, Font* fonts, Clay_Context** context) {
 
     // Set all memory to zero
     memset(application_settings, 0, sizeof(*application_settings));
@@ -37,8 +37,9 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
         B_ERROR("Failed to initialize networking");
         return ec_init_networking;
     }
-
-    ErrorCode ec_init_window = init_window(application_settings, font, context);
+    
+    // Initialize window
+    ErrorCode ec_init_window = init_window(application_settings, fonts, context);
     if (ec_init_window) {
         B_ERROR("Failed to initialize the window");
         return ec_init_window;
@@ -52,7 +53,7 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
     return EC_OK;
 }
 
-ErrorCode init_window(ApplicationSettings* application_settings, Font* font, Clay_Context** context) {
+ErrorCode init_window(ApplicationSettings* application_settings, Font* fonts, Clay_Context** context) {
 
     // Initialize and configure the window
     B_INFO("Initializing Raylib 5.6 and configuring the main window");
@@ -71,24 +72,16 @@ ErrorCode init_window(ApplicationSettings* application_settings, Font* font, Cla
             .userData = NULL
     }
     );
-
-    // TODO: Refactor this into init_fonts()
-    // Font fonts[1];
-    // fonts[0] = GetFontDefault();
-    // SetTextureFilter(fonts[0].texture, TEXTURE_FILTER_BILINEAR);
-    // Clay_SetMeasureTextFunction(clay_raylib_measure_text, fonts);
-    // Clay_SetDebugModeEnabled(true);
-
     SetConfigFlags(ws.config_flags); // FLAG_MSAA_4X_HINT
     SetTraceLogLevel(ws.log_level);
     SetTargetFPS(ws.target_fps);
     Clay_Raylib_Initialize(ws.window_width, ws.window_height, ws.window_title, FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
-    // InitWindow(ws.window_width, ws.window_height, ws.window_title);
-    HideCursor();
 
-    // Load font(s)
+    // TODO: Refactor this into init_fonts()
     // TODO: Make this actually handle multiple fonts lol
-    init_fonts(font);
+    init_fonts(fonts);
+    SetTextureFilter(fonts[0].texture, TEXTURE_FILTER_BILINEAR);
+    Clay_SetMeasureTextFunction(clay_raylib_measure_text, fonts);
 
     // Init physics
     InitPhysics();
@@ -98,9 +91,9 @@ ErrorCode init_window(ApplicationSettings* application_settings, Font* font, Cla
     return EC_OK;
 }
 
-ErrorCode init_fonts(Font* font) {
+ErrorCode init_fonts(Font* fonts) {
 
-    if (font == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
+    if (fonts == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
 
     // char cwd[_MAX_PATH] = { 0 };
     // getcwd(cwd, _MAX_PATH);
@@ -133,46 +126,23 @@ ErrorCode init_fonts(Font* font) {
     */
 
     // TODO: Make the font selection better
-     // Make sure the font file exists
-    const char* font_path_release = "res\\fonts\\daydream\\daydream.ttf";
-    const char* font_path_debug = "..\\..\\..\\res\\fonts\\daydream\\daydream.ttf";
+    // Make sure the font file exists
+    const char* font_path_release = "res/fonts/daydream/daydream.ttf";
+    const char* font_path_debug = "../../../res/fonts/daydream/daydream.ttf";
     if (access(font_path_release, F_OK) == 0) {
-        B_INFO("Loaded font 'daydream'");
-        *font = LoadFontEx(font_path_release, FONT_SIZE, NULL, FONT_DAYDREAM_NUM_CHARS);
+        B_INFO("Loaded font 'daydream' from the release path");
+        fonts[0] = LoadFontEx(font_path_release, 128, NULL, FONT_DAYDREAM_NUM_CHARS);
     } else if (access(font_path_debug, F_OK) == 0) {
-        B_INFO("Loaded font 'daydream'");
-        *font = LoadFontEx(font_path_debug, FONT_SIZE, NULL, FONT_DAYDREAM_NUM_CHARS);
+        B_INFO("Loaded font 'daydream' from the debug path");
+        fonts[0] = LoadFontEx(font_path_debug, 128, NULL, FONT_DAYDREAM_NUM_CHARS);
     } else {
         B_INFO("Failed to load font 'daydream'; falling back to default font");
-        *font = GetFontDefault();
-    }
-
-    ErrorCode ec_verify_fonts = verify_font(*font);
-    if (!ec_verify_fonts) {
-        B_WARNING("Some fonts failed to load");
+        fonts[0] = GetFontDefault();
     }
 
     return EC_OK;
 }
 
-ErrorCode verify_fonts(const Font* fonts) {
-
-    if (fonts == NULL) { B_ERROR("Passed null parameter 'fonts'"); return EC_PASSED_NULL; }
-
-    bool invalid_fonts = false;
-    for (size_t index = 0; index < NUM_FONTS; index++) {
-        if (!verify_font(fonts[index])) {
-            B_WARNING("Failed to verify font '%d'", index);
-            invalid_fonts = true;
-        }
-    }
-
-    return (ErrorCode)invalid_fonts;
-}
-
-ErrorCode verify_font(const Font font) {
-    return (ErrorCode)(font.glyphCount > 0);
-}
 
 ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client* client, sqlite3** database) {
 
@@ -345,7 +315,7 @@ ErrorCode init_database(sqlite3** database) {
 }
 
 // Uninitialzation functions
-ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, Font* font){
+ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, Font* fonts){
 
     if (application_settings == NULL) { B_ERROR("Passed null parameter 'application_settings'"); return EC_PASSED_NULL; }
 
@@ -357,7 +327,7 @@ ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, 
     }
 
     B_INFO("Uninitializing the window");
-    ErrorCode ec_uninit_window = uninit_window(font);
+    ErrorCode ec_uninit_window = uninit_window(fonts);
     if (ec_uninit_window) {
         B_ERROR("Failed to uninitialize the window");
         return ec_uninit_window;

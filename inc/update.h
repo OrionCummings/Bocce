@@ -8,11 +8,12 @@
 #include "raylib.h"
 #include "chat.h"
 #include "physac.h"
+#include "scene.h"
 
-ErrorCode update(ApplicationSettings*, Server*, Client*, GameState*, Chat*);
+ErrorCode update(ApplicationSettings*, Server*, Client*, GameState*, Chat*, SceneID*);
 ErrorCode update_game_state(GameState*);
 ErrorCode update_server(Server*);
-ErrorCode update_client(Client*);
+ErrorCode update_client(Client*, SceneID*);
 ErrorCode update_chat(Chat*);
 
 // Misc

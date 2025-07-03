@@ -1,6 +1,6 @@
 #include "update.h"
 
-ErrorCode update(ApplicationSettings* settings, Server* server, Client* client, GameState* state, Chat* chat){
+ErrorCode update(ApplicationSettings* settings, Server* server, Client* client, GameState* state, Chat* chat, SceneID* scene_current){
 
     // NOTE: These parameters can safely be deferenced here
     // because they are all null-checked prior to being passed.
@@ -27,7 +27,7 @@ ErrorCode update(ApplicationSettings* settings, Server* server, Client* client, 
     }
 
     if (is_client(*settings)){
-        ErrorCode ec_update_client = update_client(client);
+        ErrorCode ec_update_client = update_client(client, scene_current);
         if (ec_update_client) {
             B_ERROR("Failed to update client");
             return ec_update_client;
@@ -74,12 +74,21 @@ ErrorCode update_server(Server* server){
     return EC_OK;
 }
 
-ErrorCode update_client(Client* client){
+ErrorCode update_client(Client* client, SceneID* scene_current){
 
     // B_INFO("client time: %f", GetTime());
 
-    // Update the court
+    SceneID current_scene_id = *scene_current;
 
+    // Update the current scene
+    if (IsKeyPressed(KEY_RIGHT)) {
+        *scene_current = (SceneID)((current_scene_id + 1) % 3);
+    }
+    
+    if (IsKeyPressed(KEY_LEFT)) {
+        *scene_current = (SceneID)((current_scene_id + 2) % 3);
+    
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +106,7 @@ ErrorCode update_client(Client* client){
     // ball->dynamicFriction = 0.1f;
 
 
-    
+
     return EC_OK;
 }
 
