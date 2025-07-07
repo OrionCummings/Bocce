@@ -26,6 +26,15 @@ void button_handle(Clay_ElementId id, Clay_PointerData pointer_data, intptr_t da
 }
 
 void create_layout_main_menu(Clay_Context* ctx) {
+
+    char server_join_text_fmt_string[128];
+    snprintf(server_join_text_fmt_string, 128, "Join a Bocce Server...");
+
+    Clay_String str_server_join = {
+        .length = (int32_t)strlen(server_join_text_fmt_string),
+        .chars = server_join_text_fmt_string
+    };
+
     CLAY({
         .id = CLAY_ID("background"),
         .layout = {
@@ -131,82 +140,26 @@ void create_layout_main_menu(Clay_Context* ctx) {
         if (show_join_menu) {
             CLAY({
             .id = CLAY_ID("server-menu"),
+            .floating = {
+                .attachTo = 0,
+                .zIndex = 1,
+                .attachPoints = {
+                    .element = CLAY_ATTACH_POINT_CENTER_BOTTOM,
+                    .parent = CLAY_ATTACH_POINT_CENTER_TOP
+                }
+            },
             .layout = {
                 .layoutDirection = CLAY_TOP_TO_BOTTOM,
                 .sizing = {
-                    .width = CLAY_SIZING_GROW(),
-                    .height = CLAY_SIZING_GROW(),
+                    .width = CLAY_SIZING_FIXED(200),
+                    .height = CLAY_SIZING_FIXED(200),
                 },
                 .childGap = child_gap,
                 .padding = padding,
             },
             .backgroundColor = {45, 45, 48, 255},
             .cornerRadius = corner_radius
-                }) {
-                CLAY({
-                .id = CLAY_ID("server-menu-header"),
-                .layout = {
-                    .layoutDirection = CLAY_LEFT_TO_RIGHT,
-                    .sizing = {
-                        .width = CLAY_SIZING_GROW(),
-                        .height = CLAY_SIZING_FIXED(80),
-                    },
-                    .childGap = child_gap,
-                    .padding = padding,
-                    .childAlignment = { CLAY_ALIGN_X_CENTER, CLAY_ALIGN_Y_CENTER }
-                },
-                .backgroundColor = {62, 62, 66, 255},
-                .cornerRadius = corner_radius
-                    }) {
-                    CLAY_TEXT(
-                        CLAY_STRING("Join a Bocce Server"),
-                        CLAY_TEXT_CONFIG({
-                            .fontId = 0,
-                            .fontSize = 32,
-                            .textColor = {0, 122, 204, 255},
-                            })
-                            );
-                }
-                for (uint32_t server_id = 0; server_id < num_servers; server_id++) {
-                    CLAY({
-                    .id = CLAY_IDI("server-menu-list", (server_id)),
-                    .layout = {
-                        .layoutDirection = CLAY_LEFT_TO_RIGHT,
-                        .sizing = {
-                            .width = CLAY_SIZING_GROW(),
-                            .height = CLAY_SIZING_FIXED(80),
-                        },
-                        .childGap = child_gap,
-                        .padding = padding,
-                        .childAlignment = { CLAY_ALIGN_X_LEFT, CLAY_ALIGN_Y_CENTER }
-                    },
-                    .backgroundColor = {62, 62, 66, 255},
-                    .cornerRadius = corner_radius
-                        }) {
-
-                        // IP handling 
-                        uint32_t ip = 0x7f000001; // 127.0.0.1
-                        uint16_t port = 53278;
-                        char server_fmt_string[128];
-                        snprintf(server_fmt_string, 128,
-                            "ip: %d.%d.%d.%d:%d",
-                            (ip >> 24) & 0xFF,
-                            (ip >> 16) & 0xFF,
-                            (ip >> 8) & 0xFF,
-                            ip & 0xFF, port);
-
-                        Clay_String str = {
-                            .length = (int32_t)strlen(server_fmt_string),
-                            .chars = server_fmt_string
-                        };
-
-                        CLAY_TEXT(
-                            str,
-                            CLAY_TEXT_CONFIG({ .fontId = 0, .fontSize = 32, .textColor = {0, 122, 204, 255}, })
-                        );
-                    }
-                }
-            }
+                });
         }
     }
 }

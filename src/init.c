@@ -143,7 +143,6 @@ ErrorCode init_fonts(Font* fonts) {
     return EC_OK;
 }
 
-
 ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client* client, sqlite3** database) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }

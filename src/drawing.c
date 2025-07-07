@@ -2,6 +2,9 @@
 
 // static Camera2D camera = { 0 };
 
+// DEBUG
+static bool skip = true;
+
 ErrorCode draw(const ApplicationSettings* settings, const GameState* state, const Chat* chat, Font* fonts, Clay_RenderCommandArray render_commands) {
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
@@ -11,9 +14,10 @@ ErrorCode draw(const ApplicationSettings* settings, const GameState* state, cons
 
     // Draw the background and the bocce court
     draw_background();
+
     Clay_Raylib_Render(render_commands, fonts);
 
-    return 0;
+    return EC_OK;
 }
 
 void draw_background() {
