@@ -5,6 +5,8 @@ typedef int ErrorCode;
 
 #define EC_OK (0)
 #define EC_INIT_FAILURE (14)
+#define EC_NETWORKING_INIT_NO_SERVER_NOR_CLIENT_FAILURE (17)
+#define EC_INIT_DATABASE_FAILED_TO_ALLOCATE (20)
 
 #define EC_UNINIT_FAILURE (70)
 #define EC_NETWORKING_UNINIT_FAILURE (71)
@@ -38,5 +40,7 @@ typedef int ErrorCode;
 #define EC_CHAT_MAX_CHAT_DEPTH_EXCEEDED (701)
 
 #define EC_PASSED_NULL (-5)
+
+#define EC_SERIALIZE_FAILURE_BOCCE_BALL_STATE (170)
 
 #endif

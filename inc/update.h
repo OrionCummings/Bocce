@@ -17,7 +17,7 @@ ErrorCode update_client(Client*, SceneID*);
 ErrorCode update_chat(Chat*);
 
 // Misc
-Ball generate_ball(Vector2 mouse_position);
+BocceBall generate_ball(Vector2 mouse_position);
 Color get_random_color(void);
 
 #endif

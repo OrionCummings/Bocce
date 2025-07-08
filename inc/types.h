@@ -3,28 +3,19 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <inttypes.h>
 
 #include "raylib.h"
-#include "ball.h"
+#include "ball.h" // TODO: Why is this seperate?
 
-#define MAX_PLAYERS (16) // NOTE: This is independent of the config.toml
+#define false (0)
+#define true (1)
 
+#define MAX_CONNECTIONS (16) // NOTE: This is independent of the config.toml
+#define MAX_PLAYERS (MAX_CONNECTIONS) // NOTE: This is independent of the config.toml
+#define MAX_BOCCE_BALLS (16)
 #define MAX_MESSAGE_SIZE_BYTES (256)
-
-// A Ceritifed C Moment:
-// It's 2025 and the C standard committee has 
-// FINALLY decided to elevate the Boolean literals
-// 'true' and 'false' to reserved keywords; however,
-// the implementation of this change has not yet
-// been made. It ""should"" be coming as part of 
-// C23 (which this project is built with), but
-// who even knows at this point. Sigh.
-// ...
-// Oh yea. These macros do the thing. They add bools.
-// *thumbs up*
-#define false ((bool) + 0)
-#define  true ((bool) + 1)
 
 typedef uint8_t byte;
 
@@ -50,9 +41,30 @@ typedef struct ApplicationSettings {
     WindowSettings window_settings;
 } ApplicationSettings;
 
+typedef struct Player {
+    uint8_t id;
+    bool connected;
+    bool active;
+} Player;
+
+typedef struct ScoreState {
+    uint8_t score_red;
+    uint8_t score_black;
+} ScoreState;
+
+typedef struct PlayerState {
+    Player players[MAX_PLAYERS];
+} PlayerState;
+
+typedef struct BocceBallState {
+    BocceBall balls[MAX_BOCCE_BALLS];
+} BocceBallState;
+
+/// @brief Contains the state of the game. This data is to be synced between the server and all connected clients
 typedef struct GameState {
-    uint16_t num_balls;
-    Ball balls[12]; // TEMP
+    ScoreState score_state;
+    BocceBallState bocce_ball_state;
+    PlayerState player_state;
 } GameState;
 
 

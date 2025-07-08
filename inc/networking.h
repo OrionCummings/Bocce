@@ -5,6 +5,9 @@
 #include "debug.h"
 #include "types.h"
 #include "error_codes.h"
+#include "timer.h"
+
+#define PLAYER_SOCKET_TYPE (TCS_TYPE_TCP_IP4)
 
 typedef struct IdIndexMapEntry {
     int client_id;
@@ -19,11 +22,13 @@ typedef struct ServerSettings {
     int max_players;
 } ServerSettings;
 
+/// @brief Server-side data
 typedef struct Server {
     ServerSettings settings;
-    TcsSocket player_sockets[MAX_PLAYERS];
-    IdIndexMapEntry player_id_map[MAX_PLAYERS];
+    // TcsSocket player_sockets[MAX_PLAYERS];
+    // IdIndexMapEntry player_id_map[MAX_PLAYERS];
     GameState state;
+    struct TcsPool* socket_pool;
 } Server;
 
 typedef struct ClientSettings {

@@ -28,12 +28,16 @@
 #define FONT_DAYDREAM_NUM_CHARS (259)
 
 ErrorCode init(ApplicationSettings*, Server*, Client*, sqlite3**, Font*, Clay_Context**);
+
 ErrorCode init_window(ApplicationSettings*, Font*, Clay_Context**);
 ErrorCode init_fonts(Font* fonts);
+
 ErrorCode init_networking(ApplicationSettings*, Server*, Client*, sqlite3**);
+ErrorCode init_server(Server*, sqlite3**);
 ErrorCode init_networking_server(Server*);
-ErrorCode init_networking_client(Client*);
 ErrorCode init_database(sqlite3**);
+ErrorCode init_client(Client*);
+ErrorCode init_networking_client(Client*);
 
 ErrorCode uninit(ApplicationSettings*, sqlite3**, Font*);
 ErrorCode uninit_networking(ApplicationSettings*, sqlite3**);

@@ -3,9 +3,9 @@
 // TODO: Remove
 #include <unistd.h>
 
-static TcsSocket client_socket;
-static TcsSocket server_socket;
+static TcsSocket client_sockets[MAX_CONNECTIONS];
 static TcsSocket listen_socket;
+static TcsSocket client_socket;
 
 static Clay_Arena clay_memory;
 
@@ -37,7 +37,7 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
         B_ERROR("Failed to initialize networking");
         return ec_init_networking;
     }
-    
+
     // Initialize window
     ErrorCode ec_init_window = init_window(application_settings, fonts, context);
     if (ec_init_window) {
@@ -147,29 +147,72 @@ ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client*
 
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
 
-    if (is_server(*settings)) {
-        B_INFO("Initializing the networking server");
-        ErrorCode ec_init_networking_server = init_networking_server(server);
-        if (ec_init_networking_server) {
-            B_ERROR("Failed to initialize networking server");
-            return ec_init_networking_server;
-        }
+    // An application may be either a server, client, or both!
+    static bool server_initialized = false;
+    static bool client_initialized = false;
 
-        B_INFO("Initializing the SQLite database");
-        ErrorCode ec_init_database = init_database(database);
-        if (ec_init_database) {
-            B_ERROR("Failed to initialize the database");
-            return ec_init_database;
-        }
+    B_INFO("Initializing tinycsockets");
+    if (tcs_lib_init() != TCS_SUCCESS) {
+        B_ERROR("Failed to initialize tinycsockets");
+        return EC_TCS_SERVER_INIT_FAILURE;
     }
 
-    if (is_client(*settings)) {
-        ErrorCode ec_init_networking_client = init_networking_client(client);
-        if (ec_init_networking_client) {
-            B_ERROR("Failed to initialize networking client");
-            return ec_init_networking_client;
+    // If this application is a server, then initialize all server related functionality
+    if (is_server(*settings)) {
+        ErrorCode ec_init_server = init_server(server, database);
+        if (ec_init_server) {
+            B_ERROR("Failed to initialize server");
+            return ec_init_server;
         }
+
+        server_initialized = true;
+        B_INFO("Initialized the networking server");
+    }
+
+    // If this application is a client, then initialize all client related functionality
+    if (is_client(*settings)) {
+        ErrorCode ec_init_client = init_client(client);
+        if (ec_init_client) {
+            B_ERROR("Failed to initialize client");
+            return ec_init_client;
+        }
+
+        client_initialized = true;
         B_INFO("Initialized the networking client");
+    }
+
+    // If neither the server nor the client were initialized, then something went wrong!
+    if (!(client_initialized | server_initialized)) {
+        B_ERROR("Neither the client nor server were initialized");
+        return EC_NETWORKING_INIT_NO_SERVER_NOR_CLIENT_FAILURE;
+    }
+
+    return EC_OK;
+}
+
+ErrorCode init_server(Server* server, sqlite3** database) {
+    B_INFO("Initializing the networking server");
+    ErrorCode ec_init_networking_server = init_networking_server(server);
+    if (ec_init_networking_server) {
+        B_ERROR("Failed to initialize networking server");
+        return ec_init_networking_server;
+    }
+
+    B_INFO("Initializing the SQLite database");
+    ErrorCode ec_init_database = init_database(database);
+    if (ec_init_database) {
+        B_ERROR("Failed to initialize the database");
+        return ec_init_database;
+    }
+
+    return EC_OK;
+}
+
+ErrorCode init_client(Client* client) {
+    ErrorCode ec_init_networking_client = init_networking_client(client);
+    if (ec_init_networking_client) {
+        B_ERROR("Failed to initialize networking client");
+        return ec_init_networking_client;
     }
 
     return EC_OK;
@@ -187,112 +230,102 @@ ErrorCode init_networking_client(Client* client) {
         return EC_OK;
     }
 
-    if (tcs_lib_init() != TCS_SUCCESS) {
-        B_ERROR("Client failed to initialize tinycsockets");
-        return EC_TCS_CLIENT_INIT_FAILURE;
-    }
+    // client_socket = TCS_NULLSOCKET;
+    // B_INFO("Client creating socket");
+    // if (tcs_create(&client_socket, TCS_TYPE_TCP_IP4) != TCS_SUCCESS) {
+    //     B_ERROR("Client failed to create socket");
+    //     return EC_TCS_CLIENT_SOCKET_CREATE_FAILURE;
+    // }
 
-    client_socket = TCS_NULLSOCKET;
-    if (tcs_create(&client_socket, TCS_TYPE_TCP_IP4) != TCS_SUCCESS) {
-        B_ERROR("Client failed to create socket");
-        return EC_TCS_CLIENT_SOCKET_CREATE_FAILURE;
-    }
+    // const char* ip = client->settings.server_ip;
+    // const uint16_t port = (uint16_t)(client->settings.server_port);
 
-    const char* ip = client->settings.server_ip;
-    const uint16_t port = (uint16_t)(client->settings.server_port);
+    // if (tcs_connect(client_socket, ip, port) != TCS_SUCCESS) {
+    //     B_ERROR("Client failed to connect to server");
+    //     B_WARNING("Ignoring server connection failure");
+    //     // return EC_TCS_CLIENT_CONNECTION_FAILURE;
+    //     return EC_OK;
+    // }
 
-    if (tcs_connect(client_socket, ip, port) != TCS_SUCCESS) {
-        B_ERROR("Client failed to connect to server");
-        B_WARNING("Ignoring server connection failure");
-        // return EC_TCS_CLIENT_CONNECTION_FAILURE;
-        return EC_OK;
-    }
+    // size_t n = 32; // TODO: Magic number!
+    // char buffer[n];
+    // memset(buffer, 0, n * sizeof(buffer[0]));
+    // const char* connection_new_fmt_string = "CN %d";
+    // snprintf(buffer, n, connection_new_fmt_string, client->settings.id);
 
-    size_t n = 32; // TODO: Magic number!
-    char buffer[n];
-    memset(buffer, 0, n * sizeof(buffer[0]));
-    const char* connection_new_fmt_string = "CN %d";
-    snprintf(buffer, n, connection_new_fmt_string, client->settings.id);
+    // size_t size = sizeof(buffer);
+    // const uint8_t* cbuffer = (const uint8_t*)buffer;
+    // ErrorCode ec_send = send_data(client_socket, cbuffer, size);
+    // if (ec_send) {
+    //     // if (tcs_send(client_socket, cbuffer, size, TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
+    //     B_ERROR("Client failed to send data to the server");
+    //     return ec_send;
+    //     // return EC_TCS_CLIENT_SEND_FAILURE;
+    // }
 
-    size_t size = sizeof(buffer);
-    const uint8_t* cbuffer = (const uint8_t*)buffer;
-    ErrorCode ec_send = send_data(client_socket, cbuffer, size);
-    if (ec_send) {
-        // if (tcs_send(client_socket, cbuffer, size, TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
-        B_ERROR("Client failed to send data to the server");
-        return ec_send;
-        // return EC_TCS_CLIENT_SEND_FAILURE;
-    }
+    // uint8_t recv_buffer[1024];
+    // size_t recv_size = sizeof(recv_buffer) - sizeof('\0');
+    // size_t bytes_received = 0;
+    // if (tcs_receive(client_socket, recv_buffer, recv_size, TCS_NO_FLAGS, &bytes_received) != TCS_SUCCESS) {
+    //     B_ERROR("Client failed to receive data from the server");
+    //     return EC_TCS_CLIENT_RECEPTION_FAILURE;
+    // }
 
-    uint8_t recv_buffer[1024];
-    size_t recv_size = sizeof(recv_buffer) - sizeof('\0');
-    size_t bytes_received = 0;
-    if (tcs_receive(client_socket, recv_buffer, recv_size, TCS_NO_FLAGS, &bytes_received) != TCS_SUCCESS) {
-        B_ERROR("Client failed to receive data from the server");
-        return EC_TCS_CLIENT_RECEPTION_FAILURE;
-    }
-
-    recv_buffer[bytes_received] = '\0';
-    B_INFO("Received: '%s'", recv_buffer);
+    // recv_buffer[bytes_received] = '\0';
+    // B_INFO("Received: '%s'", recv_buffer);
 
     return EC_OK;
 }
 
+/// @brief Initializes the server side networking
+/// @param server The server data
+/// @return An error code indicating any errors that occured in this function
 ErrorCode init_networking_server(Server* server) {
 
     if (server == NULL) { B_ERROR("Passed null parameter 'server'"); return EC_PASSED_NULL; }
 
-    B_ERROR("Server initializing tinycsockets");
-    if (tcs_lib_init() != TCS_SUCCESS) {
-        B_ERROR("Server failed to initialize tinycsockets");
-        return EC_TCS_SERVER_INIT_FAILURE;
+    // Create & configure the socket pool
+    struct TcsPool* pool;
+    for (uint8_t socket_id = 0; socket_id < MAX_CONNECTIONS; socket_id++) {
+
+        // Create the socket the socket
+        client_sockets[socket_id] = TCS_NULLSOCKET;
+        TcsReturnCode rc_tcs_create = tcs_create(&(client_sockets[socket_id]), PLAYER_SOCKET_TYPE);
+        if (rc_tcs_create) {
+            B_ERROR("Server failed to create socket id '%d'", socket_id);
+            return (ErrorCode)rc_tcs_create;
+        }
+
+        // Add the socket to the pool
+        tcs_pool_add(server->socket_pool, client_sockets[socket_id], NULL, true, true, true);
     }
 
-    B_ERROR("Server creating listening socket");
-    server_socket = TCS_NULLSOCKET;
-    listen_socket = TCS_NULLSOCKET;
-    if (tcs_create(&listen_socket, TCS_TYPE_TCP_IP4) != TCS_SUCCESS) {
-        B_ERROR("Server failed to create listening socket");
-        return EC_TCS_LISTEN_SOCKET_CREATE_FAILURE;
-    }
+    uint64_t time_start = now();
+    B_INFO("[%lld] Starting timer", time_start);
+    Timer t = new_timer(TWO_SECONDS);
+    wait(t);
+    uint64_t time_end = now();
+    uint64_t delta = time_end - time_start;
+    B_INFO("[%lld] Ending timer", time_end);
+    B_INFO("Took %llds / %lldms / %lldns", delta / ONE_SECOND, delta / ONE_MS, delta);
 
-    uint16_t listen_port = (uint16_t)(server->settings.port);
-    B_ERROR("Server listening on port '%d'", listen_port);
-    if (tcs_listen_to(listen_socket, listen_port)) {
-        B_ERROR("Server failed to listen on port '%d'", listen_port);
-        return EC_TCS_LISTEN_SOCKET_LISTEN_FAILURE;
-    }
+    // tcs_pool_create(,);
 
-    B_ERROR("Server attempting to accept connection");
-    if (tcs_accept(listen_socket, &server_socket, NULL)) {
-        B_ERROR("Server failed to accept connection");
-        return EC_TCS_LISTEN_SOCKET_CONNCTION_ACCEPTANCE_FAILURE;
-    }
+    // // listen_socket = TCS_NULLSOCKET;
+    // for (uint8_t connection_id = 0; connection_id < MAX_CONNECTIONS; connection_id++) {
+    //     server->player_sockets[connection_id]
+    // }
 
-    B_ERROR("Server destroying listening socket");
-    if (tcs_destroy(&listen_socket) != TCS_SUCCESS) {
-        B_ERROR("Server failed to destroy listening socket");
-        return EC_TCS_LISTEN_SOCKET_DESTRUCTION_FAILURE;
-    }
+    // B_INFO("Server creating listening socket");
+    // server_socket = TCS_NULLSOCKET;
+    // listen_socket = TCS_NULLSOCKET;
+    // if (tcs_create(&listen_socket, TCS_TYPE_TCP_IP4) != TCS_SUCCESS) {
+    //     B_ERROR("Server failed to create listening socket");
+    //     return EC_TCS_LISTEN_SOCKET_CREATE_FAILURE;
+    // }
 
-    uint8_t recv_buffer[1024]; // TODO: Remove magic numbers!
-    size_t recv_size = sizeof(recv_buffer) - sizeof('\0');
-    size_t bytes_received = 0;
-    B_ERROR("Server attempting to receive data from client");
-    if (tcs_receive(server_socket, recv_buffer, recv_size, TCS_NO_FLAGS, &bytes_received) != TCS_SUCCESS) {
-        B_ERROR("Server failed to receive data from client");
-        return EC_TCS_SERVER_SOCKET_RECEPTION_FAILURE;
-    }
-
-    recv_buffer[bytes_received] = '\0';
-    B_INFO("received: '%s'", recv_buffer);
-
-    char msg[] = "CN.ACK\n";
-    B_ERROR("Server attempting to send data to client");
-    if (tcs_send(server_socket, (const uint8_t*)msg, sizeof(msg), TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
-        B_ERROR("Server failed to send data to client");
-        return EC_TCS_SERVER_DATA_TRANSMISSION_FAILURE;
-    }
+    B_INFO("Server creating socket pool");
+    // tcs_pool_create();
 
     return EC_OK;
 }
@@ -302,11 +335,15 @@ ErrorCode init_database(sqlite3** database) {
     if (database == NULL) { B_ERROR("Passed null parameter 'database'"); return EC_PASSED_NULL; }
 
     B_INFO("Initializing the database");
-    const char* database_path = "db/server.db";
+    const char* database_path = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\db\\server.db";
     char* error_message = 0;
     ErrorCode ec_sqlite3_open = sqlite3_open(database_path, database);
-    if (ec_sqlite3_open || database == NULL) {
-        B_ERROR("Failed to open the SQLite database");
+    if (database == NULL) {
+        B_ERROR("Failed to allocate memory for the sqlite3 object");
+        return EC_INIT_DATABASE_FAILED_TO_ALLOCATE;
+    }
+    if (ec_sqlite3_open) {
+        B_ERROR("Failed to open the SQLite database (%d)", ec_sqlite3_open);
         return ec_sqlite3_open;
     }
 
@@ -343,16 +380,19 @@ ErrorCode uninit_networking(ApplicationSettings* application_settings, sqlite3**
 
         if (database == NULL) { B_ERROR("Passed NULL parameter 'database'"); return EC_PASSED_NULL; }
 
-        B_INFO("Server shutting down server socket");
-        if (tcs_shutdown(server_socket, TCS_SD_BOTH) != TCS_SUCCESS) {
-            B_ERROR("Server socket failed to shutdown");
-            return EC_TCS_SERVER_SOCKET_SHUTDOWN_FAILURE;
-        }
+        B_INFO("Server shutting down server sockets");
+        for (uint8_t client_socket_index = 0; client_socket_index < MAX_CONNECTIONS; client_socket_index++) {
+            if (tcs_shutdown(client_sockets[client_socket_index], TCS_SD_BOTH) != TCS_SUCCESS) {
+                B_ERROR("Server socket '%d' failed to shutdown", client_socket_index);
+                return EC_TCS_SERVER_SOCKET_SHUTDOWN_FAILURE;
+            }
 
-        B_INFO("Server destroying server socket");
-        if (tcs_destroy(&server_socket) != TCS_SUCCESS){
-            B_ERROR("Server failed to destroy socket");
-            return EC_TCS_SERVER_SOCKET_DESTRUCTION_FAILURE;
+            B_INFO("Server destroying server sockets");
+            if (tcs_destroy(&(client_sockets[client_socket_index])) != TCS_SUCCESS){
+                B_ERROR("Server failed to destroy socket");
+                return EC_TCS_SERVER_SOCKET_DESTRUCTION_FAILURE;
+            }
+
         }
 
         B_INFO("Server freeing tinycsocket");

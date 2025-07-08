@@ -12,6 +12,7 @@ add_executable(Bocce
     ui.c
     clay_renderer_raylib.c
     scene.c
+    timer.c
     )
 
 target_include_directories(Bocce PRIVATE "../inc")

@@ -43,8 +43,8 @@ void draw_game_info(const ApplicationSettings*, RenderTexture);
 void draw_chat(const ApplicationSettings*, const Chat*, const Font*, RenderTexture);
 void draw_background(void);
 void draw_circle_outline(Vector2, float, Color, float dim_factor);
-void draw_ball(const Ball);
-void draw_balls(const Ball*, uint16_t);
+void draw_ball(const BocceBall);
+void draw_balls(const BocceBall*, uint16_t);
 void draw_ui_base(Rectangle);
 void draw_game_court(const Rectangle ui_rect);
 
@@ -54,7 +54,7 @@ void draw_text_box(TextBox);
 
 
 // Misc
-Ball generate_ball(Vector2 mouse_position);
+BocceBall generate_ball(Vector2 mouse_position);
 
 // Debug
 void draw_debug_information(const ApplicationSettings*);

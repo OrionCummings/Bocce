@@ -54,8 +54,8 @@ ErrorCode update_game_state(GameState* state) {
     return EC_OK;
 }
 
-Ball generate_ball(Vector2 mouse_position) {
-    Ball b = { 0 };
+BocceBall generate_ball(Vector2 mouse_position) {
+    BocceBall b = { 0 };
     b.color = get_random_color();
     b.position = mouse_position;
     b.size = 20.0;
@@ -70,6 +70,25 @@ Color get_random_color(void) {
 }
 
 ErrorCode update_server(Server* server){
+
+    // Check for new connections
+
+
+    // Update existing connections with new information
+    for (uint8_t connection_id = 0; connection_id < MAX_CONNECTIONS; connection_id++) {
+
+        // Get the socket
+        // TcsSocket client_socket = server->player_sockets[connection_id];
+
+        // if (client_socket) {
+
+        // }
+
+        // Send the updated game state to the client
+
+
+
+    }
 
     return EC_OK;
 }

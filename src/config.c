@@ -4,8 +4,8 @@
 // TODO: Make this function/subfunctions work properly with small integer types! As is, integers are used in places where small integer types would be more accurate (make invalid types unrepresentable!)
 ErrorCode parse_config(ApplicationSettings* application_settings, Server* server, Client* client) {
 
-    const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\client_config.toml";
-    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\server_config.toml";
+    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\client_config.toml";
+    const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\server_config.toml";
     // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\dual_config.toml";
 
     // Load the config.toml

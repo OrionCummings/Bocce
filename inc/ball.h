@@ -4,13 +4,13 @@
 #include <stdint.h>
 #include "raylib.h"
 
-typedef struct Ball {
+typedef struct BocceBall {
     uint32_t mass;
     Vector2 position;
     Vector2 velocity;
     Vector2 acceleration;
     uint16_t size;
     Color color;
-} Ball;
+} BocceBall;
 
 #endif
