@@ -66,20 +66,30 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
     if (*context == NULL) { B_ERROR("Passed null parameter '*context'");   return EC_PASSED_NULL; }
     if (scene_current == NULL) { B_ERROR("Passed null parameter 'scene_current'");   return EC_PASSED_NULL; }
 
-    if (should_have_window(*settings)) {
+    if (is_server(*settings)) {
+
+        // Update the server
+        ErrorCode ec_update_server = update_server(server);
+        if (ec_update_server){
+            B_ERROR("Failed to update server!");
+            return ec_update_server;
+        }
+    }
+
+    if (is_client(*settings)) {
 
         // If we have not told the window to close, keep going!
         while (!WindowShouldClose()) {
-            
+
             // Update the layout dimensions
             Clay_SetLayoutDimensions((Clay_Dimensions) { (float)GetScreenWidth(), (float)GetScreenHeight() });
             Clay_RenderCommandArray render_commands = create_layout(*context, *scene_current);
 
-            // Update the application state
-            ErrorCode ec_update = update(settings, server, client, state, chat, scene_current);
-            if (ec_update){
-                B_ERROR("Failed to update!");
-                return ec_update;
+            // Update the client
+            ErrorCode ec_update_client = update_client(client, scene_current);
+            if (ec_update_client){
+                B_ERROR("Failed to update client!");
+                return ec_update_client;
             }
 
             // Enable drawing mode (raylib)
@@ -123,7 +133,7 @@ int main(int argc, char** argv) {
     }
 
     // Uninitialize the application
-    ErrorCode ec_uinit = uninit(&settings, &database, fonts);
+    ErrorCode ec_uinit = uninit(&settings, &server, &client, &database, fonts);
     if (ec_uinit) {
         B_ERROR("Failed to uninitialize");
         B_ERROR("Exiting with error code '%d'", ec_uinit);

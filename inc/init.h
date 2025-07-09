@@ -39,8 +39,8 @@ ErrorCode init_database(sqlite3**);
 ErrorCode init_client(Client*);
 ErrorCode init_networking_client(Client*);
 
-ErrorCode uninit(ApplicationSettings*, sqlite3**, Font*);
-ErrorCode uninit_networking(ApplicationSettings*, sqlite3**);
+ErrorCode uninit(ApplicationSettings*, Server*, Client*, sqlite3**, Font*);
+ErrorCode uninit_networking(ApplicationSettings*, Server*, Client*, sqlite3**);
 ErrorCode uninit_database(sqlite3**);
 ErrorCode uninit_window(Font*);
 

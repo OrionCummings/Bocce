@@ -36,11 +36,11 @@ ErrorCode check_for_new_connections(const Server server, TcsSocket server_socket
     //     return EC_TCS_LISTEN_SOCKET_LISTEN_FAILURE;
     // }
 
-    // B_ERROR("Server attempting to accept connection");
-    // if (tcs_accept(listen_socket, &server_socket, NULL)) {
-    //     B_ERROR("Server failed to accept connection");
-    //     return EC_TCS_LISTEN_SOCKET_CONNCTION_ACCEPTANCE_FAILURE;
-    // }
+    B_ERROR("Server attempting to accept connection");
+    if (tcs_accept(listen_socket, &server_socket, NULL)) {
+        B_ERROR("Server failed to accept connection");
+        return EC_TCS_LISTEN_SOCKET_CONNCTION_ACCEPTANCE_FAILURE;
+    }
 
     // B_ERROR("Server destroying listening socket");
     // if (tcs_destroy(&listen_socket) != TCS_SUCCESS) {

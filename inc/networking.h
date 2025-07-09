@@ -25,10 +25,9 @@ typedef struct ServerSettings {
 /// @brief Server-side data
 typedef struct Server {
     ServerSettings settings;
-    // TcsSocket player_sockets[MAX_PLAYERS];
+    TcsSocket player_sockets[MAX_PLAYERS];
     // IdIndexMapEntry player_id_map[MAX_PLAYERS];
     GameState state;
-    struct TcsPool* socket_pool;
 } Server;
 
 typedef struct ClientSettings {

@@ -3,8 +3,6 @@
 // TODO: Remove
 #include <unistd.h>
 
-static TcsSocket client_sockets[MAX_CONNECTIONS];
-static TcsSocket listen_socket;
 static TcsSocket client_socket;
 
 static Clay_Arena clay_memory;
@@ -191,6 +189,7 @@ ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client*
 }
 
 ErrorCode init_server(Server* server, sqlite3** database) {
+
     B_INFO("Initializing the networking server");
     ErrorCode ec_init_networking_server = init_networking_server(server);
     if (ec_init_networking_server) {
@@ -284,30 +283,26 @@ ErrorCode init_networking_server(Server* server) {
 
     if (server == NULL) { B_ERROR("Passed null parameter 'server'"); return EC_PASSED_NULL; }
 
-    // Create & configure the socket pool
-    struct TcsPool* pool;
+    // Create & configure the socket "pool"
     for (uint8_t socket_id = 0; socket_id < MAX_CONNECTIONS; socket_id++) {
 
         // Create the socket the socket
-        client_sockets[socket_id] = TCS_NULLSOCKET;
-        TcsReturnCode rc_tcs_create = tcs_create(&(client_sockets[socket_id]), PLAYER_SOCKET_TYPE);
+        server->player_sockets[socket_id] = TCS_NULLSOCKET;
+        TcsReturnCode rc_tcs_create = tcs_create(&(server->player_sockets[socket_id]), PLAYER_SOCKET_TYPE);
         if (rc_tcs_create) {
             B_ERROR("Server failed to create socket id '%d'", socket_id);
             return (ErrorCode)rc_tcs_create;
         }
-
-        // Add the socket to the pool
-        tcs_pool_add(server->socket_pool, client_sockets[socket_id], NULL, true, true, true);
     }
 
-    uint64_t time_start = now();
-    B_INFO("[%lld] Starting timer", time_start);
-    Timer t = new_timer(TWO_SECONDS);
-    wait(t);
-    uint64_t time_end = now();
-    uint64_t delta = time_end - time_start;
-    B_INFO("[%lld] Ending timer", time_end);
-    B_INFO("Took %llds / %lldms / %lldns", delta / ONE_SECOND, delta / ONE_MS, delta);
+    // uint64_t time_start = now();
+    // B_INFO("[%lld] Starting timer", time_start);
+    // Timer t = new_timer(FIVE_HUNDRED_MS);
+    // wait(t);
+    // uint64_t time_end = now();
+    // uint64_t delta = time_end - time_start;
+    // B_INFO("[%lld] Ending timer", time_end);
+    // B_INFO("Took %llds / %lldms / %lldns", delta / ONE_SECOND, delta / ONE_MS, delta);
 
     // tcs_pool_create(,);
 
@@ -324,7 +319,6 @@ ErrorCode init_networking_server(Server* server) {
     //     return EC_TCS_LISTEN_SOCKET_CREATE_FAILURE;
     // }
 
-    B_INFO("Server creating socket pool");
     // tcs_pool_create();
 
     return EC_OK;
@@ -351,12 +345,12 @@ ErrorCode init_database(sqlite3** database) {
 }
 
 // Uninitialzation functions
-ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, Font* fonts){
+ErrorCode uninit(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database, Font* fonts){
 
     if (application_settings == NULL) { B_ERROR("Passed null parameter 'application_settings'"); return EC_PASSED_NULL; }
 
     B_INFO("Uninitializing network");
-    ErrorCode ec_uninit_networking = uninit_networking(application_settings, database);
+    ErrorCode ec_uninit_networking = uninit_networking(application_settings, server, client, database);
     if (ec_uninit_networking) {
         B_ERROR("Failed to uninitialize networking");
         return ec_uninit_networking;
@@ -372,7 +366,7 @@ ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, 
     return EC_OK;
 }
 
-ErrorCode uninit_networking(ApplicationSettings* application_settings, sqlite3** database) {
+ErrorCode uninit_networking(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database) {
 
     if (application_settings == NULL) { B_ERROR("Passed NULL parameter 'application_settings'"); return EC_PASSED_NULL; }
 
@@ -382,13 +376,13 @@ ErrorCode uninit_networking(ApplicationSettings* application_settings, sqlite3**
 
         B_INFO("Server shutting down server sockets");
         for (uint8_t client_socket_index = 0; client_socket_index < MAX_CONNECTIONS; client_socket_index++) {
-            if (tcs_shutdown(client_sockets[client_socket_index], TCS_SD_BOTH) != TCS_SUCCESS) {
+            if (tcs_shutdown(server->player_sockets[client_socket_index], TCS_SD_BOTH) != TCS_SUCCESS) {
                 B_ERROR("Server socket '%d' failed to shutdown", client_socket_index);
                 return EC_TCS_SERVER_SOCKET_SHUTDOWN_FAILURE;
             }
 
             B_INFO("Server destroying server sockets");
-            if (tcs_destroy(&(client_sockets[client_socket_index])) != TCS_SUCCESS){
+            if (tcs_destroy(&(server->player_sockets[client_socket_index])) != TCS_SUCCESS){
                 B_ERROR("Server failed to destroy socket");
                 return EC_TCS_SERVER_SOCKET_DESTRUCTION_FAILURE;
             }

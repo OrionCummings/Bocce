@@ -19,6 +19,7 @@ ErrorCode update(ApplicationSettings* settings, Server* server, Client* client, 
     }
 
     if (is_server(*settings)){
+        B_INFO("Updatinge the server");
         ErrorCode ec_update_server = update_server(server);
         if (ec_update_server) {
             B_ERROR("Failed to update server");
@@ -71,7 +72,22 @@ Color get_random_color(void) {
 
 ErrorCode update_server(Server* server){
 
-    // Check for new connections
+    // Create the listening socket
+    TcsSocket listen_socket = TCS_NULLSOCKET;
+    TcsReturnCode rc_tcs_create = tcs_create(&listen_socket, PLAYER_SOCKET_TYPE);
+    if (rc_tcs_create) {
+        B_ERROR("Failed to create listening socket");
+        return rc_tcs_create;
+    }
+
+    uint16_t listen_port = (uint16_t)(server->settings.port);
+    B_ERROR("Server listening on port '%d'", listen_port);
+    TcsReturnCode rc_tcs_listen_to = tcs_listen_to(listen_socket, listen_port);
+    if (rc_tcs_listen_to) {
+        B_ERROR("Server failed to listen on port '%d'", listen_port);
+        return EC_TCS_LISTEN_SOCKET_LISTEN_FAILURE;
+    }
+
 
 
     // Update existing connections with new information
@@ -79,10 +95,17 @@ ErrorCode update_server(Server* server){
 
         // Get the socket
         // TcsSocket client_socket = server->player_sockets[connection_id];
+        TcsSocket client_socket = TCS_NULLSOCKET;
+        tcs_set_receive_timeout(client_socket, 1000);
+        tcs_set_linger(client_socket, true, 1000);
 
-        // if (client_socket) {
-
-        // }
+        // Check for new connections
+        B_ERROR("Server attempting to accept connection");
+        TcsReturnCode rc_tcs_accept = tcs_accept(listen_socket, &client_socket, NULL);
+        if (rc_tcs_accept) {
+            B_ERROR("Server failed to accept connection");
+            return EC_TCS_LISTEN_SOCKET_CONNCTION_ACCEPTANCE_FAILURE;
+        }
 
         // Send the updated game state to the client
 
@@ -103,10 +126,10 @@ ErrorCode update_client(Client* client, SceneID* scene_current){
     if (IsKeyPressed(KEY_RIGHT)) {
         *scene_current = (SceneID)((current_scene_id + 1) % 3);
     }
-    
+
     if (IsKeyPressed(KEY_LEFT)) {
         *scene_current = (SceneID)((current_scene_id + 2) % 3);
-    
+
     }
 
 
