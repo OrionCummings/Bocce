@@ -2,6 +2,7 @@
 #define __CHAT_H
 
 #include <stdio.h>
+#include <safe_lib.h>
 #include <inttypes.h>
 #include "debug.h"
 #include "types.h"

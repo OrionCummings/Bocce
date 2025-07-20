@@ -2,6 +2,7 @@
 #define __CONFIG_H
 
 #include "toml.h"
+#include "safe_lib.h"
 #include "debug.h"
 #include "types.h"
 #include "error_codes.h"

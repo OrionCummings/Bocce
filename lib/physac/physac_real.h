@@ -80,7 +80,7 @@
 #if !defined(PHYSAC_H)
 #define PHYSAC_H
 
-// #define PHYSAC_STATIC
+#define PHYSAC_STATIC
 // #define  PHYSAC_NO_THREADS
 // #define  PHYSAC_STANDALONE
 // #define  PHYSAC_DEBUG

@@ -1,0 +1,111 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"out/build/Default Linux/_deps/cwalk-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 272,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 275,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 279,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 283,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"_deps/cwalk-build/libcwalk.a"
+			],
+			"targetId" : "cwalk::@abf48e8c73d4519a9c10",
+			"targetIndex" : 29,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				"out/build/Default Linux/_deps/cwalk-src/include/cwalk.h"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "lib/cmake/cwalk",
+			"paths" : 
+			[
+				"out/build/Default Linux/_deps/cwalk-src/cmake/CwalkConfig.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "lib/pkgconfig",
+			"paths" : 
+			[
+				"out/build/Default Linux/_deps/cwalk-build/cwalk.pc"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "lib/cmake/cwalk",
+			"exportName" : "CwalkTargets",
+			"exportTargets" : 
+			[
+				{
+					"id" : "cwalk::@abf48e8c73d4519a9c10",
+					"index" : 29
+				}
+			],
+			"paths" : 
+			[
+				"_deps/cwalk-build/CMakeFiles/Export/6ee74fe73e7a4ea03524ce941c1b0443/CwalkTargets.cmake"
+			],
+			"type" : "export"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "_deps/cwalk-build",
+		"source" : "out/build/Default Linux/_deps/cwalk-src"
+	}
+}

@@ -41,7 +41,7 @@ typedef LARGE_INTEGER std_Time;
 #define _POSIX_C_SOURCE 199309L
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wreserved-macro-identifier"
+// #pragma GCC diagnostic ignored "-Wreserved-macro-identifier"
 #ifndef __USE_POSIX199309
 #define __USE_POSIX199309
 #define NS_DEFINED__USE_POSIX199309

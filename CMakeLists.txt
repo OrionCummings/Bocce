@@ -42,17 +42,21 @@ FetchContent_Declare(
     GIT_PROGRESS TRUE
 )
 
-FetchContent_MakeAvailable(raylib tinycsocket cwalk)
+# Provides TOML parsing
+FetchContent_Declare(
+    libtoml
+    GIT_REPOSITORY "https://github.com/brglng/libtoml.git"
+    GIT_SHALLOW ON
+)
+
+FetchContent_MakeAvailable(raylib tinycsocket cwalk libtoml)
 
 find_package(SQLite3 REQUIRED)
 
 add_subdirectory(src)
 
-# Provides TOML parsing support
-add_subdirectory(lib/libtoml)
-
-target_link_libraries(Bocce PUBLIC raylib)
-target_link_libraries(Bocce PUBLIC tinycsocket)
-target_link_libraries(Bocce PUBLIC cwalk)
-target_link_libraries(Bocce PUBLIC toml)
-target_link_libraries(Bocce PUBLIC SQLite3)
+target_link_libraries(Bocce raylib)
+target_link_libraries(Bocce tinycsocket)
+target_link_libraries(Bocce cwalk)
+target_link_libraries(Bocce toml)
+target_link_libraries(Bocce SQLite3)

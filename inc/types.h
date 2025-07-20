@@ -27,8 +27,8 @@ typedef enum ApplicationMode {
 } ApplicationMode;
 
 typedef struct WindowSettings {
-    int window_width;
-    int window_height;
+    uint16_t window_width;
+    uint16_t window_height;
     bool fullscreen;
     char window_title[256];
     int log_level;

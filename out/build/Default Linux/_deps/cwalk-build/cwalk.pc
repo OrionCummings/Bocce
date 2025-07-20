@@ -1,0 +1,11 @@
+prefix=/home/orion/Projects/Bocce/out/install/Default Linux
+exec_prefix=/home/orion/Projects/Bocce/out/install/Default Linux
+libdir=/home/orion/Projects/Bocce/out/install/Default Linux/lib
+includedir=/home/orion/Projects/Bocce/out/install/Default Linux/include
+
+Name: cwalk
+Description: 
+URL: 
+Version: 1.2.9
+Cflags: -I"${includedir}"
+Libs: -L"${libdir}" -lcwalk

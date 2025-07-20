@@ -7,8 +7,10 @@
 // Admire my house of cards from a respectful distance.
 // Thanks
 // xoxo
-#define RAYGUI_IMPLEMENTATION (1)
 #define PHYSAC_IMPLEMENTATION
+#include "physac.h"
+
+#define RAYGUI_IMPLEMENTATION (1)
 #define CLAY_IMPLEMENTATION
 
 #include <stdio.h>
@@ -17,10 +19,10 @@
 #include <stdint.h>
 #include <string.h>
 #include <sqlite3.h>
+#include "banned.h"
 #include "raylib.h"
 #include "raymath.h"
 #include "raygui.h"
-#include "physac.h"
 #include "clay.h"
 #include "clay_renderer_raylib.h"
 #include "constants.h"
