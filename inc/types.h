@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <inttypes.h>
 
-#include "raylib.h"
 #include "ball.h" // TODO: Why is this seperate?
 
 #define false (0)
@@ -19,6 +18,11 @@
 
 typedef uint8_t byte;
 
+typedef struct WindowDimensions {
+    uint16_t window_width;
+    uint16_t window_height;
+} WindowDimensions;
+
 typedef enum ApplicationMode {
     AM_UNKNOWN = 0,
     AM_CLIENT = 1,
@@ -27,8 +31,7 @@ typedef enum ApplicationMode {
 } ApplicationMode;
 
 typedef struct WindowSettings {
-    uint16_t window_width;
-    uint16_t window_height;
+    WindowDimensions dim;
     bool fullscreen;
     char window_title[256];
     int log_level;

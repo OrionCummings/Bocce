@@ -42,30 +42,6 @@ include CMakeFiles/rules.ninja
 cmake_ninja_workdir = /home/orion/Projects/Bocce/out/build/Default$ Linux/
 
 #############################################
-# Utility command for package
-
-build CMakeFiles/package.util: CUSTOM_COMMAND all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build package: phony CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build package_source: phony CMakeFiles/package_source.util
-
-
-#############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -136,708 +112,6 @@ build install/strip: phony CMakeFiles/install/strip.util
 
 
 #############################################
-# Utility command for package
-
-build _deps/raylib-build/CMakeFiles/package.util: CUSTOM_COMMAND _deps/raylib-build/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/package: phony _deps/raylib-build/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps/raylib-build/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/package_source: phony _deps/raylib-build/CMakeFiles/package_source.util
-
-
-#############################################
-# Utility command for edit_cache
-
-build _deps/raylib-build/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build" && /usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build _deps/raylib-build/edit_cache: phony _deps/raylib-build/CMakeFiles/edit_cache.util
-
-
-#############################################
-# Utility command for rebuild_cache
-
-build _deps/raylib-build/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build" && /usr/local/bin/cmake --regenerate-during-build -S/home/orion/Projects/Bocce -B"/home/orion/Projects/Bocce/out/build/Default Linux"
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/rebuild_cache: phony _deps/raylib-build/CMakeFiles/rebuild_cache.util
-
-
-#############################################
-# Utility command for list_install_components
-
-build _deps/raylib-build/list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build _deps/raylib-build/CMakeFiles/install.util: CUSTOM_COMMAND _deps/raylib-build/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build" && /usr/local/bin/cmake -P cmake_install.cmake
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/install: phony _deps/raylib-build/CMakeFiles/install.util
-
-
-#############################################
-# Utility command for install/local
-
-build _deps/raylib-build/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/raylib-build/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build" && /usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/install/local: phony _deps/raylib-build/CMakeFiles/install/local.util
-
-
-#############################################
-# Utility command for install/strip
-
-build _deps/raylib-build/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/raylib-build/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build" && /usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/install/strip: phony _deps/raylib-build/CMakeFiles/install/strip.util
-
-# =============================================================================
-# Write statements declared in CMakeLists.txt:
-# /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/CMakeLists.txt
-# =============================================================================
-
-# =============================================================================
-# Object build statements for STATIC_LIBRARY target raylib
-
-
-#############################################
-# Order-only phony target for raylib
-
-build cmake_object_order_depends_target_raylib: phony || cmake_object_order_depends_target_glfw
-
-build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o: C_COMPILER__raylib_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/raudio.c || cmake_object_order_depends_target_raylib
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -isystem "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include"
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-
-build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o: C_COMPILER__raylib_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/rcore.c || cmake_object_order_depends_target_raylib
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -isystem "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include"
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-
-build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o: C_COMPILER__raylib_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/rmodels.c || cmake_object_order_depends_target_raylib
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -isystem "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include"
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-
-build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o: C_COMPILER__raylib_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/rshapes.c || cmake_object_order_depends_target_raylib
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -isystem "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include"
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-
-build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o: C_COMPILER__raylib_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/rtext.c || cmake_object_order_depends_target_raylib
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -isystem "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include"
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-
-build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o: C_COMPILER__raylib_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/rtextures.c || cmake_object_order_depends_target_raylib
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -isystem "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include"
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-
-build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o: C_COMPILER__raylib_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/utils.c || cmake_object_order_depends_target_raylib
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = _deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -isystem "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include"
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-
-
-# =============================================================================
-# Link build statements for STATIC_LIBRARY target raylib
-
-
-#############################################
-# Link the static library _deps/raylib-build/raylib/libraylib.a
-
-build _deps/raylib-build/raylib/libraylib.a: C_STATIC_LIBRARY_LINKER__raylib_Debug _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o _deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o || _deps/raylib-build/raylib/external/glfw/src/glfw
-  CONFIG = Debug
-  LANGUAGE_COMPILE_FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g
-  OBJECT_DIR = _deps/raylib-build/raylib/CMakeFiles/raylib.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = _deps/raylib-build/raylib/libraylib.a
-  TARGET_PDB = raylib.a.dbg
-
-
-#############################################
-# Utility command for package
-
-build _deps/raylib-build/raylib/CMakeFiles/package.util: CUSTOM_COMMAND _deps/raylib-build/raylib/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/package: phony _deps/raylib-build/raylib/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps/raylib-build/raylib/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/package_source: phony _deps/raylib-build/raylib/CMakeFiles/package_source.util
-
-
-#############################################
-# Utility command for edit_cache
-
-build _deps/raylib-build/raylib/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib" && /usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build _deps/raylib-build/raylib/edit_cache: phony _deps/raylib-build/raylib/CMakeFiles/edit_cache.util
-
-
-#############################################
-# Utility command for rebuild_cache
-
-build _deps/raylib-build/raylib/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib" && /usr/local/bin/cmake --regenerate-during-build -S/home/orion/Projects/Bocce -B"/home/orion/Projects/Bocce/out/build/Default Linux"
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/rebuild_cache: phony _deps/raylib-build/raylib/CMakeFiles/rebuild_cache.util
-
-
-#############################################
-# Utility command for list_install_components
-
-build _deps/raylib-build/raylib/list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build _deps/raylib-build/raylib/CMakeFiles/install.util: CUSTOM_COMMAND _deps/raylib-build/raylib/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib" && /usr/local/bin/cmake -P cmake_install.cmake
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/install: phony _deps/raylib-build/raylib/CMakeFiles/install.util
-
-
-#############################################
-# Utility command for install/local
-
-build _deps/raylib-build/raylib/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/raylib-build/raylib/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib" && /usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/install/local: phony _deps/raylib-build/raylib/CMakeFiles/install/local.util
-
-
-#############################################
-# Utility command for install/strip
-
-build _deps/raylib-build/raylib/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/raylib-build/raylib/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib" && /usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/install/strip: phony _deps/raylib-build/raylib/CMakeFiles/install/strip.util
-
-# =============================================================================
-# Write statements declared in CMakeLists.txt:
-# /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/cmake/GlfwImport.cmake
-# =============================================================================
-
-
-#############################################
-# Utility command for package
-
-build _deps/raylib-build/raylib/external/glfw/CMakeFiles/package.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/package: phony _deps/raylib-build/raylib/external/glfw/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps/raylib-build/raylib/external/glfw/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/package_source: phony _deps/raylib-build/raylib/external/glfw/CMakeFiles/package_source.util
-
-
-#############################################
-# Utility command for edit_cache
-
-build _deps/raylib-build/raylib/external/glfw/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw" && /usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/edit_cache: phony _deps/raylib-build/raylib/external/glfw/CMakeFiles/edit_cache.util
-
-
-#############################################
-# Utility command for rebuild_cache
-
-build _deps/raylib-build/raylib/external/glfw/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw" && /usr/local/bin/cmake --regenerate-during-build -S/home/orion/Projects/Bocce -B"/home/orion/Projects/Bocce/out/build/Default Linux"
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/rebuild_cache: phony _deps/raylib-build/raylib/external/glfw/CMakeFiles/rebuild_cache.util
-
-
-#############################################
-# Utility command for list_install_components
-
-build _deps/raylib-build/raylib/external/glfw/list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build _deps/raylib-build/raylib/external/glfw/CMakeFiles/install.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw" && /usr/local/bin/cmake -P cmake_install.cmake
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/install: phony _deps/raylib-build/raylib/external/glfw/CMakeFiles/install.util
-
-
-#############################################
-# Utility command for install/local
-
-build _deps/raylib-build/raylib/external/glfw/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw" && /usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/install/local: phony _deps/raylib-build/raylib/external/glfw/CMakeFiles/install/local.util
-
-
-#############################################
-# Utility command for install/strip
-
-build _deps/raylib-build/raylib/external/glfw/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw" && /usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/install/strip: phony _deps/raylib-build/raylib/external/glfw/CMakeFiles/install/strip.util
-
-# =============================================================================
-# Write statements declared in CMakeLists.txt:
-# /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/CMakeLists.txt
-# =============================================================================
-
-# =============================================================================
-# Object build statements for OBJECT_LIBRARY target glfw
-
-
-#############################################
-# Order-only phony target for glfw
-
-build cmake_object_order_depends_target_glfw: phony || .
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/context.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/init.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/input.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/monitor.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/platform.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/vulkan.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/window.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/egl_context.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/osmesa_context.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/null_init.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/null_monitor.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/null_window.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/null_joystick.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/posix_module.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/posix_time.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/posix_thread.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/x11_init.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/x11_monitor.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/x11_window.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/xkb_unicode.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/glx_context.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/linux_joystick.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o: C_COMPILER__glfw_unscanned_Debug /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-src/src/external/glfw/src/posix_poll.c || cmake_object_order_depends_target_glfw
-  CONFIG = Debug
-  DEFINES = -D_DEFAULT_SOURCE -D_GLFW_X11
-  DEP_FILE = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o.d
-  FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -Wall
-  INCLUDES = -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src"
-  OBJECT_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-  OBJECT_FILE_DIR = _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir
-
-
-
-#############################################
-# Object library glfw
-
-build _deps/raylib-build/raylib/external/glfw/src/glfw: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o
-
-
-#############################################
-# Utility command for update_mappings
-
-build _deps/raylib-build/raylib/external/glfw/src/update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings
-
-
-#############################################
-# Utility command for package
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/package.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/src/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/src/package: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/src/package_source: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/package_source.util
-
-
-#############################################
-# Utility command for edit_cache
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src" && /usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/src/edit_cache: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/edit_cache.util
-
-
-#############################################
-# Utility command for rebuild_cache
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src" && /usr/local/bin/cmake --regenerate-during-build -S/home/orion/Projects/Bocce -B"/home/orion/Projects/Bocce/out/build/Default Linux"
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/src/rebuild_cache: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/rebuild_cache.util
-
-
-#############################################
-# Utility command for list_install_components
-
-build _deps/raylib-build/raylib/external/glfw/src/list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/install.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/src/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src" && /usr/local/bin/cmake -P cmake_install.cmake
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/src/install: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/install.util
-
-
-#############################################
-# Utility command for install/local
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/src/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src" && /usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/src/install/local: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/install/local.util
-
-
-#############################################
-# Utility command for install/strip
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/raylib-build/raylib/external/glfw/src/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src" && /usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build _deps/raylib-build/raylib/external/glfw/src/install/strip: phony _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/install/strip.util
-
-
-#############################################
-# Custom command for _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings
-
-build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings | ${cmake_ninja_workdir}_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/src" && /usr/local/bin/cmake -P "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/CMake/GenerateMappings.cmake" mappings.h.in mappings.h
-  DESC = Updating gamepad mappings from upstream repository
-
-# =============================================================================
-# Write statements declared in CMakeLists.txt:
-# /home/orion/Projects/Bocce/CMakeLists.txt
-# =============================================================================
-
-
-#############################################
 # Utility command for generate_header
 
 build _deps/tinycsocket-build/generate_header: phony _deps/tinycsocket-src/include/tinycsocket.h
@@ -894,30 +168,6 @@ build _deps/tinycsocket-build/libtinycsocket.a: C_STATIC_LIBRARY_LINKER__tinycso
   PRE_LINK = :
   TARGET_FILE = _deps/tinycsocket-build/libtinycsocket.a
   TARGET_PDB = tinycsocket.a.dbg
-
-
-#############################################
-# Utility command for package
-
-build _deps/tinycsocket-build/CMakeFiles/package.util: CUSTOM_COMMAND _deps/tinycsocket-build/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps/tinycsocket-build/package: phony _deps/tinycsocket-build/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps/tinycsocket-build/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps/tinycsocket-build/package_source: phony _deps/tinycsocket-build/CMakeFiles/package_source.util
 
 
 #############################################
@@ -1199,30 +449,6 @@ build _deps/cwalk-build/libcwalk.a: C_STATIC_LIBRARY_LINKER__cwalk_Debug _deps/c
   PRE_LINK = :
   TARGET_FILE = _deps/cwalk-build/libcwalk.a
   TARGET_PDB = cwalk.a.dbg
-
-
-#############################################
-# Utility command for package
-
-build _deps/cwalk-build/CMakeFiles/package.util: CUSTOM_COMMAND _deps/cwalk-build/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps/cwalk-build/package: phony _deps/cwalk-build/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps/cwalk-build/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps/cwalk-build/package_source: phony _deps/cwalk-build/CMakeFiles/package_source.util
 
 
 #############################################
@@ -1554,30 +780,6 @@ build _deps/libtoml-build/libtoml.a: C_STATIC_LIBRARY_LINKER__toml_Debug _deps/l
 
 
 #############################################
-# Utility command for package
-
-build _deps/libtoml-build/CMakeFiles/package.util: CUSTOM_COMMAND _deps/libtoml-build/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps/libtoml-build/package: phony _deps/libtoml-build/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps/libtoml-build/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps/libtoml-build/package_source: phony _deps/libtoml-build/CMakeFiles/package_source.util
-
-
-#############################################
 # Utility command for edit_cache
 
 build _deps/libtoml-build/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
@@ -1653,131 +855,101 @@ build _deps/libtoml-build/install/strip: phony _deps/libtoml-build/CMakeFiles/in
 #############################################
 # Order-only phony target for Bocce
 
-build cmake_object_order_depends_target_Bocce: phony || _deps/tinycsocket-build/generate_header cmake_object_order_depends_target_cwalk cmake_object_order_depends_target_glfw cmake_object_order_depends_target_raylib cmake_object_order_depends_target_tinycsocket cmake_object_order_depends_target_toml
+build cmake_object_order_depends_target_Bocce: phony || _deps/tinycsocket-build/generate_header cmake_object_order_depends_target_cwalk cmake_object_order_depends_target_tinycsocket cmake_object_order_depends_target_toml
 
 build src/CMakeFiles/Bocce.dir/main.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/main.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/main.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/init.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/init.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/init.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/debug.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/debug.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/debug.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/drawing.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/drawing.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/drawing.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/config.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/config.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/config.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/types.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/types.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/types.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/networking.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/networking.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/networking.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/ball.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/ball.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/ball.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/update.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/update.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/update.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/chat.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/chat.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/chat.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
-  OBJECT_DIR = src/CMakeFiles/Bocce.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
-
-build src/CMakeFiles/Bocce.dir/ui.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/ui.c || cmake_object_order_depends_target_Bocce
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = src/CMakeFiles/Bocce.dir/ui.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
-  OBJECT_DIR = src/CMakeFiles/Bocce.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
-
-build src/CMakeFiles/Bocce.dir/clay_renderer_raylib.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/clay_renderer_raylib.c || cmake_object_order_depends_target_Bocce
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = src/CMakeFiles/Bocce.dir/clay_renderer_raylib.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
-  OBJECT_DIR = src/CMakeFiles/Bocce.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
-
-build src/CMakeFiles/Bocce.dir/scene.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/scene.c || cmake_object_order_depends_target_Bocce
-  CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  DEP_FILE = src/CMakeFiles/Bocce.dir/scene.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
 build src/CMakeFiles/Bocce.dir/timer.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/timer.c || cmake_object_order_depends_target_Bocce
   CONFIG = Debug
-  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = src/CMakeFiles/Bocce.dir/timer.c.o.d
-  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Wconversion -Wundef -Werror -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
-  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-src/src/external/glfw/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include"
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
+  OBJECT_DIR = src/CMakeFiles/Bocce.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
+
+build src/CMakeFiles/Bocce.dir/file_system.c.o: C_COMPILER__Bocce_unscanned_Debug /home/orion/Projects/Bocce/src/file_system.c || cmake_object_order_depends_target_Bocce
+  CONFIG = Debug
+  DEP_FILE = src/CMakeFiles/Bocce.dir/file_system.c.o.d
+  FLAGS = -g -std=c2x -pedantic -Wall -Wextra -Werror -Wconversion -Wundef -Wno-unused-parameter -Wno-unused-variable -Wno-type-limits -g
+  INCLUDES = -I/home/orion/Projects/Bocce/src/../inc -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/tinycsocket-src/include" -I"/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src/include"
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   OBJECT_FILE_DIR = src/CMakeFiles/Bocce.dir
 
@@ -1789,41 +961,17 @@ build src/CMakeFiles/Bocce.dir/timer.c.o: C_COMPILER__Bocce_unscanned_Debug /hom
 #############################################
 # Link the executable src/Bocce
 
-build src/Bocce: C_EXECUTABLE_LINKER__Bocce_Debug src/CMakeFiles/Bocce.dir/main.c.o src/CMakeFiles/Bocce.dir/init.c.o src/CMakeFiles/Bocce.dir/debug.c.o src/CMakeFiles/Bocce.dir/drawing.c.o src/CMakeFiles/Bocce.dir/config.c.o src/CMakeFiles/Bocce.dir/types.c.o src/CMakeFiles/Bocce.dir/networking.c.o src/CMakeFiles/Bocce.dir/ball.c.o src/CMakeFiles/Bocce.dir/update.c.o src/CMakeFiles/Bocce.dir/chat.c.o src/CMakeFiles/Bocce.dir/ui.c.o src/CMakeFiles/Bocce.dir/clay_renderer_raylib.c.o src/CMakeFiles/Bocce.dir/scene.c.o src/CMakeFiles/Bocce.dir/timer.c.o | _deps/raylib-build/raylib/libraylib.a _deps/tinycsocket-build/libtinycsocket.a _deps/cwalk-build/libcwalk.a _deps/libtoml-build/libtoml.a /usr/lib/x86_64-linux-gnu/libGL.so /usr/lib/x86_64-linux-gnu/librt.a /usr/lib/x86_64-linux-gnu/libm.so || _deps/cwalk-build/libcwalk.a _deps/libtoml-build/libtoml.a _deps/raylib-build/raylib/external/glfw/src/glfw _deps/raylib-build/raylib/libraylib.a _deps/tinycsocket-build/generate_header _deps/tinycsocket-build/libtinycsocket.a
+build src/Bocce: C_EXECUTABLE_LINKER__Bocce_Debug src/CMakeFiles/Bocce.dir/main.c.o src/CMakeFiles/Bocce.dir/init.c.o src/CMakeFiles/Bocce.dir/debug.c.o src/CMakeFiles/Bocce.dir/drawing.c.o src/CMakeFiles/Bocce.dir/config.c.o src/CMakeFiles/Bocce.dir/types.c.o src/CMakeFiles/Bocce.dir/networking.c.o src/CMakeFiles/Bocce.dir/ball.c.o src/CMakeFiles/Bocce.dir/update.c.o src/CMakeFiles/Bocce.dir/chat.c.o src/CMakeFiles/Bocce.dir/timer.c.o src/CMakeFiles/Bocce.dir/file_system.c.o | _deps/libtoml-build/libtoml.a _deps/tinycsocket-build/libtinycsocket.a _deps/cwalk-build/libcwalk.a || _deps/cwalk-build/libcwalk.a _deps/libtoml-build/libtoml.a _deps/tinycsocket-build/generate_header _deps/tinycsocket-build/libtinycsocket.a
   CONFIG = Debug
   DEP_FILE = src/CMakeFiles/Bocce.dir/link.d
   FLAGS = -g
   LINK_FLAGS = -Wl,--dependency-file=src/CMakeFiles/Bocce.dir/link.d
-  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  _deps/tinycsocket-build/libtinycsocket.a  _deps/cwalk-build/libcwalk.a  _deps/libtoml-build/libtoml.a  -lSQLite3  -lm  /usr/lib/x86_64-linux-gnu/libGL.so  /usr/lib/x86_64-linux-gnu/librt.a  -lm  -ldl  -lpthread
+  LINK_LIBRARIES = _deps/libtoml-build/libtoml.a  _deps/tinycsocket-build/libtinycsocket.a  -lsqlite3  _deps/cwalk-build/libcwalk.a  -lsafestring_shared  -lpthread
   OBJECT_DIR = src/CMakeFiles/Bocce.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = src/Bocce
   TARGET_PDB = Bocce.dbg
-
-
-#############################################
-# Utility command for package
-
-build src/CMakeFiles/package.util: CUSTOM_COMMAND src/all
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackConfig.cmake
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build src/package: phony src/CMakeFiles/package.util
-
-
-#############################################
-# Utility command for package_source
-
-build src/CMakeFiles/package_source.util: CUSTOM_COMMAND
-  COMMAND = cd "/home/orion/Projects/Bocce/out/build/Default Linux" && /usr/local/bin/cpack --config ./CPackSourceConfig.cmake /home/orion/Projects/Bocce/out/build/Default\ Linux/CPackSourceConfig.cmake
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build src/package_source: phony src/CMakeFiles/package_source.util
 
 
 #############################################
@@ -1955,23 +1103,15 @@ build cwalk: phony _deps/cwalk-build/libcwalk.a
 
 build generate_header: phony _deps/tinycsocket-build/generate_header
 
-build glfw: phony _deps/raylib-build/raylib/external/glfw/src/glfw
-
 build libcwalk.a: phony _deps/cwalk-build/libcwalk.a
-
-build libraylib.a: phony _deps/raylib-build/raylib/libraylib.a
 
 build libtinycsocket.a: phony _deps/tinycsocket-build/libtinycsocket.a
 
 build libtoml.a: phony _deps/libtoml-build/libtoml.a
 
-build raylib: phony _deps/raylib-build/raylib/libraylib.a
-
 build tinycsocket: phony _deps/tinycsocket-build/libtinycsocket.a
 
 build toml: phony _deps/libtoml-build/libtoml.a
-
-build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_mappings
 
 # =============================================================================
 # Folder targets.
@@ -1981,7 +1121,7 @@ build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_
 #############################################
 # Folder: /home/orion/Projects/Bocce/out/build/Default Linux
 
-build codegen: phony _deps/raylib-build/codegen _deps/tinycsocket-build/codegen _deps/cwalk-build/codegen _deps/libtoml-build/codegen src/codegen
+build codegen: phony _deps/tinycsocket-build/codegen _deps/cwalk-build/codegen _deps/libtoml-build/codegen src/codegen
 
 # =============================================================================
 
@@ -1996,34 +1136,6 @@ build _deps/cwalk-build/codegen: phony
 # Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-build
 
 build _deps/libtoml-build/codegen: phony
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build
-
-build _deps/raylib-build/codegen: phony _deps/raylib-build/raylib/codegen
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib
-
-build _deps/raylib-build/raylib/codegen: phony _deps/raylib-build/raylib/external/glfw/codegen
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw
-
-build _deps/raylib-build/raylib/external/glfw/codegen: phony _deps/raylib-build/raylib/external/glfw/src/codegen
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src
-
-build _deps/raylib-build/raylib/external/glfw/src/codegen: phony
 
 # =============================================================================
 
@@ -2044,7 +1156,7 @@ build src/codegen: phony
 #############################################
 # Folder: /home/orion/Projects/Bocce/out/build/Default Linux
 
-build all: phony _deps/raylib-build/all _deps/tinycsocket-build/all _deps/cwalk-build/all _deps/libtoml-build/all src/all
+build all: phony _deps/tinycsocket-build/all _deps/cwalk-build/all _deps/libtoml-build/all src/all
 
 # =============================================================================
 
@@ -2059,34 +1171,6 @@ build _deps/cwalk-build/all: phony _deps/cwalk-build/libcwalk.a
 # Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/libtoml-build
 
 build _deps/libtoml-build/all: phony _deps/libtoml-build/libtoml.a
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build
-
-build _deps/raylib-build/all: phony _deps/raylib-build/raylib/all
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib
-
-build _deps/raylib-build/raylib/all: phony _deps/raylib-build/raylib/libraylib.a _deps/raylib-build/raylib/external/glfw/all
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw
-
-build _deps/raylib-build/raylib/external/glfw/all: phony _deps/raylib-build/raylib/external/glfw/src/all
-
-# =============================================================================
-
-#############################################
-# Folder: /home/orion/Projects/Bocce/out/build/Default Linux/_deps/raylib-build/raylib/external/glfw/src
-
-build _deps/raylib-build/raylib/external/glfw/src/all: phony _deps/raylib-build/raylib/external/glfw/src/glfw
 
 # =============================================================================
 
@@ -2109,14 +1193,14 @@ build src/all: phony src/Bocce
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja /home/orion/Projects/Bocce/out/build/Default$ Linux/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-build/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-build/raylib/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-build/raylib/external/glfw/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-build/raylib/external/glfw/src/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/tinycsocket-build/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/cwalk-build/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/libtoml-build/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/src/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-build/CTestTestfile.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/raylib-build/raylib/CTestTestfile.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/cwalk-build/CTestTestfile.cmake: RERUN_CMAKE | /home/orion/Projects/Bocce/CMakeLists.txt /home/orion/Projects/Bocce/src/CMakeLists.txt /usr/local/share/cmake-4.1/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/local/share/cmake-4.1/Modules/CMakeCInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCXXInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake /usr/local/share/cmake-4.1/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake-4.1/Modules/CMakeDependentOption.cmake /usr/local/share/cmake-4.1/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake-4.1/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake-4.1/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakePackageConfigHelpers.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake-4.1/Modules/CPack.cmake /usr/local/share/cmake-4.1/Modules/CPackComponent.cmake /usr/local/share/cmake-4.1/Modules/CTest.cmake /usr/local/share/cmake-4.1/Modules/CTestTargets.cmake /usr/local/share/cmake-4.1/Modules/CTestUseLaunchers.cmake /usr/local/share/cmake-4.1/Modules/CheckCCompilerFlag.cmake /usr/local/share/cmake-4.1/Modules/CheckCSourceCompiles.cmake /usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake /usr/local/share/cmake-4.1/Modules/CheckIncludeFile.cmake /usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake /usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake /usr/local/share/cmake-4.1/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU.cmake /usr/local/share/cmake-4.1/Modules/DartConfiguration.tcl.in /usr/local/share/cmake-4.1/Modules/ExternalProject/PatchInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/RepositoryInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/UpdateInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitclone.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitupdate.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/shared_internal_commands.cmake /usr/local/share/cmake-4.1/Modules/ExternalProject/stepscript.cmake.in /usr/local/share/cmake-4.1/Modules/FetchContent.cmake /usr/local/share/cmake-4.1/Modules/FindFontconfig.cmake /usr/local/share/cmake-4.1/Modules/FindFreetype.cmake /usr/local/share/cmake-4.1/Modules/FindGit.cmake /usr/local/share/cmake-4.1/Modules/FindOpenGL.cmake /usr/local/share/cmake-4.1/Modules/FindPackageHandleStandardArgs.cmake /usr/local/share/cmake-4.1/Modules/FindPackageMessage.cmake /usr/local/share/cmake-4.1/Modules/FindPkgConfig.cmake /usr/local/share/cmake-4.1/Modules/FindSQLite3.cmake /usr/local/share/cmake-4.1/Modules/FindThreads.cmake /usr/local/share/cmake-4.1/Modules/FindX11.cmake /usr/local/share/cmake-4.1/Modules/GNUInstallDirs.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCXXLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCommonLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CheckCompilerFlag.cmake /usr/local/share/cmake-4.1/Modules/Internal/CheckFlagCommonConfig.cmake /usr/local/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-Initialize.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux.cmake /usr/local/share/cmake-4.1/Modules/Platform/UnixPaths.cmake /usr/local/share/cmake-4.1/Modules/SelectLibraryConfigurations.cmake /usr/local/share/cmake-4.1/Modules/WriteBasicConfigVersionFile.cmake /usr/local/share/cmake-4.1/Templates/CPackConfig.cmake.in /usr/local/share/cmake-4.1/Templates/CTestScript.cmake.in CMakeCache.txt CMakeFiles/4.1.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeSystem.cmake _deps/cwalk-src/CMakeLists.txt _deps/cwalk-src/cmake/CreateTestList.cmake _deps/cwalk-src/cmake/EnableWarnings.cmake _deps/cwalk-src/cwalk.pc.in _deps/libtoml-src/CMakeLists.txt _deps/libtoml-src/cmake/Modules/tomlTargetProperties.cmake _deps/libtoml-src/cmake/tomlConfig.cmake.in _deps/raylib-src/CMakeLists.txt _deps/raylib-src/CMakeOptions.txt _deps/raylib-src/cmake/AddIfFlagCompiles.cmake _deps/raylib-src/cmake/CompileDefinitions.cmake _deps/raylib-src/cmake/CompilerFlags.cmake _deps/raylib-src/cmake/EnumOption.cmake _deps/raylib-src/cmake/GlfwImport.cmake _deps/raylib-src/cmake/InstallConfigurations.cmake _deps/raylib-src/cmake/JoinPaths.cmake _deps/raylib-src/cmake/LibraryConfigurations.cmake _deps/raylib-src/cmake/LibraryPathToLinkerFlags.cmake _deps/raylib-src/cmake/PackConfigurations.cmake _deps/raylib-src/cmake/ParseConfigHeader.cmake _deps/raylib-src/cmake/PopulateConfigVariablesLocally.cmake _deps/raylib-src/cmake/raylib-config-version.cmake _deps/raylib-src/raylib.pc.in _deps/raylib-src/src/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMake/glfw3.pc.in _deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in _deps/raylib-src/src/external/glfw/CMakeLists.txt _deps/raylib-src/src/external/glfw/src/CMakeLists.txt _deps/tinycsocket-src/CMakeLists.txt
+build build.ninja /home/orion/Projects/Bocce/out/build/Default$ Linux/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/tinycsocket-build/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/cwalk-build/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/libtoml-build/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/src/cmake_install.cmake /home/orion/Projects/Bocce/out/build/Default$ Linux/_deps/cwalk-build/CTestTestfile.cmake: RERUN_CMAKE | /home/orion/Projects/Bocce/CMakeLists.txt /home/orion/Projects/Bocce/src/CMakeLists.txt /usr/local/share/cmake-4.1/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/local/share/cmake-4.1/Modules/CMakeCInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCXXInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake-4.1/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake-4.1/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake-4.1/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakePackageConfigHelpers.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake-4.1/Modules/CTest.cmake /usr/local/share/cmake-4.1/Modules/CTestTargets.cmake /usr/local/share/cmake-4.1/Modules/CTestUseLaunchers.cmake /usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake /usr/local/share/cmake-4.1/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU.cmake /usr/local/share/cmake-4.1/Modules/DartConfiguration.tcl.in /usr/local/share/cmake-4.1/Modules/ExternalProject/PatchInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/RepositoryInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/UpdateInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitclone.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitupdate.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/shared_internal_commands.cmake /usr/local/share/cmake-4.1/Modules/ExternalProject/stepscript.cmake.in /usr/local/share/cmake-4.1/Modules/FetchContent.cmake /usr/local/share/cmake-4.1/Modules/FindGit.cmake /usr/local/share/cmake-4.1/Modules/FindPackageHandleStandardArgs.cmake /usr/local/share/cmake-4.1/Modules/FindPackageMessage.cmake /usr/local/share/cmake-4.1/Modules/FindPkgConfig.cmake /usr/local/share/cmake-4.1/Modules/FindSQLite3.cmake /usr/local/share/cmake-4.1/Modules/GNUInstallDirs.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCXXLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCommonLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-Initialize.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux.cmake /usr/local/share/cmake-4.1/Modules/Platform/UnixPaths.cmake /usr/local/share/cmake-4.1/Modules/WriteBasicConfigVersionFile.cmake /usr/local/share/cmake-4.1/Templates/CTestScript.cmake.in CMakeCache.txt CMakeFiles/4.1.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeSystem.cmake _deps/cwalk-src/CMakeLists.txt _deps/cwalk-src/cmake/CreateTestList.cmake _deps/cwalk-src/cmake/EnableWarnings.cmake _deps/cwalk-src/cwalk.pc.in _deps/libtoml-src/CMakeLists.txt _deps/libtoml-src/cmake/Modules/tomlTargetProperties.cmake _deps/libtoml-src/cmake/tomlConfig.cmake.in _deps/tinycsocket-src/CMakeLists.txt
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/orion/Projects/Bocce/CMakeLists.txt /home/orion/Projects/Bocce/src/CMakeLists.txt /usr/local/share/cmake-4.1/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/local/share/cmake-4.1/Modules/CMakeCInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCXXInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake /usr/local/share/cmake-4.1/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake-4.1/Modules/CMakeDependentOption.cmake /usr/local/share/cmake-4.1/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake-4.1/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake-4.1/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakePackageConfigHelpers.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake-4.1/Modules/CPack.cmake /usr/local/share/cmake-4.1/Modules/CPackComponent.cmake /usr/local/share/cmake-4.1/Modules/CTest.cmake /usr/local/share/cmake-4.1/Modules/CTestTargets.cmake /usr/local/share/cmake-4.1/Modules/CTestUseLaunchers.cmake /usr/local/share/cmake-4.1/Modules/CheckCCompilerFlag.cmake /usr/local/share/cmake-4.1/Modules/CheckCSourceCompiles.cmake /usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake /usr/local/share/cmake-4.1/Modules/CheckIncludeFile.cmake /usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake /usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake /usr/local/share/cmake-4.1/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU.cmake /usr/local/share/cmake-4.1/Modules/DartConfiguration.tcl.in /usr/local/share/cmake-4.1/Modules/ExternalProject/PatchInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/RepositoryInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/UpdateInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitclone.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitupdate.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/shared_internal_commands.cmake /usr/local/share/cmake-4.1/Modules/ExternalProject/stepscript.cmake.in /usr/local/share/cmake-4.1/Modules/FetchContent.cmake /usr/local/share/cmake-4.1/Modules/FindFontconfig.cmake /usr/local/share/cmake-4.1/Modules/FindFreetype.cmake /usr/local/share/cmake-4.1/Modules/FindGit.cmake /usr/local/share/cmake-4.1/Modules/FindOpenGL.cmake /usr/local/share/cmake-4.1/Modules/FindPackageHandleStandardArgs.cmake /usr/local/share/cmake-4.1/Modules/FindPackageMessage.cmake /usr/local/share/cmake-4.1/Modules/FindPkgConfig.cmake /usr/local/share/cmake-4.1/Modules/FindSQLite3.cmake /usr/local/share/cmake-4.1/Modules/FindThreads.cmake /usr/local/share/cmake-4.1/Modules/FindX11.cmake /usr/local/share/cmake-4.1/Modules/GNUInstallDirs.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCXXLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCommonLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CheckCompilerFlag.cmake /usr/local/share/cmake-4.1/Modules/Internal/CheckFlagCommonConfig.cmake /usr/local/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-Initialize.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux.cmake /usr/local/share/cmake-4.1/Modules/Platform/UnixPaths.cmake /usr/local/share/cmake-4.1/Modules/SelectLibraryConfigurations.cmake /usr/local/share/cmake-4.1/Modules/WriteBasicConfigVersionFile.cmake /usr/local/share/cmake-4.1/Templates/CPackConfig.cmake.in /usr/local/share/cmake-4.1/Templates/CTestScript.cmake.in CMakeCache.txt CMakeFiles/4.1.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeSystem.cmake _deps/cwalk-src/CMakeLists.txt _deps/cwalk-src/cmake/CreateTestList.cmake _deps/cwalk-src/cmake/EnableWarnings.cmake _deps/cwalk-src/cwalk.pc.in _deps/libtoml-src/CMakeLists.txt _deps/libtoml-src/cmake/Modules/tomlTargetProperties.cmake _deps/libtoml-src/cmake/tomlConfig.cmake.in _deps/raylib-src/CMakeLists.txt _deps/raylib-src/CMakeOptions.txt _deps/raylib-src/cmake/AddIfFlagCompiles.cmake _deps/raylib-src/cmake/CompileDefinitions.cmake _deps/raylib-src/cmake/CompilerFlags.cmake _deps/raylib-src/cmake/EnumOption.cmake _deps/raylib-src/cmake/GlfwImport.cmake _deps/raylib-src/cmake/InstallConfigurations.cmake _deps/raylib-src/cmake/JoinPaths.cmake _deps/raylib-src/cmake/LibraryConfigurations.cmake _deps/raylib-src/cmake/LibraryPathToLinkerFlags.cmake _deps/raylib-src/cmake/PackConfigurations.cmake _deps/raylib-src/cmake/ParseConfigHeader.cmake _deps/raylib-src/cmake/PopulateConfigVariablesLocally.cmake _deps/raylib-src/cmake/raylib-config-version.cmake _deps/raylib-src/raylib.pc.in _deps/raylib-src/src/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMake/glfw3.pc.in _deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in _deps/raylib-src/src/external/glfw/CMakeLists.txt _deps/raylib-src/src/external/glfw/src/CMakeLists.txt _deps/tinycsocket-src/CMakeLists.txt: phony
+build /home/orion/Projects/Bocce/CMakeLists.txt /home/orion/Projects/Bocce/src/CMakeLists.txt /usr/local/share/cmake-4.1/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/local/share/cmake-4.1/Modules/CMakeCInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCXXInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeCommonLanguageInclude.cmake /usr/local/share/cmake-4.1/Modules/CMakeGenericSystem.cmake /usr/local/share/cmake-4.1/Modules/CMakeInitializeConfigs.cmake /usr/local/share/cmake-4.1/Modules/CMakeLanguageInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakePackageConfigHelpers.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInformation.cmake /usr/local/share/cmake-4.1/Modules/CMakeSystemSpecificInitialize.cmake /usr/local/share/cmake-4.1/Modules/CTest.cmake /usr/local/share/cmake-4.1/Modules/CTestTargets.cmake /usr/local/share/cmake-4.1/Modules/CTestUseLaunchers.cmake /usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake /usr/local/share/cmake-4.1/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Compiler/GNU.cmake /usr/local/share/cmake-4.1/Modules/DartConfiguration.tcl.in /usr/local/share/cmake-4.1/Modules/ExternalProject/PatchInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/RepositoryInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/UpdateInfo.txt.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitclone.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/gitupdate.cmake.in /usr/local/share/cmake-4.1/Modules/ExternalProject/shared_internal_commands.cmake /usr/local/share/cmake-4.1/Modules/ExternalProject/stepscript.cmake.in /usr/local/share/cmake-4.1/Modules/FetchContent.cmake /usr/local/share/cmake-4.1/Modules/FindGit.cmake /usr/local/share/cmake-4.1/Modules/FindPackageHandleStandardArgs.cmake /usr/local/share/cmake-4.1/Modules/FindPackageMessage.cmake /usr/local/share/cmake-4.1/Modules/FindPkgConfig.cmake /usr/local/share/cmake-4.1/Modules/FindSQLite3.cmake /usr/local/share/cmake-4.1/Modules/GNUInstallDirs.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCXXLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Internal/CMakeCommonLinkerInformation.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linker/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-C.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU-CXX.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-GNU.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux-Initialize.cmake /usr/local/share/cmake-4.1/Modules/Platform/Linux.cmake /usr/local/share/cmake-4.1/Modules/Platform/UnixPaths.cmake /usr/local/share/cmake-4.1/Modules/WriteBasicConfigVersionFile.cmake /usr/local/share/cmake-4.1/Templates/CTestScript.cmake.in CMakeCache.txt CMakeFiles/4.1.0-rc2/CMakeCCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeCXXCompiler.cmake CMakeFiles/4.1.0-rc2/CMakeSystem.cmake _deps/cwalk-src/CMakeLists.txt _deps/cwalk-src/cmake/CreateTestList.cmake _deps/cwalk-src/cmake/EnableWarnings.cmake _deps/cwalk-src/cwalk.pc.in _deps/libtoml-src/CMakeLists.txt _deps/libtoml-src/cmake/Modules/tomlTargetProperties.cmake _deps/libtoml-src/cmake/tomlConfig.cmake.in _deps/tinycsocket-src/CMakeLists.txt: phony
 
 
 #############################################

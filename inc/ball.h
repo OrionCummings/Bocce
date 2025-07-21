@@ -2,13 +2,14 @@
 #define __BALL_H
 
 #include <stdint.h>
-#include "raylib.h"
+#include "colors.h"
+#include "bmath.h"
 
 typedef struct BocceBall {
     uint32_t mass;
-    Vector2 position;
-    Vector2 velocity;
-    Vector2 acceleration;
+    V2i position;
+    V2i velocity;
+    V2i acceleration;
     uint16_t size;
     Color color;
 } BocceBall;

@@ -1,6 +1,13 @@
 #ifndef __COLORS_H
 #define __COLORS_H
 
+typedef struct Color {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+} Color;
+
 #define COLOR_VSC_0 ((Color){10, 10, 15, 255})
 #define COLOR_VSC_1 ((Color){30, 30, 30, 255})
 #define COLOR_VSC_2 ((Color){37, 37, 38, 255})

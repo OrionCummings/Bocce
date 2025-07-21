@@ -1,15 +1,10 @@
 #include "init.h"
 
-// TODO: Remove
-#include <unistd.h>
-
 static TcsSocket client_sockets[MAX_CONNECTIONS];
 static TcsSocket listen_socket;
 static TcsSocket client_socket;
 
-static Clay_Arena clay_memory;
-
-ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database, Font* fonts, Clay_Context** context) {
+ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database) {
 
     // Set all memory to zero
     memset(application_settings, 0, sizeof(*application_settings));
@@ -39,7 +34,7 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
     }
 
     // Initialize window
-    ErrorCode ec_init_window = init_window(application_settings, fonts, context);
+    ErrorCode ec_init_window = init_window(application_settings);
     if (ec_init_window) {
         B_ERROR("Failed to initialize the window");
         return ec_init_window;
@@ -53,92 +48,9 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
     return EC_OK;
 }
 
-ErrorCode init_window(ApplicationSettings* application_settings, Font* fonts, Clay_Context** context) {
+ErrorCode init_window(ApplicationSettings* application_settings) {
 
-    // Initialize and configure the window
-    B_INFO("Initializing Raylib 5.6 and configuring the main window");
-
-    WindowSettings ws = application_settings->window_settings;
-
-    size_t clay_required_memory = Clay_MinMemorySize();
-    clay_memory = Clay_CreateArenaWithCapacityAndMemory(clay_required_memory, malloc(clay_required_memory));
-    *context = Clay_Initialize(
-        clay_memory, (Clay_Dimensions) {
-        .width = (float)ws.window_width,
-            .height = (float)ws.window_height
-    },
-        (Clay_ErrorHandler) {
-        .errorHandlerFunction = clay_handle_errors,
-            .userData = NULL
-    }
-    );
-    SetConfigFlags(ws.config_flags); // FLAG_MSAA_4X_HINT
-    SetTraceLogLevel(ws.log_level);
-    SetTargetFPS(ws.target_fps);
-    Clay_Raylib_Initialize(ws.window_width, ws.window_height, ws.window_title, FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
-
-    // TODO: Refactor this into init_fonts()
-    // TODO: Make this actually handle multiple fonts lol
-    init_fonts(fonts);
-    SetTextureFilter(fonts[0].texture, TEXTURE_FILTER_BILINEAR);
-    Clay_SetMeasureTextFunction(clay_raylib_measure_text, fonts);
-
-    // Init physics
-    InitPhysics();
-
-    SetTextLineSpacing(16);
-
-    return EC_OK;
-}
-
-ErrorCode init_fonts(Font* fonts) {
-
-    if (fonts == NULL) { B_ERROR("Passed null parameter 'font'"); return EC_PASSED_NULL; }
-
-    // char cwd[_MAX_PATH] = { 0 };
-    // getcwd(cwd, _MAX_PATH);
-    // B_INFO("cwd = %s\n", cwd);
-
-    /*
-
-    struct cwk_segment segment;
-
-    if (!cwk_path_get_last_segment(cwd, &segment)) {
-        B_ERROR("CWD has no segments! Are you working straight from the C: drive or home directory?");
-        return EC_CWD_NO_SEGMENTS;
-    }
-
-    do {
-        // printf("Current segment is '%.*s'.\n", (int)segment.size, segment.begin);
-        printf("Current segment is '%s'.\n", segment.begin);
-
-        char segment_name[segment.size];
-        strncpy_s(segment_name, segment.size, segment.begin + (segment.size - strnlen_s(segment.begin, segment.size * sizeof(*segment.begin))), segment.size);
-
-
-        // if (!strcmp(segment.begin, "Bocce")) {
-        //     break;
-        // }
-        printf("%s\n", segment_name);
-    } while (cwk_path_get_previous_segment(&segment));
-
-    printf("Last segment is '%.*s'.\n", (int)segment.size, segment.begin);
-    */
-
-    // TODO: Make the font selection better
-    // Make sure the font file exists
-    const char* font_path_release = "res/fonts/daydream/daydream.ttf";
-    const char* font_path_debug = "../../../res/fonts/daydream/daydream.ttf";
-    if (access(font_path_release, F_OK) == 0) {
-        B_INFO("Loaded font 'daydream' from the release path");
-        fonts[0] = LoadFontEx(font_path_release, 128, NULL, FONT_DAYDREAM_NUM_CHARS);
-    } else if (access(font_path_debug, F_OK) == 0) {
-        B_INFO("Loaded font 'daydream' from the debug path");
-        fonts[0] = LoadFontEx(font_path_debug, 128, NULL, FONT_DAYDREAM_NUM_CHARS);
-    } else {
-        B_INFO("Failed to load font 'daydream'; falling back to default font");
-        fonts[0] = GetFontDefault();
-    }
+    
 
     return EC_OK;
 }
@@ -284,48 +196,7 @@ ErrorCode init_networking_server(Server* server) {
 
     if (server == NULL) { B_ERROR("Passed null parameter 'server'"); return EC_PASSED_NULL; }
 
-    // Create & configure the socket pool
-    struct TcsPool* pool;
-    for (uint8_t socket_id = 0; socket_id < MAX_CONNECTIONS; socket_id++) {
-
-        // Create the socket the socket
-        client_sockets[socket_id] = TCS_NULLSOCKET;
-        TcsReturnCode rc_tcs_create = tcs_create(&(client_sockets[socket_id]), PLAYER_SOCKET_TYPE);
-        if (rc_tcs_create) {
-            B_ERROR("Server failed to create socket id '%d'", socket_id);
-            return (ErrorCode)rc_tcs_create;
-        }
-
-        // Add the socket to the pool
-        tcs_pool_add(server->socket_pool, client_sockets[socket_id], NULL, true, true, true);
-    }
-
-    uint64_t time_start = now();
-    B_INFO("[%lld] Starting timer", time_start);
-    Timer t = new_timer(TWO_SECONDS);
-    wait(t);
-    uint64_t time_end = now();
-    uint64_t delta = time_end - time_start;
-    B_INFO("[%lld] Ending timer", time_end);
-    B_INFO("Took %llds / %lldms / %lldns", delta / ONE_SECOND, delta / ONE_MS, delta);
-
-    // tcs_pool_create(,);
-
-    // // listen_socket = TCS_NULLSOCKET;
-    // for (uint8_t connection_id = 0; connection_id < MAX_CONNECTIONS; connection_id++) {
-    //     server->player_sockets[connection_id]
-    // }
-
-    // B_INFO("Server creating listening socket");
-    // server_socket = TCS_NULLSOCKET;
-    // listen_socket = TCS_NULLSOCKET;
-    // if (tcs_create(&listen_socket, TCS_TYPE_TCP_IP4) != TCS_SUCCESS) {
-    //     B_ERROR("Server failed to create listening socket");
-    //     return EC_TCS_LISTEN_SOCKET_CREATE_FAILURE;
-    // }
-
-    B_INFO("Server creating socket pool");
-    // tcs_pool_create();
+    
 
     return EC_OK;
 }
@@ -351,7 +222,7 @@ ErrorCode init_database(sqlite3** database) {
 }
 
 // Uninitialzation functions
-ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, Font* fonts){
+ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database){
 
     if (application_settings == NULL) { B_ERROR("Passed null parameter 'application_settings'"); return EC_PASSED_NULL; }
 
@@ -360,13 +231,6 @@ ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database, 
     if (ec_uninit_networking) {
         B_ERROR("Failed to uninitialize networking");
         return ec_uninit_networking;
-    }
-
-    B_INFO("Uninitializing the window");
-    ErrorCode ec_uninit_window = uninit_window(fonts);
-    if (ec_uninit_window) {
-        B_ERROR("Failed to uninitialize the window");
-        return ec_uninit_window;
     }
 
     return EC_OK;
@@ -452,23 +316,9 @@ ErrorCode uninit_database(sqlite3** database) {
     return EC_OK;
 }
 
-ErrorCode uninit_window(Font* font) {
+ErrorCode uninit_window() {
 
-    // Unload the fonts
-    B_INFO("Unloading font(s)");
-    UnloadFont(*font);
-
-    // Unload the physics engine
-    B_INFO("Unloading physics");
-    ClosePhysics();
-
-    // Unload Clay
-    B_INFO("Unloading Clay");
-    Clay_Raylib_Close();
-
-    // Close the window
-    B_INFO("Unloading the window");
-    CloseWindow(); // TODO: Figure out why it seems to crash here!
+    
 
     return EC_OK;
 }
@@ -477,13 +327,11 @@ ErrorCode uninit_window(Font* font) {
 ErrorCode apply_default_application_config(ApplicationSettings* settings) {
 
     // Apply default window settings
-    settings->window_settings.window_width = 1000;
-    settings->window_settings.window_height = 800;
+    settings->window_settings.dim.window_width = 1000u;
+    settings->window_settings.dim.window_height = 800u;
     settings->window_settings.fullscreen = false;
     memset(settings->window_settings.window_title, 0, 256);
     memcpy_s(settings->window_settings.window_title, 256, "Multiplayer Bocce Game", strlen("Multiplayer Bocce Game"));
-    settings->window_settings.config_flags = FLAG_MSAA_4X_HINT;
-    settings->window_settings.log_level = LOG_NONE;
     settings->window_settings.target_fps = 120;
 
     return EC_OK;
@@ -492,9 +340,9 @@ ErrorCode apply_default_application_config(ApplicationSettings* settings) {
 ErrorCode apply_default_client_config(ClientSettings* settings) {
 
     // Apply default client settings
-    settings->major_version = -1;
-    settings->minor_version = -1;
-    settings->patch_version = -1;
+    settings->major_version = 0u;
+    settings->minor_version = 0u;
+    settings->patch_version = 0u;
     memset(settings->server_ip, 0, 16);
     memcpy_s(settings->server_ip, 16, "127.0.0.1", strlen("127.0.0.1"));
     settings->server_port = 57283;
@@ -505,9 +353,9 @@ ErrorCode apply_default_client_config(ClientSettings* settings) {
 ErrorCode apply_default_server_config(ServerSettings* settings) {
 
     // Apply default server settings
-    settings->major_version = -1;
-    settings->minor_version = -1;
-    settings->patch_version = -1;
+    settings->major_version = 0u;
+    settings->minor_version = 0u;
+    settings->patch_version = 0u;
     settings->max_players = 16;
 
     return EC_OK;
@@ -515,58 +363,5 @@ ErrorCode apply_default_server_config(ServerSettings* settings) {
 
 bool should_have_window(const ApplicationSettings settings) {
     return (settings.application_mode == AM_CLIENT) || (settings.application_mode == AM_DUAL);
-}
-
-void clay_handle_errors(Clay_ErrorData error_data) {
-    B_ERROR("%s", error_data.errorText.chars);
-    if (error_data.errorType == CLAY_ERROR_TYPE_ELEMENTS_CAPACITY_EXCEEDED) {
-        Clay_SetMaxElementCount(Clay_GetMaxElementCount() * 2);
-    } else if (error_data.errorType == CLAY_ERROR_TYPE_TEXT_MEASUREMENT_CAPACITY_EXCEEDED) {
-        Clay_SetMaxMeasureTextCacheWordCount(Clay_GetMaxMeasureTextCacheWordCount() * 2);
-    }
-}
-
-Clay_Dimensions clay_raylib_measure_text(Clay_StringSlice text, Clay_TextElementConfig* config, void* user_data) {
-
-    // Measure string size for Font
-    Clay_Dimensions textSize = { 0 };
-
-    float maxTextWidth = 0.0f;
-    float lineTextWidth = 0;
-    int maxLineCharCount = 0;
-    int lineCharCount = 0;
-
-    float textHeight = config->fontSize;
-    Font* fonts = (Font*)user_data;
-    Font fontToUse = fonts[config->fontId];
-    // Font failed to load, likely the fonts are in the wrong place relative to the execution dir.
-    // RayLib ships with a default font, so we can continue with that built in one. 
-    if (!fontToUse.glyphs) {
-        fontToUse = GetFontDefault();
-    }
-
-    float scaleFactor = config->fontSize / (float)fontToUse.baseSize;
-
-    for (int i = 0; i < text.length; ++i, lineCharCount++)
-    {
-        if (text.chars[i] == '\n') {
-            maxTextWidth = fmaxf(maxTextWidth, lineTextWidth);
-            maxLineCharCount = CLAY__MAX(maxLineCharCount, lineCharCount);
-            lineTextWidth = 0;
-            lineCharCount = 0;
-            continue;
-        }
-        int index = text.chars[i] - 32;
-        if (fontToUse.glyphs[index].advanceX != 0) lineTextWidth += (float)fontToUse.glyphs[index].advanceX;
-        else lineTextWidth += (fontToUse.recs[index].width + (float)fontToUse.glyphs[index].offsetX);
-    }
-
-    maxTextWidth = fmaxf(maxTextWidth, lineTextWidth);
-    maxLineCharCount = CLAY__MAX(maxLineCharCount, lineCharCount);
-
-    textSize.width = maxTextWidth * scaleFactor + (float)(lineCharCount * config->letterSpacing);
-    textSize.height = textHeight;
-
-    return textSize;
 }
 

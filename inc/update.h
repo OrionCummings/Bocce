@@ -5,19 +5,14 @@
 #include "error_codes.h"
 #include "debug.h"
 #include "networking.h"
-#include "raylib.h"
-#include "chat.h"
-#include "physac.h"
-#include "scene.h"
 
-ErrorCode update(ApplicationSettings*, Server*, Client*, GameState*, Chat*, SceneID*);
+ErrorCode update(ApplicationSettings*, Server*, Client*, GameState*);
 ErrorCode update_game_state(GameState*);
 ErrorCode update_server(Server*);
-ErrorCode update_client(Client*, SceneID*);
-ErrorCode update_chat(Chat*);
+ErrorCode update_client(Client*);
 
 // Misc
-BocceBall generate_ball(Vector2 mouse_position);
+BocceBall generate_ball(V2i mouse_position);
 Color get_random_color(void);
 
 #endif

@@ -10,34 +10,31 @@
 #define PLAYER_SOCKET_TYPE (TCS_TYPE_TCP_IP4)
 
 typedef struct IdIndexMapEntry {
-    int client_id;
-    int cliend_index;
+    uint16_t client_id;
+    uint16_t cliend_index;
 } IdIndexMapEntry;
 
 typedef struct ServerSettings {
-    int major_version;
-    int minor_version;
-    int patch_version;
-    int port;
-    int max_players;
+    uint16_t major_version;
+    uint16_t minor_version;
+    uint16_t patch_version;
+    uint16_t port;
+    uint16_t max_players;
 } ServerSettings;
 
 /// @brief Server-side data
 typedef struct Server {
     ServerSettings settings;
-    // TcsSocket player_sockets[MAX_PLAYERS];
-    // IdIndexMapEntry player_id_map[MAX_PLAYERS];
     GameState state;
-    struct TcsPool* socket_pool;
 } Server;
 
 typedef struct ClientSettings {
-    int major_version;
-    int minor_version;
-    int patch_version;
-    char server_ip[16]; // "AAA.BBB.CCC.DDD\0" is 16 characters long (\0 is the null character)
-    int server_port;
-    int id;
+    uint16_t major_version;
+    uint16_t minor_version;
+    uint16_t patch_version;
+    unsigned char server_ip[16]; // "AAA.BBB.CCC.DDD\0" is 16 characters long (\0 is the null character)
+    uint16_t server_port;
+    uint16_t id;
 } ClientSettings;
 
 typedef struct Client {

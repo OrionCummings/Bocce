@@ -92,8 +92,7 @@ ErrorCode receive_data() {
 // Helper functions
 void print_window_settings(WindowSettings settings) {
     printf("Window Settings:\n");
-    printf("\twindow_width: '%d'\n", settings.window_width);
-    printf("\twindow_height:' %d'\n", settings.window_height);
+    printf("\tdim: (%u,%u)\n", settings.dim.window_width, settings.dim.window_height);
     printf("\tfullscreen: '%s'\n", (settings.fullscreen) ? "true" : "false");
     printf("\twindow_title: '%s'\n", settings.window_title);
     printf("\tlog_level: '%d'\n", settings.log_level);

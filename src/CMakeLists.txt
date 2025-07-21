@@ -9,10 +9,8 @@ add_executable(Bocce
     ball.c
     update.c
     chat.c
-    ui.c
-    clay_renderer_raylib.c
-    scene.c
     timer.c
+    file_system.c
     )
 
 target_include_directories(Bocce PRIVATE "../inc")
@@ -21,9 +19,9 @@ target_compile_options(Bocce PRIVATE
     -pedantic 
     -Wall 
     -Wextra 
+    -Werror  
     -Wconversion 
     -Wundef 
-    -Werror  
     -Wno-unused-parameter
     -Wno-unused-variable
     -Wno-type-limits

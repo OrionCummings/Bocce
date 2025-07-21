@@ -10,14 +10,6 @@ set(FETCHCONTENT_QUIET FALSE)
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
 set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # don't build the supplied example games
 
-# The main library for graphics, vector math, audio, and rendering
-FetchContent_Declare(
-    raylib
-    GIT_REPOSITORY "https://github.com/raysan5/raylib.git"
-    GIT_TAG "master"
-    GIT_PROGRESS TRUE
-)
-
 # Provides cross-platform sockets
 FetchContent_Declare(
     tinycsocket
@@ -34,14 +26,6 @@ FetchContent_Declare(
     GIT_PROGRESS TRUE
 )
 
-# Provides UI layout engine
-FetchContent_Declare(
-    clay
-    GIT_REPOSITORY "https://github.com/nicbarker/clay.git"
-    GIT_TAG "main"
-    GIT_PROGRESS TRUE
-)
-
 # Provides TOML parsing
 FetchContent_Declare(
     libtoml
@@ -49,14 +33,17 @@ FetchContent_Declare(
     GIT_SHALLOW ON
 )
 
-FetchContent_MakeAvailable(raylib tinycsocket cwalk libtoml)
+# Provides TOML parsing
+# FetchContent_Declare(
+#     safestringlib
+#     GIT_REPOSITORY "https://github.com/intel/safestringlib.git"
+#     GIT_SHALLOW ON
+# )
+
+FetchContent_MakeAvailable(tinycsocket cwalk libtoml)
 
 find_package(SQLite3 REQUIRED)
 
 add_subdirectory(src)
 
-target_link_libraries(Bocce raylib)
-target_link_libraries(Bocce tinycsocket)
-target_link_libraries(Bocce cwalk)
-target_link_libraries(Bocce toml)
-target_link_libraries(Bocce SQLite3)
+target_link_libraries(Bocce toml tinycsocket sqlite3 cwalk safestring_shared)
