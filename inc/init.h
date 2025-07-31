@@ -5,7 +5,6 @@
 #include <sqlite3.h>
 #include <safe_lib.h>
 #include "cwalk.h"
-#include "tinycsocket.h"
 #include "debug.h"
 #include "types.h"
 #include "config.h"

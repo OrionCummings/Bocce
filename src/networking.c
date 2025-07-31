@@ -1,5 +1,8 @@
 #include "networking.h"
 
+// static nng_sock client_socket;
+// static nng_sock server_socket;
+
 // Server queries/commands
 bool is_player_connected(const Server* server, int client_id) {
     B_ERROR("NOT IMPLEMENTED YET");
@@ -26,60 +29,16 @@ int get_max_num_players(const Server* server){
     return EC_OK;
 }
 
-// Server functions
-ErrorCode check_for_new_connections(const Server server, TcsSocket server_socket, TcsSocket listen_socket) {
-
-    // uint16_t listen_port = (uint16_t)(server.settings.port);
-    // B_ERROR("Server listening on port '%d'", listen_port);
-    // if (tcs_listen_to(listen_socket, listen_port)) {
-    //     B_ERROR("Server failed to listen on port '%d'", listen_port);
-    //     return EC_TCS_LISTEN_SOCKET_LISTEN_FAILURE;
-    // }
-
-    // B_ERROR("Server attempting to accept connection");
-    // if (tcs_accept(listen_socket, &server_socket, NULL)) {
-    //     B_ERROR("Server failed to accept connection");
-    //     return EC_TCS_LISTEN_SOCKET_CONNCTION_ACCEPTANCE_FAILURE;
-    // }
-
-    // B_ERROR("Server destroying listening socket");
-    // if (tcs_destroy(&listen_socket) != TCS_SUCCESS) {
-    //     B_ERROR("Server failed to destroy listening socket");
-    //     return EC_TCS_LISTEN_SOCKET_DESTRUCTION_FAILURE;
-    // }
-
-    // uint8_t recv_buffer[1024]; // TODO: Remove magic numbers!
-    // size_t recv_size = sizeof(recv_buffer) - sizeof('\0');
-    // size_t bytes_received = 0;
-    // B_ERROR("Server attempting to receive data from client");
-    // if (tcs_receive(server_socket, recv_buffer, recv_size, TCS_NO_FLAGS, &bytes_received) != TCS_SUCCESS) {
-    //     B_ERROR("Server failed to receive data from client");
-    //     return EC_TCS_SERVER_SOCKET_RECEPTION_FAILURE;
-    // }
-
-    // recv_buffer[bytes_received] = '\0';
-    // B_INFO("received: '%s'", recv_buffer);
-
-    // char msg[] = "CN.ACK\n";
-    // B_ERROR("Server attempting to send data to client");
-    // if (tcs_send(server_socket, (const uint8_t*)msg, sizeof(msg), TCS_MSG_SENDALL, NULL) != TCS_SUCCESS) {
-    //     B_ERROR("Server failed to send data to client");
-    //     return EC_TCS_SERVER_DATA_TRANSMISSION_FAILURE;
-    // }
-
-    return EC_OK;
-}
-
 // Data transmission functions
-ErrorCode send_data(TcsSocket socket, const uint8_t* buffer, size_t buffer_size) {
+ErrorCode send_data(int socket, const uint8_t* data, size_t data_size) {
 
     size_t num_bytes_sent = 0;
-    if (tcs_send(socket, buffer, buffer_size, TCS_MSG_SENDALL, &num_bytes_sent) != TCS_SUCCESS) {
-        B_ERROR("Client failed to send data to the server");
-        return EC_TCS_CLIENT_SEND_FAILURE;
-    }
+    // if () {
+    //     B_ERROR("Client failed to send data to the server");
+    //     return EC_TCS_CLIENT_SEND_FAILURE;
+    // }
 
-    B_INFO("Sent %lld bytes to server", num_bytes_sent);
+    // B_INFO("Sent %lld bytes to server", num_bytes_sent);
 
     return EC_OK;
 }

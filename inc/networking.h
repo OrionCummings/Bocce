@@ -1,7 +1,9 @@
 #ifndef __NETWORKING_H
 #define __NETWORKING_H
 
-#include "tinycsocket.h"
+#include <nng/nng.h>
+#include <nng/protocol/reqrep0/rep.h>
+#include <nng/protocol/reqrep0/req.h>
 #include "debug.h"
 #include "types.h"
 #include "error_codes.h"
@@ -40,7 +42,6 @@ typedef struct ClientSettings {
 typedef struct Client {
     bool enabled;
     ClientSettings settings;
-    TcsSocket socket;
     bool connected;
     GameState state;
 } Client;
@@ -56,7 +57,7 @@ bool is_client(const ApplicationSettings);
 char* get_app_type(const ApplicationSettings);
 
 // High-level functions
-ErrorCode send_data(TcsSocket socket, const uint8_t* buffer, size_t buffer_size);
+ErrorCode send_data(int, const uint8_t*, size_t);
 ErrorCode receive_data();
 
 // Client queries/commands

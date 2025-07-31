@@ -59,6 +59,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-build/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/home/orion/Projects/Bocce/out/build/Default Linux/src/cmake_install.cmake")
 endif()
 

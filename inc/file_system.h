@@ -19,6 +19,6 @@
 #include "debug.h"
 #include "error_codes.h"
 
-ErrorCode get_project_dir(char**);
+ErrorCode get_project_dir(char*);
 
 #endif

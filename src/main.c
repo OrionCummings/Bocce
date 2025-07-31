@@ -25,14 +25,16 @@ static sqlite3* database;
 static GameState state;
 
 // Debug
-static int looped = 0;
+static Timer game_timer;
+static bool looped = true;
 
 // TODO: Refactor these parameters into a single "LoopState" struct or something better!
 ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, GameState* state){
 
-    if (looped++) return -1;
-
-    B_INFO("Executing one main loop");
+    if (looped) {
+        looped = false;
+        B_INFO("Executing one main loop");
+    }
 
     // TODO: Align this with the current parameter list! Apply globally!
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
@@ -52,6 +54,8 @@ ErrorCode loop(ApplicationSettings* settings, Server* server, Client* client, Ga
 
 int main(int argc, char** argv) {
 
+    static_assert(__STDC_VERSION__ == 202000L, "This project requires C23");
+
     B_INFO("Starting Bocce application");
     B_INFO("C Version: %d (requires 202000/C23)", __STDC_VERSION__);
 
@@ -63,12 +67,18 @@ int main(int argc, char** argv) {
         return ec_init;
     }
 
-    // Loop the application until it should close
-    ErrorCode ec_loop = loop(&settings, &server, &client, &state);
-    if (ec_loop) {
-        B_ERROR("Failed to loop");
-        B_ERROR("Exiting with error code '%d'", ec_loop);
-        return ec_loop;
+    // DEBUG:
+    game_timer = new_timer(TWO_SECONDS);
+    while (!update_timer(game_timer)) {
+
+        // Loop the application until it should close
+        ErrorCode ec_loop = loop(&settings, &server, &client, &state);
+        if (ec_loop) {
+            B_ERROR("Failed to loop");
+            B_ERROR("Exiting with error code '%d'", ec_loop);
+            return ec_loop;
+        }
+
     }
 
     // Uninitialize the application

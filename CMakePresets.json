@@ -2,19 +2,7 @@
     "version": 8,
     "configurePresets": [
         {
-            "name": "Default Windows",
-            "displayName": "Configure preset using toolchain file",
-            "description": "Sets MinGW generator, build and install directory",
-            "generator": "MinGW Makefiles",
-            "binaryDir": "${sourceDir}/build/${presetName}",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_TOOLCHAIN_FILE": "",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
-            }
-        },
-        {
-            "name": "Default Linux",
+            "name": "Default",
             "displayName": "Custom configure preset",
             "description": "Sets Ninja generator, build and install directory",
             "generator": "Ninja",

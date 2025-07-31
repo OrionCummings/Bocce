@@ -1,6 +1,6 @@
 #include "file_system.h"
 
-ErrorCode get_project_dir(char** full_path) {
+ErrorCode get_project_dir(char* full_path) {
 
     // Get the CWD
     char cwd[FILENAME_MAX];
@@ -51,7 +51,7 @@ ErrorCode get_project_dir(char** full_path) {
     size_t n = (size_t)(segment.end - segment.path) / sizeof(*segment.path);
 
     // Copy from the segment struct into the full path
-    memcpy_s(*full_path, full_path_len, segment.path, n);
+    memcpy_s(full_path, full_path_len, segment.path, n);
 
     return EC_OK;
 }

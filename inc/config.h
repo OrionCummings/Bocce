@@ -26,6 +26,6 @@ void print_keyval(const TomlKeyValue* keyval);
 bool is_known_table(const TomlKeyValue*, const char*);
 bool is_known_key(const TomlKeyValue*, const char*);
 bool is_type(const TomlKeyValue, TomlType);
-ErrorCode get_file_path_from_application_mode(ApplicationMode mode, char* buffer[]);
+ErrorCode get_config_file_path(char* project_dir_path, char* config_file_path);
 
 #endif

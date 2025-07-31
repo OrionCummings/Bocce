@@ -92,8 +92,6 @@ Timer new_timer(uint64_t d) {
 
 bool update_timer(Timer t) {
 
-    // B_INFO("time: %lld", now());
-
     if (t.start + t.duration < now()) {
         t.expired = true;
     }

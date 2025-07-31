@@ -10,6 +10,8 @@
 #include <string.h>
 #include <assert.h>
 
+#define static_assert(condition, message) _Static_assert((condition), message)
+
 #define __ENABLE_INFO
 #define __ENABLE_WARNING
 #define __ENABLE_ERROR

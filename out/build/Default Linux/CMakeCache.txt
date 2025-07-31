@@ -14,9 +14,15 @@
 # EXTERNAL cache entries
 ########################
 
+//Path to a program.
+BASH:FILEPATH=/usr/bin/bash
+
 BUILD_EXAMPLES:BOOL=OFF
 
 BUILD_GAMES:BOOL=OFF
+
+//Build shared library
+BUILD_SHARED_LIBS:BOOL=ON
 
 //Build the testing tree.
 BUILD_TESTING:BOOL=ON
@@ -304,6 +310,39 @@ COVERAGE_COMMAND:FILEPATH=/usr/bin/gcov
 //Extra command line flags to pass to the coverage tool
 COVERAGE_EXTRA_FLAGS:STRING=-l
 
+//Path to a program.
+CP:FILEPATH=/usr/bin/cp
+
+//Enable to build Debian packages
+CPACK_BINARY_DEB:BOOL=OFF
+
+//Enable to build FreeBSD packages
+CPACK_BINARY_FREEBSD:BOOL=OFF
+
+//Enable to build IFW packages
+CPACK_BINARY_IFW:BOOL=OFF
+
+//Enable to build NSIS packages
+CPACK_BINARY_NSIS:BOOL=OFF
+
+//Enable to build RPM packages
+CPACK_BINARY_RPM:BOOL=OFF
+
+//Enable to build STGZ packages
+CPACK_BINARY_STGZ:BOOL=ON
+
+//Enable to build TBZ2 packages
+CPACK_BINARY_TBZ2:BOOL=OFF
+
+//Enable to build TGZ packages
+CPACK_BINARY_TGZ:BOOL=ON
+
+//Enable to build TXZ packages
+CPACK_BINARY_TXZ:BOOL=OFF
+
+//Enable to build TZ packages
+CPACK_BINARY_TZ:BOOL=ON
+
 //How many times to retry timed-out CTest submissions.
 CTEST_SUBMIT_RETRY_COUNT:STRING=3
 
@@ -332,6 +371,10 @@ FETCHCONTENT_SOURCE_DIR_CWALK:PATH=
 FETCHCONTENT_SOURCE_DIR_LIBTOML:PATH=
 
 //When not empty, overrides where to find pre-populated content
+// for nng
+FETCHCONTENT_SOURCE_DIR_NNG:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for tinycsocket
 FETCHCONTENT_SOURCE_DIR_TINYCSOCKET:PATH=
 
@@ -344,6 +387,9 @@ FETCHCONTENT_UPDATES_DISCONNECTED_CWALK:BOOL=OFF
 //Enables UPDATE_DISCONNECTED behavior just for population of libtoml
 FETCHCONTENT_UPDATES_DISCONNECTED_LIBTOML:BOOL=OFF
 
+//Enables UPDATE_DISCONNECTED behavior just for population of nng
+FETCHCONTENT_UPDATES_DISCONNECTED_NNG:BOOL=OFF
+
 //Enables UPDATE_DISCONNECTED behavior just for population of tinycsocket
 FETCHCONTENT_UPDATES_DISCONNECTED_TINYCSOCKET:BOOL=OFF
 
@@ -353,20 +399,137 @@ GITCOMMAND:FILEPATH=/usr/bin/git
 //Git command line client
 GIT_EXECUTABLE:FILEPATH=/usr/bin/git
 
+//Path to a program.
+GZIP:FILEPATH=/usr/bin/gzip
+
 //Command to build the project
 MAKECOMMAND:STRING=/usr/local/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 
 //Path to the memory checking command, used for memory error detection.
-MEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND
+MEMORYCHECK_COMMAND:FILEPATH=/usr/bin/valgrind
 
 //File that contains suppressions for the memory checker
 MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
+
+//Path to a program.
+MV:FILEPATH=/usr/bin/mv
+
+//Elide deprecated functionality.
+NNG_ELIDE_DEPRECATED:BOOL=OFF
+
+//Enable coverage reporting.
+NNG_ENABLE_COVERAGE:BOOL=OFF
+
+//Enable HTTP API
+NNG_ENABLE_HTTP:BOOL=ON
+
+//Enable IPv6.
+NNG_ENABLE_IPV6:BOOL=ON
+
+//Enable building nngcat utility.
+NNG_ENABLE_NNGCAT:BOOL=ON
+
+//Enable statistics.
+NNG_ENABLE_STATS:BOOL=ON
+
+//Enable TLS support.
+NNG_ENABLE_TLS:BOOL=OFF
+
+//Upper bound on expire threads, 0 for no limit
+NNG_MAX_EXPIRE_THREADS:STRING=8
+
+//Upper bound on I/O poller threads, 0 for no limit
+NNG_MAX_POLLER_THREADS:STRING=8
+
+//Upper bound on task threads, 0 for no limit
+NNG_MAX_TASKQ_THREADS:STRING=16
+
+//Fixed number of expire threads, 0 for automatic
+NNG_NUM_EXPIRE_THREADS:STRING=0
+
+//Fixed number of I/O poller threads, 0 for automatic
+NNG_NUM_POLLER_THREADS:STRING=0
+
+//Fixed number of task threads, 0 for automatic
+NNG_NUM_TASKQ_THREADS:STRING=0
+
+//Poller used for multiplexing I/O
+NNG_POLLQ_POLLER:STRING=auto
+
+//Enable BUSv0 protocol.
+NNG_PROTO_BUS0:BOOL=ON
+
+//Enable PAIRv0 protocol.
+NNG_PROTO_PAIR0:BOOL=ON
+
+//Enable PAIRv1 protocol.
+NNG_PROTO_PAIR1:BOOL=ON
+
+//Enable PUBv0 protocol.
+NNG_PROTO_PUB0:BOOL=ON
+
+//Enable PULLv0 protocol.
+NNG_PROTO_PULL0:BOOL=ON
+
+//Enable PUSHv0 protocol.
+NNG_PROTO_PUSH0:BOOL=ON
+
+//Enable REPv0 protocol.
+NNG_PROTO_REP0:BOOL=ON
+
+//Enable REQv0 protocol.
+NNG_PROTO_REQ0:BOOL=ON
+
+//Enable RESPONDENTv0 protocol.
+NNG_PROTO_RESPONDENT0:BOOL=ON
+
+//Enable SUBv0 protocol.
+NNG_PROTO_SUB0:BOOL=ON
+
+//Enable SURVEYORv0 protocol.
+NNG_PROTO_SURVEYOR0:BOOL=ON
+
+//Resolver (DNS) concurrency.
+NNG_RESOLV_CONCURRENCY:STRING=4
+
+//Sanitizer to use (clang or gcc).
+NNG_SANITIZER:STRING=none
+
+//Use rlimit for thread stack size
+NNG_SETSTACKSIZE:BOOL=OFF
+
+//Build and run tests.
+NNG_TESTS:BOOL=ON
+
+//Build extra tools.
+NNG_TOOLS:BOOL=ON
+
+//Enable File Descriptor transport (EXPERIMENTAL)
+NNG_TRANSPORT_FDC:BOOL=ON
+
+//Enable inproc transport.
+NNG_TRANSPORT_INPROC:BOOL=ON
+
+//Enable IPC transport.
+NNG_TRANSPORT_IPC:BOOL=ON
+
+//Enable TCP transport.
+NNG_TRANSPORT_TCP:BOOL=ON
+
+//Enable UDP transport (EXPERIMENTAL)
+NNG_TRANSPORT_UDP:BOOL=ON
+
+//Enable WebSocket transport.
+NNG_TRANSPORT_WS:BOOL=ON
 
 //Arguments to supply to pkg-config
 PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
+//Path to a program.
+RM:FILEPATH=/usr/bin/rm
 
 //Name of the computer/site where compile is being run
 SITE:STRING=libra
@@ -376,6 +539,9 @@ SQLite3_INCLUDE_DIR:PATH=/usr/include
 
 //Path to a library.
 SQLite3_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libsqlite3.so
+
+//Path to a program.
+TAR:FILEPATH=/usr/bin/tar
 
 //Enable examples
 TCS_ENABLE_EXAMPLES:BOOL=OFF
@@ -397,6 +563,15 @@ cwalk_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
 cwalk_SOURCE_DIR:STATIC=/home/orion/Projects/Bocce/out/build/Default Linux/_deps/cwalk-src
+
+//Value Computed by CMake
+nng_BINARY_DIR:STATIC=/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-build
+
+//Value Computed by CMake
+nng_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+nng_SOURCE_DIR:STATIC=/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src
 
 //Path to a library.
 pkgcfg_lib_PC_SQLite3_sqlite3:FILEPATH=/usr/lib/x86_64-linux-gnu/libsqlite3.so
@@ -433,6 +608,8 @@ toml_has_c_flag_-Wformat:UNINITIALIZED=2:INTERNAL=1
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: BASH
+BASH-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_ADDR2LINE
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
@@ -513,6 +690,8 @@ CMAKE_GENERATOR_INSTANCE:INTERNAL=
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Test CMAKE_HAVE_LIBC_PTHREAD
+CMAKE_HAVE_LIBC_PTHREAD:INTERNAL=1
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=/home/orion/Projects/Bocce
@@ -569,7 +748,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=40
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -618,6 +797,28 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 COVERAGE_COMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: COVERAGE_EXTRA_FLAGS
 COVERAGE_EXTRA_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CP
+CP-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_DEB
+CPACK_BINARY_DEB-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_FREEBSD
+CPACK_BINARY_FREEBSD-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_IFW
+CPACK_BINARY_IFW-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_NSIS
+CPACK_BINARY_NSIS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_RPM
+CPACK_BINARY_RPM-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_STGZ
+CPACK_BINARY_STGZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_TBZ2
+CPACK_BINARY_TBZ2-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_TGZ
+CPACK_BINARY_TGZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_TXZ
+CPACK_BINARY_TXZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_BINARY_TZ
+CPACK_BINARY_TZ-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CTEST_SUBMIT_RETRY_COUNT
 CTEST_SUBMIT_RETRY_COUNT-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CTEST_SUBMIT_RETRY_DELAY
@@ -626,16 +827,180 @@ CTEST_SUBMIT_RETRY_DELAY-ADVANCED:INTERNAL=1
 DART_TESTING_TIMEOUT-ADVANCED:INTERNAL=1
 //Details about finding SQLite3
 FIND_PACKAGE_MESSAGE_DETAILS_SQLite3:INTERNAL=[/usr/lib/x86_64-linux-gnu/libsqlite3.so][/usr/include][v3.45.1()]
+//Details about finding Threads
+FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//Details about finding UnixCommands
+FIND_PACKAGE_MESSAGE_DETAILS_UnixCommands:INTERNAL=[/usr/bin/bash][/usr/bin/cp][/usr/bin/gzip][/usr/bin/mv][/usr/bin/rm][/usr/bin/tar][v()]
 //ADVANCED property for variable: GITCOMMAND
 GITCOMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: GZIP
+GZIP-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MAKECOMMAND
 MAKECOMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MEMORYCHECK_COMMAND
 MEMORYCHECK_COMMAND-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: MEMORYCHECK_SUPPRESSIONS_FILE
 MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: MV
+MV-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_ENABLE_HTTP
+NNG_ENABLE_HTTP-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_ENABLE_IPV6
+NNG_ENABLE_IPV6-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_ENABLE_STATS
+NNG_ENABLE_STATS-ADVANCED:INTERNAL=1
+//Have function arc4random_buf
+NNG_HAVE_ARC4RANDOM:INTERNAL=1
+//Have symbol backtrace_symbols_fd
+NNG_HAVE_BACKTRACE:INTERNAL=1
+//Have function clock_gettime
+NNG_HAVE_CLOCK_GETTIME_LIBC:INTERNAL=1
+//Have symbol epoll_create
+NNG_HAVE_EPOLL:INTERNAL=1
+//Have symbol epoll_create1
+NNG_HAVE_EPOLL_CREATE1:INTERNAL=1
+//Have symbol eventfd
+NNG_HAVE_EVENTFD:INTERNAL=1
+//Have function flock
+NNG_HAVE_FLOCK:INTERNAL=1
+//Have function getentropy
+NNG_HAVE_GETENTROPY:INTERNAL=1
+//Have symbol getpeereid
+NNG_HAVE_GETPEEREID:INTERNAL=
+//Have symbol getpeerucred
+NNG_HAVE_GETPEERUCRED:INTERNAL=
+//Have function getrandom
+NNG_HAVE_GETRANDOM:INTERNAL=1
+//Have symbol AF_INET6
+NNG_HAVE_INET6:INTERNAL=1
+//Have symbol AF_INET6
+NNG_HAVE_INET6_BSD:INTERNAL=
+//Have symbol kqueue
+NNG_HAVE_KQUEUE:INTERNAL=
+//Have symbol nl_langinfo
+NNG_HAVE_LANGINFO:INTERNAL=1
+//Have library atomic
+NNG_HAVE_LIBATOMIC:INTERNAL=1
+//Have library nsl
+NNG_HAVE_LIBNSL:INTERNAL=
+//Have library socket
+NNG_HAVE_LIBSOCKET:INTERNAL=
+//Have symbol LOCAL_PEERCRED
+NNG_HAVE_LOCALPEERCRED:INTERNAL=
+//Have symbol LOCAL_PEERPID
+NNG_HAVE_LOCALPEERPID:INTERNAL=
+//Have symbol localtime_r
+NNG_HAVE_LOCALTIME_R:INTERNAL=
+//Have function lockf
+NNG_HAVE_LOCKF:INTERNAL=1
+//Test NNG_HAVE_MSG_CONTROL
+NNG_HAVE_MSG_CONTROL:INTERNAL=1
+//Have symbol poll
+NNG_HAVE_POLL:INTERNAL=1
+//Have symbol port_create
+NNG_HAVE_PORT_CREATE:INTERNAL=
+//Have library pthread
+NNG_HAVE_PTHREAD_ATFORK_PTHREAD:INTERNAL=1
+//Have library pthread
+NNG_HAVE_PTHREAD_SETNAME_NP:INTERNAL=1
+//Have library pthread
+NNG_HAVE_PTHREAD_SET_NAME_NP:INTERNAL=
+//Have function recvmsg
+NNG_HAVE_RECVMSG:INTERNAL=1
+//Have symbol select
+NNG_HAVE_SELECT:INTERNAL=1
+//Have library pthread
+NNG_HAVE_SEMAPHORE_PTHREAD:INTERNAL=1
+//Have function sendmsg
+NNG_HAVE_SENDMSG:INTERNAL=1
+//Have symbol socketpair
+NNG_HAVE_SOCKETPAIR:INTERNAL=1
+//Test NNG_HAVE_SOCKPEERCRED
+NNG_HAVE_SOCKPEERCRED:INTERNAL=
+//Have symbol SO_PEERCRED
+NNG_HAVE_SOPEERCRED:INTERNAL=
+//Have symbol atomic_flag_test_and_set
+NNG_HAVE_STDATOMIC:INTERNAL=1
+//Have symbol strcasecmp
+NNG_HAVE_STRCASECMP:INTERNAL=
+//Have symbol strlcpy
+NNG_HAVE_STRLCPY:INTERNAL=
+//Have symbol strncasecmp
+NNG_HAVE_STRNCASECMP:INTERNAL=
+//Have symbol strnlen
+NNG_HAVE_STRNLEN:INTERNAL=
+//Have symbol syslog
+NNG_HAVE_SYSLOG:INTERNAL=1
+//Have symbol getentropy
+NNG_HAVE_SYS_RANDOM:INTERNAL=1
+//Have symbol timespec_get
+NNG_HAVE_TIMESPEC_GET:INTERNAL=
+//Have symbol AF_UNIX
+NNG_HAVE_UNIX_SOCKETS:INTERNAL=1
+//Test NNG_HIDDEN_VISIBILITY
+NNG_HIDDEN_VISIBILITY:INTERNAL=1
+//ADVANCED property for variable: NNG_MAX_EXPIRE_THREADS
+NNG_MAX_EXPIRE_THREADS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_MAX_POLLER_THREADS
+NNG_MAX_POLLER_THREADS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_MAX_TASKQ_THREADS
+NNG_MAX_TASKQ_THREADS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_NUM_EXPIRE_THREADS
+NNG_NUM_EXPIRE_THREADS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_NUM_POLLER_THREADS
+NNG_NUM_POLLER_THREADS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_NUM_TASKQ_THREADS
+NNG_NUM_TASKQ_THREADS-ADVANCED:INTERNAL=1
+//nng package dependencies
+NNG_PKGS:INTERNAL=Threads
+//ADVANCED property for variable: NNG_POLLQ_POLLER
+NNG_POLLQ_POLLER-ADVANCED:INTERNAL=1
+//STRINGS property for variable: NNG_POLLQ_POLLER
+NNG_POLLQ_POLLER-STRINGS:INTERNAL=auto;ports;kqueue;epoll;poll;select
+//ADVANCED property for variable: NNG_PROTO_BUS0
+NNG_PROTO_BUS0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_PAIR0
+NNG_PROTO_PAIR0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_PAIR1
+NNG_PROTO_PAIR1-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_PUB0
+NNG_PROTO_PUB0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_PULL0
+NNG_PROTO_PULL0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_PUSH0
+NNG_PROTO_PUSH0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_REP0
+NNG_PROTO_REP0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_REQ0
+NNG_PROTO_REQ0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_RESPONDENT0
+NNG_PROTO_RESPONDENT0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_SUB0
+NNG_PROTO_SUB0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_PROTO_SURVEYOR0
+NNG_PROTO_SURVEYOR0-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_RESOLV_CONCURRENCY
+NNG_RESOLV_CONCURRENCY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_SANITIZER
+NNG_SANITIZER-ADVANCED:INTERNAL=1
+//STRINGS property for variable: NNG_SANITIZER
+NNG_SANITIZER-STRINGS:INTERNAL=none;address;leak;memory;thread;undefined
+//ADVANCED property for variable: NNG_SETSTACKSIZE
+NNG_SETSTACKSIZE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_TRANSPORT_FDC
+NNG_TRANSPORT_FDC-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_TRANSPORT_INPROC
+NNG_TRANSPORT_INPROC-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_TRANSPORT_IPC
+NNG_TRANSPORT_IPC-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_TRANSPORT_TCP
+NNG_TRANSPORT_TCP-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_TRANSPORT_UDP
+NNG_TRANSPORT_UDP-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: NNG_TRANSPORT_WS
+NNG_TRANSPORT_WS-ADVANCED:INTERNAL=1
 PC_SQLite3_CFLAGS:INTERNAL=-I/usr/include
 PC_SQLite3_CFLAGS_I:INTERNAL=
 PC_SQLite3_CFLAGS_OTHER:INTERNAL=
@@ -675,12 +1040,16 @@ PC_SQLite3_sqlite3_VERSION:INTERNAL=
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: RM
+RM-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SITE
 SITE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SQLite3_INCLUDE_DIR
 SQLite3_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SQLite3_LIBRARY
 SQLite3_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: TAR
+TAR-ADVANCED:INTERNAL=1
 //Have symbol getifaddrs
 TCS_HAVE_IFADDRS:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run

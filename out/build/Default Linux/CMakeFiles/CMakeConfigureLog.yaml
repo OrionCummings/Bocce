@@ -3158,3 +3158,2000 @@ events:
         - "/usr/pkg"
         - "/opt"
 ...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CTest.cmake:188 (find_program)"
+      - "out/build/Default Linux/_deps/cwalk-src/CMakeLists.txt:13 (include)"
+    mode: "program"
+    variable: "MEMORYCHECK_COMMAND"
+    description: "Path to the memory checking command, used for memory error detection."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "purify"
+      - "valgrind"
+      - "boundscheck"
+      - "drmemory"
+      - "cuda-memcheck"
+      - "compute-sanitizer"
+    candidate_directories:
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/usr/local/sbin/purify"
+      - "/usr/local/bin/purify"
+      - "/usr/sbin/purify"
+      - "/usr/bin/purify"
+      - "/sbin/purify"
+      - "/bin/purify"
+      - "/usr/games/purify"
+      - "/usr/local/games/purify"
+      - "/snap/bin/purify"
+      - "/usr/local/bin/purify"
+      - "/usr/local/sbin/purify"
+      - "/usr/local/purify"
+      - "/usr/bin/purify"
+      - "/usr/sbin/purify"
+      - "/usr/purify"
+      - "/bin/purify"
+      - "/sbin/purify"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/purify"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/purify"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/purify"
+      - "/usr/X11R6/bin/purify"
+      - "/usr/X11R6/sbin/purify"
+      - "/usr/X11R6/purify"
+      - "/usr/pkg/bin/purify"
+      - "/usr/pkg/sbin/purify"
+      - "/usr/pkg/purify"
+      - "/opt/bin/purify"
+      - "/opt/sbin/purify"
+      - "/opt/purify"
+      - "/usr/local/sbin/valgrind"
+      - "/usr/local/bin/valgrind"
+      - "/usr/sbin/valgrind"
+    found: "/usr/bin/valgrind"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/orion/Projects/Bocce/out/install/Default Linux"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr/local"
+        - "/home/orion/Projects/Bocce/out/install/Default Linux"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckCCompilerFlag.cmake:105 (cmake_check_compiler_flag)"
+      - "out/build/Default Linux/_deps/nng-src/CMakeLists.txt:204 (check_c_compiler_flag)"
+    checks:
+      - "Performing Test NNG_HIDDEN_VISIBILITY"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-5XYcyk"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-5XYcyk"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HIDDEN_VISIBILITY"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-5XYcyk'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_72030
+        [1/2] /usr/bin/cc -DNNG_HIDDEN_VISIBILITY  -Wall -Wextra -fno-omit-frame-pointer    -std=c99   -fvisibility=hidden -o CMakeFiles/cmTC_72030.dir/src.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-5XYcyk/src.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_72030.dir/src.c.o -o cmTC_72030   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/core/CMakeLists.txt:13 (nng_check_sym)"
+    checks:
+      - "Looking for strlcpy"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_STRLCPY"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_b7675
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_b7675.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_b7675.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_b7675.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX/CheckSymbolExists.c:8:19: error: ‘strlcpy’ undeclared (first use in this function); did you mean ‘strncpy’?
+            8 |   return ((int*)(&strlcpy))[argc];
+              |                   ^~~~~~~
+              |                   strncpy
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-kDxbyX/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/core/CMakeLists.txt:14 (nng_check_sym)"
+    checks:
+      - "Looking for strnlen"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_STRNLEN"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_19635
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_19635.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_19635.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_19635.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L/CheckSymbolExists.c:8:19: error: ‘strnlen’ undeclared (first use in this function); did you mean ‘strlen’?
+            8 |   return ((int*)(&strnlen))[argc];
+              |                   ^~~~~~~
+              |                   strlen
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LJSs0L/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/core/CMakeLists.txt:15 (nng_check_sym)"
+    checks:
+      - "Looking for strcasecmp"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_STRCASECMP"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_44489
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_44489.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_44489.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_44489.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1/CheckSymbolExists.c:8:19: error: ‘strcasecmp’ undeclared (first use in this function); did you mean ‘strncmp’?
+            8 |   return ((int*)(&strcasecmp))[argc];
+              |                   ^~~~~~~~~~
+              |                   strncmp
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-gsnIj1/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/core/CMakeLists.txt:16 (nng_check_sym)"
+    checks:
+      - "Looking for strncasecmp"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_STRNCASECMP"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_21b81
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_21b81.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_21b81.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_21b81.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu/CheckSymbolExists.c:8:19: error: ‘strncasecmp’ undeclared (first use in this function); did you mean ‘strncmp’?
+            8 |   return ((int*)(&strncasecmp))[argc];
+              |                   ^~~~~~~~~~~
+              |                   strncmp
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-LfWXeu/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/core/CMakeLists.txt:17 (nng_check_sym)"
+    checks:
+      - "Looking for localtime_r"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LOCALTIME_R"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_86841
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_86841.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_86841.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_86841.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt/CheckSymbolExists.c:8:19: error: ‘localtime_r’ undeclared (first use in this function); did you mean ‘localtime’?
+            8 |   return ((int*)(&localtime_r))[argc];
+              |                   ^~~~~~~~~~~
+              |                   localtime
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-L74czt/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/core/CMakeLists.txt:18 (nng_check_sym)"
+    checks:
+      - "Looking for syslog"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-UvxvQC"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-UvxvQC"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SYSLOG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-UvxvQC'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_cd758
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_cd758.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-UvxvQC/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_cd758.dir/CheckSymbolExists.c.o -o cmTC_cd758   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "/usr/local/share/cmake-4.1/Modules/FindThreads.cmake:97 (check_c_source_compiles)"
+      - "/usr/local/share/cmake-4.1/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:46 (find_package)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:16 (nng_find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-7gcGUJ"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-7gcGUJ"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-7gcGUJ'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_43c1b
+        [1/2] /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_43c1b.dir/src.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-7gcGUJ/src.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_43c1b.dir/src.c.o -o cmTC_43c1b   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:27 (nng_check_func)"
+    checks:
+      - "Looking for lockf"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-v9sUBR"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-v9sUBR"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LOCKF"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-v9sUBR'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_11171
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=lockf -std=c99 -o CMakeFiles/cmTC_11171.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-v9sUBR/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=lockf  CMakeFiles/cmTC_11171.dir/CheckFunctionExists.c.o -o cmTC_11171   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:28 (nng_check_func)"
+    checks:
+      - "Looking for flock"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oSbXon"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oSbXon"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_FLOCK"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oSbXon'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_9e7bc
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=flock -std=c99 -o CMakeFiles/cmTC_9e7bc.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oSbXon/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=flock  CMakeFiles/cmTC_9e7bc.dir/CheckFunctionExists.c.o -o cmTC_9e7bc   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:29 (nng_check_func)"
+    checks:
+      - "Looking for getentropy"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-CGMsnz"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-CGMsnz"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_GETENTROPY"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-CGMsnz'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_71bd1
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=getentropy -std=c99 -o CMakeFiles/cmTC_71bd1.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-CGMsnz/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=getentropy  CMakeFiles/cmTC_71bd1.dir/CheckFunctionExists.c.o -o cmTC_71bd1   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:30 (nng_check_func)"
+    checks:
+      - "Looking for getrandom"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xZz304"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xZz304"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_GETRANDOM"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xZz304'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_920b2
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=getrandom -std=c99 -o CMakeFiles/cmTC_920b2.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xZz304/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=getrandom  CMakeFiles/cmTC_920b2.dir/CheckFunctionExists.c.o -o cmTC_920b2   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:31 (nng_check_func)"
+    checks:
+      - "Looking for arc4random_buf"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XpLTtY"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XpLTtY"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_ARC4RANDOM"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XpLTtY'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_ef6ff
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=arc4random_buf -std=c99 -o CMakeFiles/cmTC_ef6ff.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XpLTtY/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=arc4random_buf  CMakeFiles/cmTC_ef6ff.dir/CheckFunctionExists.c.o -o cmTC_ef6ff   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:32 (nng_check_func)"
+    checks:
+      - "Looking for recvmsg"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ocs4cd"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ocs4cd"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_RECVMSG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ocs4cd'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_ad147
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=recvmsg -std=c99 -o CMakeFiles/cmTC_ad147.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ocs4cd/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=recvmsg  CMakeFiles/cmTC_ad147.dir/CheckFunctionExists.c.o -o cmTC_ad147   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:33 (nng_check_func)"
+    checks:
+      - "Looking for sendmsg"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ooorDS"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ooorDS"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SENDMSG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ooorDS'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_cd39a
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=sendmsg -std=c99 -o CMakeFiles/cmTC_cd39a.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ooorDS/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=sendmsg  CMakeFiles/cmTC_cd39a.dir/CheckFunctionExists.c.o -o cmTC_cd39a   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckFunctionExists.cmake:167 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:134 (check_function_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:35 (nng_check_func)"
+    checks:
+      - "Looking for clock_gettime"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-S4dewo"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-S4dewo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_CLOCK_GETTIME_LIBC"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-S4dewo'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_e78db
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=clock_gettime -std=c99 -o CMakeFiles/cmTC_e78db.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-S4dewo/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=clock_gettime  CMakeFiles/cmTC_e78db.dir/CheckFunctionExists.c.o -o cmTC_e78db   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:152 (check_library_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:41 (nng_check_lib)"
+    checks:
+      - "Looking for sem_wait in pthread"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-crardO"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-crardO"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SEMAPHORE_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-crardO'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_583ff
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=sem_wait -std=c99 -o CMakeFiles/cmTC_583ff.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-crardO/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=sem_wait  CMakeFiles/cmTC_583ff.dir/CheckFunctionExists.c.o -o cmTC_583ff  -lpthread && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:152 (check_library_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:42 (nng_check_lib)"
+    checks:
+      - "Looking for pthread_atfork in pthread"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jTbAHH"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jTbAHH"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_PTHREAD_ATFORK_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jTbAHH'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_a2b54
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=pthread_atfork -std=c99 -o CMakeFiles/cmTC_a2b54.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jTbAHH/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=pthread_atfork  CMakeFiles/cmTC_a2b54.dir/CheckFunctionExists.c.o -o cmTC_a2b54  -lpthread && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:152 (check_library_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:43 (nng_check_lib)"
+    checks:
+      - "Looking for pthread_set_name_np in pthread"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Ot2hog"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Ot2hog"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_PTHREAD_SET_NAME_NP"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Ot2hog'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d867d
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=pthread_set_name_np -std=c99 -o CMakeFiles/cmTC_d867d.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Ot2hog/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=pthread_set_name_np  CMakeFiles/cmTC_d867d.dir/CheckFunctionExists.c.o -o cmTC_d867d  -lpthread && :
+        FAILED: cmTC_d867d 
+        : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=pthread_set_name_np  CMakeFiles/cmTC_d867d.dir/CheckFunctionExists.c.o -o cmTC_d867d  -lpthread && :
+        /usr/bin/ld: CMakeFiles/cmTC_d867d.dir/CheckFunctionExists.c.o: in function `main':
+        CheckFunctionExists.c:(.text+0x14): undefined reference to `pthread_set_name_np'
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:152 (check_library_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:44 (nng_check_lib)"
+    checks:
+      - "Looking for pthread_setname_np in pthread"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-JrIDbA"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-JrIDbA"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_PTHREAD_SETNAME_NP"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-JrIDbA'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_87865
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=pthread_setname_np -std=c99 -o CMakeFiles/cmTC_87865.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-JrIDbA/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=pthread_setname_np  CMakeFiles/cmTC_87865.dir/CheckFunctionExists.c.o -o cmTC_87865  -lpthread && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:152 (check_library_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:45 (nng_check_lib)"
+    checks:
+      - "Looking for gethostbyname in nsl"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-DKOf9k"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-DKOf9k"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LIBNSL"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-DKOf9k'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_dba3f
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=gethostbyname -std=c99 -o CMakeFiles/cmTC_dba3f.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-DKOf9k/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=gethostbyname  CMakeFiles/cmTC_dba3f.dir/CheckFunctionExists.c.o -o cmTC_dba3f  -lnsl && :
+        FAILED: cmTC_dba3f 
+        : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=gethostbyname  CMakeFiles/cmTC_dba3f.dir/CheckFunctionExists.c.o -o cmTC_dba3f  -lnsl && :
+        /usr/bin/ld: cannot find -lnsl: No such file or directory
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:152 (check_library_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:46 (nng_check_lib)"
+    checks:
+      - "Looking for socket in socket"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jpCjH9"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jpCjH9"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LIBSOCKET"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jpCjH9'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_46675
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=socket -std=c99 -o CMakeFiles/cmTC_46675.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jpCjH9/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=socket  CMakeFiles/cmTC_46675.dir/CheckFunctionExists.c.o -o cmTC_46675  -lsocket && :
+        FAILED: cmTC_46675 
+        : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=socket  CMakeFiles/cmTC_46675.dir/CheckFunctionExists.c.o -o cmTC_46675  -lsocket && :
+        /usr/bin/ld: cannot find -lsocket: No such file or directory
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:152 (check_library_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:55 (nng_check_lib)"
+    checks:
+      - "Looking for __atomic_load_1 in atomic"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Maw8Db"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Maw8Db"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LIBATOMIC"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Maw8Db'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_96c0c
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=__atomic_load_1 -std=c99 -o CMakeFiles/cmTC_96c0c.dir/CheckFunctionExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Maw8Db/CheckFunctionExists.c'
+        <command-line>: warning: conflicting types for built-in function ‘__atomic_load_1’; expected ‘unsigned char(const volatile void *, int)’ [-Wbuiltin-declaration-mismatch]
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-Maw8Db/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+            7 |   CHECK_FUNCTION_EXISTS(void);
+              |   ^~~~~~~~~~~~~~~~~~~~~
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer   -DCHECK_FUNCTION_EXISTS=__atomic_load_1  CMakeFiles/cmTC_96c0c.dir/CheckFunctionExists.c.o -o cmTC_96c0c  -latomic && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:57 (nng_check_sym)"
+    checks:
+      - "Looking for AF_UNIX"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZNQsmZ"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZNQsmZ"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_UNIX_SOCKETS"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZNQsmZ'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_7dad2
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_7dad2.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZNQsmZ/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_7dad2.dir/CheckSymbolExists.c.o -o cmTC_7dad2   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:58 (nng_check_sym)"
+    checks:
+      - "Looking for backtrace_symbols_fd"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-RNnwMc"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-RNnwMc"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_BACKTRACE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-RNnwMc'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_0975b
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_0975b.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-RNnwMc/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_0975b.dir/CheckSymbolExists.c.o -o cmTC_0975b   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSourceCompiles.cmake:205 (cmake_check_source_compiles)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckStructHasMember.cmake:161 (check_source_compiles)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:163 (check_struct_has_member)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:59 (nng_check_struct_member)"
+    checks:
+      - "Performing Test NNG_HAVE_MSG_CONTROL"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-0xQQOV"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-0xQQOV"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_MSG_CONTROL"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-0xQQOV'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_13274
+        [1/2] /usr/bin/cc -DNNG_HAVE_MSG_CONTROL  -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_13274.dir/src.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-0xQQOV/src.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_13274.dir/src.c.o -o cmTC_13274   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:60 (nng_check_sym)"
+    checks:
+      - "Looking for eventfd"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-AWNSje"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-AWNSje"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_EVENTFD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-AWNSje'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_573b8
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_573b8.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-AWNSje/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_573b8.dir/CheckSymbolExists.c.o -o cmTC_573b8   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:61 (nng_check_sym)"
+    checks:
+      - "Looking for kqueue"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-vrO8UL"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-vrO8UL"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_KQUEUE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-vrO8UL'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_04ac0
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_04ac0.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-vrO8UL/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_04ac0.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_04ac0.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-vrO8UL/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-vrO8UL/CheckSymbolExists.c:2:10: fatal error: sys/event.h: No such file or directory
+            2 | #include <sys/event.h>
+              |          ^~~~~~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:62 (nng_check_sym)"
+    checks:
+      - "Looking for port_create"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-M1s7S8"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-M1s7S8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_PORT_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-M1s7S8'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_a59c0
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_a59c0.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-M1s7S8/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_a59c0.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_a59c0.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-M1s7S8/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-M1s7S8/CheckSymbolExists.c:2:10: fatal error: port.h: No such file or directory
+            2 | #include <port.h>
+              |          ^~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:63 (nng_check_sym)"
+    checks:
+      - "Looking for epoll_create"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-i32yxb"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-i32yxb"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_EPOLL"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-i32yxb'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_9c93c
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_9c93c.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-i32yxb/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_9c93c.dir/CheckSymbolExists.c.o -o cmTC_9c93c   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:64 (nng_check_sym)"
+    checks:
+      - "Looking for epoll_create1"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-K7uwXn"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-K7uwXn"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_EPOLL_CREATE1"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-K7uwXn'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_09281
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_09281.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-K7uwXn/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_09281.dir/CheckSymbolExists.c.o -o cmTC_09281   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:65 (nng_check_sym)"
+    checks:
+      - "Looking for poll"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-y5ZMoc"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-y5ZMoc"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_POLL"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-y5ZMoc'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_704d0
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_704d0.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-y5ZMoc/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_704d0.dir/CheckSymbolExists.c.o -o cmTC_704d0   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:66 (nng_check_sym)"
+    checks:
+      - "Looking for select"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-W4rtO0"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-W4rtO0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SELECT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-W4rtO0'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_fd3f1
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_fd3f1.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-W4rtO0/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_fd3f1.dir/CheckSymbolExists.c.o -o cmTC_fd3f1   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:67 (nng_check_sym)"
+    checks:
+      - "Looking for getpeereid"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_GETPEEREID"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_053aa
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_053aa.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_053aa.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_053aa.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP/CheckSymbolExists.c:8:19: error: ‘getpeereid’ undeclared (first use in this function); did you mean ‘getegid’?
+            8 |   return ((int*)(&getpeereid))[argc];
+              |                   ^~~~~~~~~~
+              |                   getegid
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-oGUWmP/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:68 (nng_check_sym)"
+    checks:
+      - "Looking for SO_PEERCRED"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SOPEERCRED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_e0f3e
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_e0f3e.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_e0f3e.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_e0f3e.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7/CheckSymbolExists.c:8:19: error: ‘SO_PEERCRED’ undeclared (first use in this function)
+            8 |   return ((int*)(&SO_PEERCRED))[argc];
+              |                   ^~~~~~~~~~~
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-l7ikK7/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSourceCompiles.cmake:205 (cmake_check_source_compiles)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckStructHasMember.cmake:161 (check_source_compiles)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:163 (check_struct_has_member)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:69 (nng_check_struct_member)"
+    checks:
+      - "Performing Test NNG_HAVE_SOCKPEERCRED"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-8Cr7Qh"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-8Cr7Qh"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SOCKPEERCRED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-8Cr7Qh'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_b8963
+        [1/2] /usr/bin/cc -DNNG_HAVE_SOCKPEERCRED  -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_b8963.dir/src.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-8Cr7Qh/src.c'
+        FAILED: CMakeFiles/cmTC_b8963.dir/src.c.o 
+        /usr/bin/cc -DNNG_HAVE_SOCKPEERCRED  -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_b8963.dir/src.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-8Cr7Qh/src.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-8Cr7Qh/src.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-8Cr7Qh/src.c:6:42: error: invalid use of undefined type ‘struct sockpeercred’
+            6 |   (void)sizeof(((struct sockpeercred *)0)->uid);
+              |                                          ^~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:70 (nng_check_sym)"
+    checks:
+      - "Looking for LOCAL_PEERCRED"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LOCALPEERCRED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_61d71
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_61d71.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_61d71.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_61d71.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs/CheckSymbolExists.c:8:19: error: ‘LOCAL_PEERCRED’ undeclared (first use in this function)
+            8 |   return ((int*)(&LOCAL_PEERCRED))[argc];
+              |                   ^~~~~~~~~~~~~~
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-jjdOHs/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:71 (nng_check_sym)"
+    checks:
+      - "Looking for LOCAL_PEERPID"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LOCALPEERPID"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_a814c
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_a814c.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_a814c.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_a814c.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl/CheckSymbolExists.c:8:19: error: ‘LOCAL_PEERPID’ undeclared (first use in this function)
+            8 |   return ((int*)(&LOCAL_PEERPID))[argc];
+              |                   ^~~~~~~~~~~~~
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-VT1PHl/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:72 (nng_check_sym)"
+    checks:
+      - "Looking for getpeerucred"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-zeFMs6"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-zeFMs6"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_GETPEERUCRED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-zeFMs6'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d4992
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_d4992.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-zeFMs6/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_d4992.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_d4992.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-zeFMs6/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-zeFMs6/CheckSymbolExists.c:2:10: fatal error: ucred.h: No such file or directory
+            2 | #include <ucred.h>
+              |          ^~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:73 (nng_check_sym)"
+    checks:
+      - "Looking for atomic_flag_test_and_set"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-QrtJSV"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-QrtJSV"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_STDATOMIC"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-QrtJSV'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_fb755
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_fb755.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-QrtJSV/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_fb755.dir/CheckSymbolExists.c.o -o cmTC_fb755   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:74 (nng_check_sym)"
+    checks:
+      - "Looking for socketpair"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XnmJJP"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XnmJJP"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SOCKETPAIR"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XnmJJP'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_e3dfc
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_e3dfc.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-XnmJJP/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_e3dfc.dir/CheckSymbolExists.c.o -o cmTC_e3dfc   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:75 (nng_check_sym)"
+    checks:
+      - "Looking for AF_INET6"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-BdpIGy"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-BdpIGy"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_INET6"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-BdpIGy'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_6a13c
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_6a13c.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-BdpIGy/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_6a13c.dir/CheckSymbolExists.c.o -o cmTC_6a13c   && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:76 (nng_check_sym)"
+    checks:
+      - "Looking for AF_INET6"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xJbps9"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xJbps9"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_INET6_BSD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xJbps9'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_f8d9c
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_f8d9c.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xJbps9/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_f8d9c.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_f8d9c.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xJbps9/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-xJbps9/CheckSymbolExists.c:2:10: fatal error: netinet6/in6.h: No such file or directory
+            2 | #include <netinet6/in6.h>
+              |          ^~~~~~~~~~~~~~~~
+        compilation terminated.
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:77 (nng_check_sym)"
+    checks:
+      - "Looking for timespec_get"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_TIMESPEC_GET"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_ac67b
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_ac67b.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W/CheckSymbolExists.c'
+        FAILED: CMakeFiles/cmTC_ac67b.dir/CheckSymbolExists.c.o 
+        /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_ac67b.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W/CheckSymbolExists.c'
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W/CheckSymbolExists.c: In function ‘main’:
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W/CheckSymbolExists.c:8:19: error: ‘timespec_get’ undeclared (first use in this function)
+            8 |   return ((int*)(&timespec_get))[argc];
+              |                   ^~~~~~~~~~~~
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+        /home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-qprP7W/CheckSymbolExists.c:4:14: warning: parameter ‘argc’ set but not used [-Wunused-but-set-parameter]
+            4 | int main(int argc, char** argv)
+              |          ~~~~^~~~
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/src/platform/posix/CMakeLists.txt:78 (nng_check_sym)"
+    checks:
+      - "Looking for getentropy"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZnTh0A"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZnTh0A"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_SYS_RANDOM"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZnTh0A'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_5a5e3
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_5a5e3.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-ZnTh0A/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_5a5e3.dir/CheckSymbolExists.c.o -o cmTC_5a5e3   && :
+        
+      exitCode: 0
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/FindUnixCommands.cmake:22 (find_program)"
+      - "out/build/Default Linux/_deps/nng-src/src/tools/nngcat/CMakeLists.txt:21 (include)"
+    mode: "program"
+    variable: "BASH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "bash"
+    candidate_directories:
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/usr/local/sbin/bash"
+      - "/usr/local/bin/bash"
+      - "/usr/sbin/bash"
+    found: "/usr/bin/bash"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/orion/Projects/Bocce/out/install/Default Linux"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr/local"
+        - "/home/orion/Projects/Bocce/out/install/Default Linux"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/FindUnixCommands.cmake:31 (find_program)"
+      - "out/build/Default Linux/_deps/nng-src/src/tools/nngcat/CMakeLists.txt:21 (include)"
+    mode: "program"
+    variable: "CP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "cp"
+    candidate_directories:
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/usr/local/sbin/cp"
+      - "/usr/local/bin/cp"
+      - "/usr/sbin/cp"
+    found: "/usr/bin/cp"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/orion/Projects/Bocce/out/install/Default Linux"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr/local"
+        - "/home/orion/Projects/Bocce/out/install/Default Linux"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/FindUnixCommands.cmake:40 (find_program)"
+      - "out/build/Default Linux/_deps/nng-src/src/tools/nngcat/CMakeLists.txt:21 (include)"
+    mode: "program"
+    variable: "GZIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gzip"
+    candidate_directories:
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/usr/local/sbin/gzip"
+      - "/usr/local/bin/gzip"
+      - "/usr/sbin/gzip"
+    found: "/usr/bin/gzip"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/orion/Projects/Bocce/out/install/Default Linux"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr/local"
+        - "/home/orion/Projects/Bocce/out/install/Default Linux"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/FindUnixCommands.cmake:49 (find_program)"
+      - "out/build/Default Linux/_deps/nng-src/src/tools/nngcat/CMakeLists.txt:21 (include)"
+    mode: "program"
+    variable: "MV"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "mv"
+    candidate_directories:
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/usr/local/sbin/mv"
+      - "/usr/local/bin/mv"
+      - "/usr/sbin/mv"
+    found: "/usr/bin/mv"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/orion/Projects/Bocce/out/install/Default Linux"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr/local"
+        - "/home/orion/Projects/Bocce/out/install/Default Linux"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/FindUnixCommands.cmake:58 (find_program)"
+      - "out/build/Default Linux/_deps/nng-src/src/tools/nngcat/CMakeLists.txt:21 (include)"
+    mode: "program"
+    variable: "RM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "rm"
+    candidate_directories:
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/usr/local/sbin/rm"
+      - "/usr/local/bin/rm"
+      - "/usr/sbin/rm"
+    found: "/usr/bin/rm"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/orion/Projects/Bocce/out/install/Default Linux"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr/local"
+        - "/home/orion/Projects/Bocce/out/install/Default Linux"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/FindUnixCommands.cmake:67 (find_program)"
+      - "out/build/Default Linux/_deps/nng-src/src/tools/nngcat/CMakeLists.txt:21 (include)"
+    mode: "program"
+    variable: "TAR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tar"
+      - "gtar"
+      - "PATH"
+      - "/bin"
+      - "/usr/bin"
+    candidate_directories:
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/sbin/"
+      - "/bin/"
+      - "/usr/games/"
+      - "/usr/local/games/"
+      - "/snap/bin/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/bin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/sbin/"
+      - "/home/orion/Projects/Bocce/out/install/Default Linux/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/usr/local/sbin/tar"
+      - "/usr/local/bin/tar"
+      - "/usr/sbin/tar"
+    found: "/usr/bin/tar"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/sbin"
+        - "/bin"
+        - "/usr/games"
+        - "/usr/local/games"
+        - "/snap/bin"
+      CMAKE_INSTALL_PREFIX: "/home/orion/Projects/Bocce/out/install/Default Linux"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr/local"
+        - "/home/orion/Projects/Bocce/out/install/Default Linux"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:193 (try_compile)"
+      - "/usr/local/share/cmake-4.1/Modules/CheckSymbolExists.cmake:98 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "out/build/Default Linux/_deps/nng-src/cmake/NNGHelpers.cmake:143 (check_symbol_exists)"
+      - "out/build/Default Linux/_deps/nng-src/tests/CMakeLists.txt:47 (nng_check_sym)"
+    checks:
+      - "Looking for nl_langinfo"
+    directories:
+      source: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-c4kCgp"
+      binary: "/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-c4kCgp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: " -Wall -Wextra -fno-omit-frame-pointer  "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/orion/Projects/Bocce/out/build/Default Linux/_deps/nng-src/cmake"
+    buildResult:
+      variable: "NNG_HAVE_LANGINFO"
+      cached: true
+      stdout: |
+        Change Dir: '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-c4kCgp'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d01df
+        [1/2] /usr/bin/cc   -Wall -Wextra -fno-omit-frame-pointer    -std=c99 -o CMakeFiles/cmTC_d01df.dir/CheckSymbolExists.c.o -c '/home/orion/Projects/Bocce/out/build/Default Linux/CMakeFiles/CMakeScratch/TryCompile-c4kCgp/CheckSymbolExists.c'
+        [2/2] : && /usr/bin/cc -Wall -Wextra -fno-omit-frame-pointer  CMakeFiles/cmTC_d01df.dir/CheckSymbolExists.c.o -o cmTC_d01df   && :
+        
+      exitCode: 0
+...

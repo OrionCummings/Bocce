@@ -1,10 +1,8 @@
 #include "init.h"
 
-static TcsSocket client_sockets[MAX_CONNECTIONS];
-static TcsSocket listen_socket;
-static TcsSocket client_socket;
-
 ErrorCode init(ApplicationSettings* application_settings, Server* server, Client* client, sqlite3** database) {
+
+    B_INFO("Initializing the application");
 
     // Set all memory to zero
     memset(application_settings, 0, sizeof(*application_settings));
@@ -50,24 +48,20 @@ ErrorCode init(ApplicationSettings* application_settings, Server* server, Client
 
 ErrorCode init_window(ApplicationSettings* application_settings) {
 
-    
+    B_INFO("Initializing the window");
 
     return EC_OK;
 }
 
 ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client* client, sqlite3** database) {
 
+    B_INFO("Initializing networking");
+
     if (settings == NULL) { B_ERROR("Passed null parameter 'settings'"); return EC_PASSED_NULL; }
 
     // An application may be either a server, client, or both!
     static bool server_initialized = false;
     static bool client_initialized = false;
-
-    B_INFO("Initializing tinycsockets");
-    if (tcs_lib_init() != TCS_SUCCESS) {
-        B_ERROR("Failed to initialize tinycsockets");
-        return EC_TCS_SERVER_INIT_FAILURE;
-    }
 
     // If this application is a server, then initialize all server related functionality
     if (is_server(*settings)) {
@@ -78,7 +72,6 @@ ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client*
         }
 
         server_initialized = true;
-        B_INFO("Initialized the networking server");
     }
 
     // If this application is a client, then initialize all client related functionality
@@ -90,7 +83,6 @@ ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client*
         }
 
         client_initialized = true;
-        B_INFO("Initialized the networking client");
     }
 
     // If neither the server nor the client were initialized, then something went wrong!
@@ -103,14 +95,15 @@ ErrorCode init_networking(ApplicationSettings* settings, Server* server, Client*
 }
 
 ErrorCode init_server(Server* server, sqlite3** database) {
-    B_INFO("Initializing the networking server");
+
+    B_INFO("Initializing server");
+
     ErrorCode ec_init_networking_server = init_networking_server(server);
     if (ec_init_networking_server) {
         B_ERROR("Failed to initialize networking server");
         return ec_init_networking_server;
     }
 
-    B_INFO("Initializing the SQLite database");
     ErrorCode ec_init_database = init_database(database);
     if (ec_init_database) {
         B_ERROR("Failed to initialize the database");
@@ -121,6 +114,9 @@ ErrorCode init_server(Server* server, sqlite3** database) {
 }
 
 ErrorCode init_client(Client* client) {
+
+    B_INFO("Initializing client");
+
     ErrorCode ec_init_networking_client = init_networking_client(client);
     if (ec_init_networking_client) {
         B_ERROR("Failed to initialize networking client");
@@ -131,6 +127,8 @@ ErrorCode init_client(Client* client) {
 }
 
 ErrorCode init_networking_client(Client* client) {
+
+    B_INFO("Initializing networking client");
 
     if (client == NULL) {
         B_ERROR("Passed null parameter 'client'");
@@ -194,6 +192,8 @@ ErrorCode init_networking_client(Client* client) {
 /// @return An error code indicating any errors that occured in this function
 ErrorCode init_networking_server(Server* server) {
 
+    B_INFO("Initializing networking server");
+
     if (server == NULL) { B_ERROR("Passed null parameter 'server'"); return EC_PASSED_NULL; }
 
     
@@ -202,6 +202,8 @@ ErrorCode init_networking_server(Server* server) {
 }
 
 ErrorCode init_database(sqlite3** database) {
+
+    B_INFO("Initializing database");
 
     if (database == NULL) { B_ERROR("Passed null parameter 'database'"); return EC_PASSED_NULL; }
 
@@ -224,9 +226,10 @@ ErrorCode init_database(sqlite3** database) {
 // Uninitialzation functions
 ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database){
 
+    B_INFO("Uninitializing the application");
+
     if (application_settings == NULL) { B_ERROR("Passed null parameter 'application_settings'"); return EC_PASSED_NULL; }
 
-    B_INFO("Uninitializing network");
     ErrorCode ec_uninit_networking = uninit_networking(application_settings, database);
     if (ec_uninit_networking) {
         B_ERROR("Failed to uninitialize networking");
@@ -238,32 +241,13 @@ ErrorCode uninit(ApplicationSettings* application_settings, sqlite3** database){
 
 ErrorCode uninit_networking(ApplicationSettings* application_settings, sqlite3** database) {
 
+    B_INFO("Uninitializing network");
+
     if (application_settings == NULL) { B_ERROR("Passed NULL parameter 'application_settings'"); return EC_PASSED_NULL; }
 
     if (is_server(*application_settings)) {
 
         if (database == NULL) { B_ERROR("Passed NULL parameter 'database'"); return EC_PASSED_NULL; }
-
-        B_INFO("Server shutting down server sockets");
-        for (uint8_t client_socket_index = 0; client_socket_index < MAX_CONNECTIONS; client_socket_index++) {
-            if (tcs_shutdown(client_sockets[client_socket_index], TCS_SD_BOTH) != TCS_SUCCESS) {
-                B_ERROR("Server socket '%d' failed to shutdown", client_socket_index);
-                return EC_TCS_SERVER_SOCKET_SHUTDOWN_FAILURE;
-            }
-
-            B_INFO("Server destroying server sockets");
-            if (tcs_destroy(&(client_sockets[client_socket_index])) != TCS_SUCCESS){
-                B_ERROR("Server failed to destroy socket");
-                return EC_TCS_SERVER_SOCKET_DESTRUCTION_FAILURE;
-            }
-
-        }
-
-        B_INFO("Server freeing tinycsocket");
-        if (tcs_lib_free() != TCS_SUCCESS) {
-            B_ERROR("Client failed to free tinycsocket");
-            return EC_TCS_CLIENT_SOCKET_FREE_TINYCSOCKET_FAILURE;
-        }
 
         B_INFO("Server closing database");
         ErrorCode ec_uninit_database = uninit_database(database);
@@ -275,34 +259,16 @@ ErrorCode uninit_networking(ApplicationSettings* application_settings, sqlite3**
 
     if (is_client(*application_settings)) {
 
-        if (!client_socket) {
-            B_WARNING("Client networking disabled; not uninitializing!");
-            return EC_OK;
-        }
 
-        B_INFO("Client shutting down socket");
-        if (tcs_shutdown(client_socket, TCS_SD_BOTH) != TCS_SUCCESS){
-            B_ERROR("Client failed to shutdown socket");
-            return EC_TCS_CLIENT_SOCKET_SHUTDOWN_FAILURE;
-        }
 
-        B_INFO("Client closing socket");
-        if (tcs_destroy(&client_socket) != TCS_SUCCESS) {
-            B_ERROR("Client failed to close socket");
-            return EC_TCS_CLIENT_SOCKET_CLOSE_FAILURE;
-        }
-
-        B_INFO("Client freeing tinycsocket");
-        if (tcs_lib_free() != TCS_SUCCESS) {
-            B_ERROR("Client failed to free tinycsocket");
-            return EC_TCS_CLIENT_SOCKET_FREE_TINYCSOCKET_FAILURE;
-        }
     }
 
     return EC_OK;
 }
 
 ErrorCode uninit_database(sqlite3** database) {
+
+    B_INFO("Uninitializing database");
 
     if (database == NULL) { B_ERROR("Passed NULL parameter 'database'"); return EC_PASSED_NULL; }
     if (*database == NULL) { B_ERROR("Passed NULL parameter '*database'"); return EC_PASSED_NULL; }
@@ -318,6 +284,7 @@ ErrorCode uninit_database(sqlite3** database) {
 
 ErrorCode uninit_window() {
 
+    B_INFO("Uninitializing window");
     
 
     return EC_OK;

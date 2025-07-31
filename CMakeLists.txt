@@ -11,12 +11,12 @@ set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
 set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # don't build the supplied example games
 
 # Provides cross-platform sockets
-FetchContent_Declare(
-    tinycsocket
-    GIT_REPOSITORY "https://github.com/dosshell/tinycsocket.git"
-    GIT_TAG "master"
-    GIT_PROGRESS TRUE
-)
+# FetchContent_Declare(
+#     tinycsocket
+#     GIT_REPOSITORY "https://github.com/dosshell/tinycsocket.git"
+#     GIT_TAG "master"
+#     GIT_PROGRESS TRUE
+# )
     
 # Provides cross-platform file path manipulation
 FetchContent_Declare(
@@ -30,20 +30,22 @@ FetchContent_Declare(
 FetchContent_Declare(
     libtoml
     GIT_REPOSITORY "https://github.com/brglng/libtoml.git"
+    GIT_TAG "master"
+    GIT_SHALLOW ON
+)
+    
+# Provides networking
+FetchContent_Declare(
+    nng
+    GIT_REPOSITORY "https://github.com/nanomsg/nng.git"
+    GIT_TAG "stable"
     GIT_SHALLOW ON
 )
 
-# Provides TOML parsing
-# FetchContent_Declare(
-#     safestringlib
-#     GIT_REPOSITORY "https://github.com/intel/safestringlib.git"
-#     GIT_SHALLOW ON
-# )
-
-FetchContent_MakeAvailable(tinycsocket cwalk libtoml)
+FetchContent_MakeAvailable(cwalk libtoml nng)
 
 find_package(SQLite3 REQUIRED)
 
 add_subdirectory(src)
 
-target_link_libraries(Bocce toml tinycsocket sqlite3 cwalk safestring_shared)
+target_link_libraries(Bocce toml sqlite3 cwalk safestring_shared nng)

@@ -4,19 +4,22 @@
 // TODO: Make this function/subfunctions work properly with small integer types! As is, integers are used in places where small integer types would be more accurate (make invalid types unrepresentable!)
 ErrorCode parse_config(ApplicationSettings* application_settings, Server* server, Client* client) {
 
-    char file_path[FILENAME_MAX];
-    ErrorCode ec_get_file_path_from_application_mode = get_file_path_from_application_mode(application_settings->application_mode, &file_path);
+    char project_dir_path[FILENAME_MAX];
+    char config_file_path[FILENAME_MAX];
+    memset(project_dir_path, 0, FILENAME_MAX * sizeof(*project_dir_path));
+    memset(config_file_path, 0, FILENAME_MAX * sizeof(*config_file_path));
+
+    ErrorCode ec_get_file_path_from_application_mode
+        = get_config_file_path(&(project_dir_path[0]), &(config_file_path[0]));
     if (ec_get_file_path_from_application_mode) {
         B_ERROR("Failed to get config file path");
         return ec_get_file_path_from_application_mode;
     }
 
-    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\client_config.toml";
-    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\server_config.toml";
-    // const char file_path[] = "C:\\Users\\Orion\\Stash\\PersonalProjects\\_C\\Bocce\\dual_config.toml";
+    B_INFO("Found config file '%s'", config_file_path);
 
     // Load the config.toml
-    TomlTable* table = toml_load_filename(file_path);
+    TomlTable* table = toml_load_filename(config_file_path);
 
     // If the config file loading fails, then send an error message and then early return
     if (toml_err()->code != TOML_OK) {
@@ -311,35 +314,67 @@ bool is_type(const TomlKeyValue keyval, TomlType type) {
     return keyval.value->type == type;
 }
 
-ErrorCode get_file_path_from_application_mode(ApplicationMode mode, char* buffer[]) {
+ErrorCode get_config_file_path(char* project_dir_path, char* config_file_path) {
 
-    ErrorCode ec_get_project_dir = get_project_dir(buffer);
+    const char* config_folder_name = "config";
+    const char* client_config = "client_config.toml";
+    const char* server_config = "server_config.toml";
+    const char* dual_config = "dual_config.toml";
+
+    char client_config_file_path[FILENAME_MAX] = { 0 };
+    char server_config_file_path[FILENAME_MAX] = { 0 };
+    char dual_config_file_path[FILENAME_MAX] = { 0 };
+
+    // Get the project directory
+    ErrorCode ec_get_project_dir = get_project_dir(project_dir_path);
     if (ec_get_project_dir) {
         B_ERROR("Failed to find project dir");
         return ec_get_project_dir;
     }
 
-    printf("get_project_dir = '%s'\n", *buffer);
+    // Create the config folder by appending "config" onto the project folder
+    char config_folder_path[FILENAME_MAX] = { 0 };
+    cwk_path_join(project_dir_path, config_folder_name, config_folder_path, FILENAME_MAX * sizeof(*config_folder_path));
 
-    // Change behavior based on the selected
-    switch (mode) {
-    case (AM_CLIENT): {
+    // Create the config file paths from the config base path
+    cwk_path_join(config_folder_path, client_config, client_config_file_path, FILENAME_MAX * sizeof(*client_config_file_path));
+    cwk_path_join(config_folder_path, server_config, server_config_file_path, FILENAME_MAX * sizeof(*server_config_file_path));
+    cwk_path_join(config_folder_path, dual_config, dual_config_file_path, FILENAME_MAX * sizeof(*dual_config_file_path));
 
-        break;
-    }
-    case (AM_SERVER): {
+    // TODO: Don't use fopen as it fails if the user doesn't have permission!
 
-        break;
-    }
-    case (AM_DUAL): {
+    // Check if the client config exists
+    FILE* file_client = fopen(client_config_file_path, "r");
+    if (file_client != NULL) {
+        memcpy_s(config_file_path, FILENAME_MAX * sizeof(*config_file_path), client_config_file_path, FILENAME_MAX * sizeof(*client_config_file_path));
 
-        break;
-    }
-    case (AM_UNKNOWN):
-    default: {
-        B_ERROR("Unknown application mode '%d'", mode);
-    }
+        // Close the opened files
+        fclose(file_client);
+
+        return EC_OK;
     }
 
-    return EC_OK;
+    // Check if the server config exists
+    FILE* file_server = fopen(server_config_file_path, "r");
+    if (file_server != NULL) {
+        memcpy_s(config_file_path, FILENAME_MAX * sizeof(*config_file_path), server_config_file_path, FILENAME_MAX * sizeof(*server_config_file_path));
+
+        // Close the opened files
+        fclose(file_server);
+
+        return EC_OK;
+    }
+
+    // Check if the dual config exists
+    FILE* file_dual = fopen(dual_config_file_path, "r");
+    if (file_dual != NULL) {
+        memcpy_s(config_file_path, FILENAME_MAX * sizeof(*config_file_path), dual_config_file_path, FILENAME_MAX * sizeof(*dual_config_file_path));
+
+        // Close the opened files
+        fclose(file_dual);
+
+        return EC_OK;
+    }
+
+    return EC_CONFIG_NO_FILE_FOUND;
 }
